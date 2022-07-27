@@ -1,0 +1,32 @@
+{
+    "name": "titanium-6/laravel-functions",
+    "description": "A simple way to add functions to your laravel project.",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Michael J Brancato",
+            "email": "michael@titanium6.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Titanium6\\LaravelFunctions\\": "src"
+        },
+        "classmap": [
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Titanium6\\LaravelFunctions\\LaravelFunctionsServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
