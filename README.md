@@ -13,7 +13,7 @@ A simple way to add functions to your laravel project.
     {
         "name": "titanium-6/laravel-functions",
         "type": "vcs",
-        "url": "git@bitbucket.org:titanium-6/laravel-functions.git"
+        "url": "https://bitbucket.org/titanium-6/laravel-functions.git"
     }
 ]
 ```
