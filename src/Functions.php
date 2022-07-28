@@ -108,7 +108,7 @@ if(!function_exists('ascii_only')){
 }
 
 if (!function_exists('is_valid_object')){
-	function isValidObject($object, $index=""){
+	function is_valid_object($object, $index=""){
 		if(!empty($index)){
 			if(isset($object[$index]) && !empty($object[$index]) && is_object($object[$index]) && get_class($object[$index]) != 'stdClass'){
 				return true;
