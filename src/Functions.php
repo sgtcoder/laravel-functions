@@ -206,3 +206,17 @@ if (!function_exists('get_countries')) {
         return $countries;
     }
 }
+
+if (!function_exists('age_from_date')){
+    function age_from_date($date_of_birth){
+        $today = date('Y-m-d');
+
+        try {
+            $years = date_diff(date_create($date_of_birth), date_create($today))->format('%y');
+        } catch (exception $e) {
+            return NULL;
+        }
+
+        return $years;
+    }
+}
