@@ -11,22 +11,16 @@
     "require": {
         "php": "^7.4|^8.0"
     },
-    "require-dev": {
-    },
+    "require-dev": {},
     "autoload": {
         "psr-4": {
             "Titanium6\\LaravelFunctions\\": "src"
         },
-        "classmap": [
+        "files": [
+            "Functions.php"
         ]
     },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Titanium6\\LaravelFunctions\\LaravelFunctionsServiceProvider"
-            ]
-        }
-    },
+    "extra": {},
     "minimum-stability": "dev",
     "prefer-stable": true
 }
