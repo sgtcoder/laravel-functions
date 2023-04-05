@@ -17,7 +17,7 @@
             "Titanium6\\LaravelFunctions\\": "src"
         },
         "files": [
-            "Functions.php"
+            "src/Functions.php"
         ]
     },
     "extra": {},
