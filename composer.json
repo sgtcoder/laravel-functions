@@ -1,11 +1,11 @@
 {
-    "name": "titanium-6/laravel-functions",
+    "name": "sgtcoder/laravel-functions",
     "description": "A simple way to add functions to your laravel project.",
     "type": "project",
     "authors": [
         {
             "name": "Michael J Brancato",
-            "email": "michael@titanium6.com"
+            "email": "usmccoder@gmail.com"
         }
     ],
     "require": {

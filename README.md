@@ -21,12 +21,12 @@ A simple way to add functions to your laravel project.
 ### Option 2: Fork it and add to your composer.json ###
 ```
 "require": {
-    "<workspace>/laravel-functions": "dev-master"
+    "sgtcoder/laravel-functions": "dev-master"
 }
 
 "repositories": [
     {
-        "name": "<workspace>/laravel-functions",
+        "name": "sgtcoder/laravel-functions",
         "type": "vcs",
         "url": "https://github.com/<workspace>/laravel-functions"
     }
