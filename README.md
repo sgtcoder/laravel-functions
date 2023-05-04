@@ -6,14 +6,14 @@ A simple way to add functions to your laravel project.
 - Add to your composer.json
 ```
 "require": {
-    "titanium-6/laravel-functions": "1.*"
+    "sgtcoder/laravel-functions": "1.*"
 }
 
 "repositories": [
     {
-        "name": "titanium-6/laravel-functions",
+        "name": "sgtcoder/laravel-functions",
         "type": "vcs",
-        "url": "https://bitbucket.org/titanium-6/laravel-functions.git"
+        "url": "https://github.com/sgtcoder/laravel-functions.git"
     }
 ]
 ```
