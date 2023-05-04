@@ -245,7 +245,6 @@ if (!function_exists('get_signed_url')) {
 }
 
 if (!function_exists('get_all_model_media')) {
-
 	function get_all_model_media($model)
 	{
 		$media_items = [];
@@ -257,5 +256,167 @@ if (!function_exists('get_all_model_media')) {
 		}
 
 		return $media_items;
+	}
+}
+
+if (!function_exists('replace_mappings')) {
+	function replace_mappings($body, $mappings)
+	{
+		foreach ($mappings as $key => $value) {
+			$body = str_replace('{{' . $key . '}}', $value, $body);
+		}
+		return $body;
+	}
+}
+
+if (!function_exists('create_password')) {
+	function create_password($mask)
+	{
+		//$extended_chars = "!@#$%^&*()";
+		$extended_chars = "@#^*";
+		$length = strlen($mask);
+		$pwd = '';
+		for ($c = 0; $c < $length; $c++) {
+			$ch = $mask[$c];
+			switch ($ch) {
+				case '#':
+					$p_char = rand(0, 9);
+					break;
+				case 'C':
+					$p_char = chr(rand(65, 90));
+					break;
+				case 'c':
+					$p_char = chr(rand(97, 122));
+					break;
+				case 'X':
+					do {
+						$p_char = rand(65, 122);
+					} while ($p_char > 90 && $p_char < 97 && $p_char != 92); //remove \
+					$p_char = chr($p_char);
+					break;
+				case '!':
+					$p_char = $extended_chars[rand(0, strlen($extended_chars) - 1)];
+					break;
+			}
+			$pwd .= $p_char;
+		}
+
+		return trim($pwd);
+	}
+}
+
+if (!function_exists('genRandomString')) {
+	function genRandomString($length = 32, $lower = true, $upper = true, $nums = true, $special = false)
+	{
+		$pool_lower = 'abcdefghijklmopqrstuvwxyz';
+		$pool_upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$pool_nums = '0123456789';
+		$pool_special = '!$%^&*+#~/|';
+
+		$pool = '';
+		$res = '';
+
+		if ($lower === true) {
+			$pool .= $pool_lower;
+		}
+		if ($upper === true) {
+			$pool .= $pool_upper;
+		}
+		if ($nums === true) {
+			$pool .= $pool_nums;
+		}
+		if ($special === true) {
+			$pool .= $pool_special;
+		}
+
+		if (($length < 0) || ($length == 0)) {
+			return $res;
+		}
+
+		srand((float) microtime() * 1000000);
+
+		for ($i = 0; $i < $length; $i++) {
+			$charidx = rand() % strlen($pool);
+			$char = substr($pool, $charidx, 1);
+			$res .= $char;
+		}
+
+		return $res;
+	}
+}
+
+if (!function_exists('generateNewToken')) {
+	function generateNewToken()
+	{
+		$random_string = genRandomString($length = 32, $lower = true, $upper = true, $nums = true, $special = true);
+
+		$random_string = base64_encode($random_string);
+
+		return $random_string;
+	}
+}
+
+if (!function_exists('log_string')) {
+	function log_string($signature, $type, $message = NULL)
+	{
+		$message = ($message) ? ': ' . $message : '';
+
+		$log = '[' . now()->format('Y-m-d H:i:s') . '][' . $signature . '][' . $type . ']' . $message;
+
+		return $log;
+	}
+}
+
+if (!function_exists('convert_meters_to_miles')) {
+	function convert_meters_to_miles($meters, $precision = 2)
+	{
+		if ($meters === NULL) return NULL;
+
+		return round($meters * 0.000621371, $precision);
+	}
+}
+
+if (!function_exists('convert_meters_to_feet')) {
+	function convert_meters_to_feet($meters, $precision = 2)
+	{
+		if ($meters === NULL) return NULL;
+
+		return round($meters * 3.2808399, $precision);
+	}
+}
+
+if (!function_exists('format_bytes')) {
+	function format_bytes($bytes, $precision = 2, $decimals = 2)
+	{
+		$sz = 'BKMGTP';
+		$factor = floor((strlen($bytes) - 1) / 3);
+
+		return number_format(sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)), $precision) . @$sz[$factor];
+	}
+}
+
+if (!function_exists('adjust_brightness')) {
+	function adjust_brightness($hex, $steps)
+	{
+		// Steps should be between -255 and 255. Negative = darker, positive = lighter
+		$steps = max(-255, min(255, $steps));
+
+		// Normalize into a six character long hex string
+		$hex = str_replace('#', '', $hex);
+		if (strlen($hex) == 3) {
+			$hex = str_repeat(substr($hex, 0, 1), 2) . str_repeat(substr($hex, 1, 1), 2) . str_repeat(substr($hex, 2, 1), 2);
+		}
+
+		// Split into three parts: R, G and B
+		$color_parts = str_split($hex, 2);
+		$return = '#';
+
+		foreach ($color_parts as $color) {
+			$color   = hexdec($color); // Convert to decimal
+			$color   = max(0, min(255, $color + $steps)); // Adjust color
+			$return .= str_pad(dechex($color), 2, '0', STR_PAD_LEFT); // Make two char hex code
+		}
+
+		return $return;
 	}
 }
