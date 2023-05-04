@@ -1,30 +1,47 @@
-# Titanium6 Laravel Functions #
+# Laravel Functions #
 
 A simple way to add functions to your laravel project.
 
-## Install ##
-- Add to your composer.json
+## Install Options ##
+### Option 1: Add directly to your composer.json ###
 ```
 "require": {
-    "titanium-6/laravel-functions": "1.*"
+    "sgtcoder/laravel-functions": "1.*"
 }
 
 "repositories": [
     {
-        "name": "titanium-6/laravel-functions",
+        "name": "sgtcoder/laravel-functions",
         "type": "vcs",
-        "url": "https://bitbucket.org/titanium-6/laravel-functions.git"
+        "url": "https://github.com/sgtcoder/laravel-functions"
     }
 ]
 ```
-- Then Run
+
+### Option 2: Fork it and add to your composer.json ###
+```
+"require": {
+    "<workspace>/laravel-functions": "dev-master"
+}
+
+"repositories": [
+    {
+        "name": "<workspace>/laravel-functions",
+        "type": "vcs",
+        "url": "https://github.com/<workspace>/laravel-functions"
+    }
+]
+```
+
+
+### Then Run ###
 ```
 composer update
 ```
 
 ## Usage ##
 
-- Call Function
+### Call Function ###
 ```php
 $hex = generate_random_hex();
 ```
