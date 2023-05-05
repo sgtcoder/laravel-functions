@@ -8,19 +8,29 @@
             "email": "usmccoder@gmail.com"
         }
     ],
+    "homepage": "https://github.com/sgtcoder/laravel-functions",
     "require": {
         "php": "^7.4|^8.0"
     },
     "require-dev": {},
     "autoload": {
         "psr-4": {
-            "Titanium6\\LaravelFunctions\\": "src"
+            "SgtCoder\\LaravelFunctions\\": "src"
         },
         "files": [
-            "src/Functions.php"
+            "src/Helpers/Functions.php"
         ]
     },
-    "extra": {},
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SgtCoder\\LaravelFunctions\\CustomServiceProvider"
+            ]
+        }
+    },
     "minimum-stability": "dev",
     "prefer-stable": true
 }

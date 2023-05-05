@@ -11,7 +11,6 @@ A simple way to add functions to your laravel project.
 
 "repositories": [
     {
-        "name": "sgtcoder/laravel-functions",
         "type": "vcs",
         "url": "https://github.com/sgtcoder/laravel-functions"
     }
@@ -26,7 +25,6 @@ A simple way to add functions to your laravel project.
 
 "repositories": [
     {
-        "name": "sgtcoder/laravel-functions",
         "type": "vcs",
         "url": "https://github.com/<workspace>/laravel-functions"
     }
