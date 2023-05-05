@@ -27,7 +27,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "SgtCoder\\LaravelFunctions\\CustomServiceProvider"
+                "SgtCoder\\LaravelFunctions\\Providers\\CustomServiceProvider"
             ]
         }
     },
