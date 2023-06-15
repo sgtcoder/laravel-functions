@@ -19,7 +19,9 @@ class CustomServiceProvider extends BaseServiceProvider
     public function register()
     {
         // Force Route SSL
-        \Illuminate\Support\Facades\URL::forceScheme('https');
+        if (!env('DISABLE_SSL', FALSE)) {
+            \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
 
         // Macro for simple where
         Builder::macro('if', function ($condition, $column, $operator, $value) {
