@@ -420,3 +420,12 @@ if (!function_exists('adjust_brightness')) {
 		return $return;
 	}
 }
+
+if (!function_exists('template_replace')) {
+	function template_replace($variable, $replace, $string)
+	{
+		$string = preg_replace('/{{\s*' . $variable . '\s*}}/', $replace, $string);
+
+		return $string;
+	}
+}
