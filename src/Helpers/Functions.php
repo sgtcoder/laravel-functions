@@ -429,3 +429,24 @@ if (!function_exists('template_replace')) {
 		return $string;
 	}
 }
+
+if (!function_exists('model_to_html')) {
+	function model_to_html($model)
+	{
+		$data = $model->getFillable();
+
+		$html = '';
+		foreach ($data as $key) {
+			$html .= '<p style="margin: 5px 0;"><strong>' . ucwords(str_replace('_', ' ', $key)) . ':</strong> ' . $model->$key . '</p>';
+		}
+
+		return $html;
+	}
+}
+
+if (!function_exists('build_alert')) {
+	function build_alert($status, $message, $class = NULL)
+	{
+		return '<div class="alert alert-' . $status . ' ' . $class . '" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1000">' . $message . '</div>';
+	}
+}
