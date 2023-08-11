@@ -43,3 +43,15 @@ composer update
 ```php
 $hex = generate_random_hex();
 ```
+
+### Force SSL ###
+```php
+# app\Http\Kernel.php => $middleware
+\SgtCoder\LaravelFunctions\Middleware\HttpsProtocol::class,
+```
+
+### API Auth ###
+```php
+# app\Http\Kernel.php => $routeMiddleware
+'auth.api' => \SgtCoder\LaravelFunctions\Middleware\AuthApi::class,
+```
