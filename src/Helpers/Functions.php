@@ -431,13 +431,15 @@ if (!function_exists('template_replace')) {
 }
 
 if (!function_exists('model_to_html')) {
-	function model_to_html($model)
+	function model_to_html($model, $include_empty = true)
 	{
 		$data = $model->getFillable();
 
 		$html = '';
 		foreach ($data as $key) {
-			$html .= '<p style="margin: 5px 0;"><strong>' . ucwords(str_replace('_', ' ', $key)) . ':</strong> ' . $model->$key . '</p>';
+			if ($model->$key || $include_empty) {
+				$html .= '<p style="margin: 5px 0;"><strong>' . ucwords(str_replace('_', ' ', $key)) . ':</strong> ' . $model->$key . '</p>';
+			}
 		}
 
 		return $html;
