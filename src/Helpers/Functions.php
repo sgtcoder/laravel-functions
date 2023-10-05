@@ -76,6 +76,7 @@ if (!function_exists('csv_to_array')) {
 	{
 		$row = 0;
 		$col = 0;
+		$results = [];
 
 		$handle = @fopen($filename, "r");
 		if ($handle) {
@@ -209,7 +210,7 @@ if (!function_exists('get_countries')) {
 		$countries = json_decode($countries, TRUE);
 
 		if ($country) {
-			return $states[$country] ?? NULL;
+			return $countries[$country] ?? NULL;
 		}
 
 		return $countries;
@@ -276,6 +277,8 @@ if (!function_exists('create_password')) {
 		$extended_chars = "@#^*";
 		$length = strlen($mask);
 		$pwd = '';
+		$p_char = '';
+
 		for ($c = 0; $c < $length; $c++) {
 			$ch = $mask[$c];
 			switch ($ch) {
@@ -333,7 +336,7 @@ if (!function_exists('genRandomString')) {
 			return $res;
 		}
 
-		srand((float) microtime() * 1000000);
+		srand((int) microtime() * 1000000);
 
 		for ($i = 0; $i < $length; $i++) {
 			$charidx = rand() % strlen($pool);
@@ -388,10 +391,13 @@ if (!function_exists('convert_meters_to_feet')) {
 if (!function_exists('format_bytes')) {
 	function format_bytes($bytes, $precision = 2, $decimals = 2)
 	{
-		$sz = 'BKMGTP';
-		$factor = floor((strlen($bytes) - 1) / 3);
+		$units = array('B', 'KB', 'MB', 'GB', 'TB');
 
-		return number_format(sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)), $precision) . @$sz[$factor];
+		$bytes = max($bytes, 0);
+		$pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+		$pow = min($pow, count($units) - 1);
+
+		return round($bytes, $precision) . $units[$pow];
 	}
 }
 
