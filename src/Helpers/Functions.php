@@ -452,3 +452,71 @@ if (!function_exists('build_alert')) {
 		return '<div class="alert alert-' . $status . ' ' . $class . '" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1000">' . $message . '</div>';
 	}
 }
+
+if (!function_exists('get_model_count')) {
+
+	function get_model_count($model)
+	{
+		$model = 'App\\Models\\' . $model;
+		$count = (new $model)->count();
+
+		return $count;
+	}
+}
+
+if (!function_exists('sync_media')) {
+
+	function sync_media($prefix, $model = NULL, $single = true, $media_prefix = NULL)
+	{
+		$MediaService = (new \App\Services\MediaService);
+
+		$media_prefix ??= $prefix;
+
+		if (request($prefix . '_delete')) {
+			if ($model && $model->firstMedia($prefix)) $model->firstMedia($media_prefix)->delete();
+		}
+
+		// Crop new images
+		if (request($prefix . '_media')) {
+			foreach (request($prefix . '_media') as $item) {
+				if (isset(request($prefix . '_data')[$item])) {
+					$MediaService->update_media_crop($item, request($prefix . '_data')[$item]);
+				}
+			}
+
+			if ($single) {
+				// Sync media and orders
+				if ($model) $model->syncMedia(request($prefix . '_media'), $media_prefix);
+			}
+		}
+
+		if (!$single) {
+			// Sync media and orders
+			if ($model) $model->syncMedia(request($prefix . '_media'), $media_prefix);
+		}
+	}
+}
+
+if (!function_exists('update_status')) {
+
+	function update_status()
+	{
+		request()->validate([
+			'status' => 'required',
+		]);
+
+		$model_id = request('model_id');
+		$model_type = request('model_type');
+		$status = request('status');
+
+		$model_path = '\\App\\Models\\' . $model_type;
+		$model = (new $model_path)->find($model_id);
+
+		// Update blog
+		$model->update([
+			'status' => $status,
+		]);
+
+		return response()->json(['status' => true, 'message' => $model_type . ' Status Updated Successfully.'], 200);
+	}
+}
