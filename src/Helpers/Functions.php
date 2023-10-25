@@ -526,3 +526,16 @@ if (!function_exists('update_status')) {
 		return response()->json(['status' => true, 'message' => $model_type . ' Status Updated Successfully.'], 200);
 	}
 }
+
+if (!function_exists('get_signed_url')) {
+	function get_signed_url($media)
+	{
+		static $MediaService;
+
+		if (empty($MediaService)) {
+			$MediaService = (new \App\Services\MediaService);
+		}
+
+		return $MediaService->get_signed_url($media);
+	}
+}
