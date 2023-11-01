@@ -64,6 +64,10 @@ class CustomServiceProvider extends BaseServiceProvider
             return "<?php " . $key . "; ?>";
         });
 
+        Blade::directive('TODO', function ($key) {
+            return NULL;
+        });
+
         // https://github.com/korridor/laravel-has-many-sync
         HasMany::macro('sync', function (array $data, bool $deleting = true): array {
             $changes = [
