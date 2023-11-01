@@ -64,7 +64,7 @@ class CustomServiceProvider extends BaseServiceProvider
             return "<?php " . $key . "; ?>";
         });
 
-        Blade::directive('TODO', function ($key) {
+        Blade::directive('todo', function ($key) {
             return NULL;
         });
 
