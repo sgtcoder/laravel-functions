@@ -3,15 +3,10 @@ A simple way to add functions to your laravel project.
 
 ## Installation ##
 
-### Option 1: You can install the package via composer ###
-```bash
-composer require sgtcoder/laravel-functions
-```
-
-### Option 2: Add directly to your composer.json ###
+### Option 1: Add directly to your composer.json ###
 ```json
 "require": {
-    "sgtcoder/laravel-functions": "1.*"
+    "sgtcoder/laravel-functions": "dev-develop"
 }
 
 "repositories": [
@@ -22,7 +17,7 @@ composer require sgtcoder/laravel-functions
 ]
 ```
 
-### Option 3: Fork it and add to your composer.json ###
+### Option 2: Fork it and add to your composer.json ###
 ```json
 "require": {
     "sgtcoder/laravel-functions": "dev-master"
@@ -60,8 +55,8 @@ $hex = generate_random_hex();
 'auth.api' => \SgtCoder\LaravelFunctions\Middleware\AuthApi::class,
 ```
 
-## Credits
+## Credits ##
 - [sgtcoder](https://github.com/sgtcoder)
 
-## License
+## License ##
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
