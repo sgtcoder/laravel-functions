@@ -1,34 +1,63 @@
 {
     "name": "sgtcoder/laravel-functions",
     "description": "A simple way to add functions to your laravel project.",
-    "type": "project",
-    "authors": [
-        {
-            "name": "Michael J Brancato",
-            "email": "usmccoder@gmail.com"
-        }
+    "keywords": [
+        "sgtcoder",
+        "laravel",
+        "laravel-functions"
     ],
     "homepage": "https://github.com/sgtcoder/laravel-functions",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "sgtcoder",
+            "email": "usmccoder@gmail.com",
+            "role": "Developer"
+        }
+    ],
     "require": {
-        "php": "^7.4|^8.0"
+        "php": "^7.4|^8.0",
+        "spatie/laravel-package-tools": "1.*",
+        "illuminate/contracts": "10.*"
     },
-    "require-dev": {},
+    "require-dev": {
+        "nunomaduro/collision": "^7.8",
+        "nunomaduro/larastan": "^2.0.1",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "spatie/laravel-ray": "^1.26"
+    },
     "autoload": {
         "psr-4": {
-            "SgtCoder\\LaravelFunctions\\": "src"
+            "SgtCoder\\LaravelFunctions\\": "src/"
         },
         "files": [
             "src/Helpers/Functions.php"
         ]
     },
+    "autoload-dev": {
+        "psr-4": {
+            "SgtCoder\\LaravelFunctions\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "analyse": "vendor/bin/phpstan analyse"
+    },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "SgtCoder\\LaravelFunctions\\Providers\\CustomServiceProvider"
-            ]
+                "SgtCoder\\LaravelFunctions\\LaravelFunctionsServiceProvider"
+            ],
+            "aliases": {
+                "LaravelFunctions": "SgtCoder\\LaravelFunctions\\Facades\\LaravelFunctions"
+            }
         }
     },
     "minimum-stability": "dev",
