@@ -36,9 +36,7 @@
         ]
     },
     "autoload-dev": {
-        "psr-4": {
-            "SgtCoder\\LaravelFunctions\\Tests\\": "tests/"
-        }
+        "psr-4": {}
     },
     "scripts": {
         "analyse": "vendor/bin/phpstan analyse"
