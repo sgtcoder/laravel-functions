@@ -39,7 +39,7 @@
         "psr-4": {}
     },
     "scripts": {
-        "analyse": "vendor/bin/phpstan analyse"
+        "test": "vendor/bin/phpstan analyse"
     },
     "config": {
         "sort-packages": true,
