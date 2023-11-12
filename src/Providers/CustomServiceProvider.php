@@ -26,6 +26,7 @@ class CustomServiceProvider extends BaseServiceProvider
         // Macro for simple where
         Builder::macro('if', function ($condition, $column, $operator, $value) {
             if ($condition) {
+                /** @phpstan-ignore-next-line */
                 return $this->where($column, $operator, $value);
             }
 
@@ -33,14 +34,17 @@ class CustomServiceProvider extends BaseServiceProvider
         });
 
         Builder::macro('whereLike', function ($column, $search) {
+            /** @phpstan-ignore-next-line */
             return $this->where($column, 'LIKE', "%{$search}%");
         });
 
         Builder::macro('orWhereLike', function ($column, $search) {
+            /** @phpstan-ignore-next-line */
             return $this->orWhere($column, 'LIKE', "%{$search}%");
         });
 
         Builder::macro('whereLikeRaw', function ($column, $search) {
+            /** @phpstan-ignore-next-line */
             return $this->whereRaw($column . ' LIKE "%' . $search . '%"');
         });
     }
