@@ -50,7 +50,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "SgtCoder\\LaravelFunctions\\LaravelFunctionsServiceProvider"
+                "SgtCoder\\LaravelFunctions\\LaravelFunctionsServiceProvider",
+                "SgtCoder\\LaravelFunctions\\Providers\\CustomServiceProvider"
             ],
             "aliases": {
                 "LaravelFunctions": "SgtCoder\\LaravelFunctions\\Facades\\LaravelFunctions"
