@@ -14,7 +14,6 @@ class LaravelFunctionsServiceProvider extends PackageServiceProvider
          *
          * More info: https://github.com/spatie/laravel-package-tools
          */
-        $package
-            ->name('laravel-functions');
+        $package->name('laravel-functions');
     }
 }
