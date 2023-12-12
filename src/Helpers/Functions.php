@@ -581,3 +581,22 @@ if (!function_exists('get_roles')) {
 		return $roles;
 	}
 }
+
+if (!function_exists('scale_image')) {
+	function scale_image($url, $max_size, $type = 'height')
+	{
+		$data = getimagesize($url);
+		$width = $data[0];
+		$height = $data[1];
+
+		if ($type == 'height') {
+			$scaled_width = $width / ($height / $max_size);
+			$scaled_height = $max_size;
+		} else {
+			$scaled_width = $max_size;
+			$scaled_height = $height / ($width / $max_size);
+		}
+
+		return ['width' => $scaled_width, 'height' => $scaled_height];
+	}
+}
