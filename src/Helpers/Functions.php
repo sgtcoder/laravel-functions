@@ -539,3 +539,45 @@ if (!function_exists('get_signed_url')) {
 		return $MediaService->get_signed_url($media);
 	}
 }
+
+if (!function_exists('is_super_admin')) {
+
+	function is_super_admin()
+	{
+		$user_roles = auth()->user()->roles?->pluck('name')->toArray();
+
+		if (in_array('Super Admin', $user_roles)) {
+			return true;
+		}
+
+		return false;
+	}
+}
+
+if (!function_exists('get_tagged_models_media')) {
+
+	function get_tagged_models_media($models, $model_tag)
+	{
+		$media_items = [];
+		foreach ($models as $model) {
+			$media_items[] = $model->firstMedia($model_tag);
+		}
+
+		return $media_items;
+	}
+}
+
+if (!function_exists('get_roles')) {
+	function get_roles()
+	{
+		$roles = \App\Models\Role::query();
+
+		if (!is_super_admin()) {
+			$roles->where('name', '<>', 'Super Admin');
+		}
+
+		$roles = $roles->pluck('name', 'id')->toArray();
+
+		return $roles;
+	}
+}
