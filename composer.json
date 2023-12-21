@@ -21,8 +21,8 @@
         "illuminate/contracts": "10.*"
     },
     "require-dev": {
+        "larastan/larastan": "^2.0.1",
         "nunomaduro/collision": "^7.8",
-        "nunomaduro/larastan": "^2.0.1",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0"
