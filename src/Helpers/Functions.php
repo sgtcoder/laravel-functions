@@ -615,7 +615,7 @@ if (!function_exists('unformat_phone')) {
 if (!function_exists('format_phone')) {
 	function format_phone($phone)
 	{
-		$phone = ltrim($phone, '+');
+		$phone = preg_replace("/[^0-9]/", "", $phone);
 		if (strlen($phone) == 11) $phone = ltrim($phone, '1');
 		$phone = preg_replace("/^1?(\d{3})(\d{3})(\d{4})$/", "($1) $2-$3", $phone);
 
