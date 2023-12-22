@@ -600,3 +600,25 @@ if (!function_exists('scale_image')) {
 		return ['width' => $scaled_width, 'height' => $scaled_height];
 	}
 }
+
+if (!function_exists('unformat_phone')) {
+	function unformat_phone($phone)
+	{
+		$phone = preg_replace("/[^0-9]/", "", $phone);
+		if (strlen($phone) == 10) $phone = '+1' . $phone;
+		if (strlen($phone) == 11) $phone = '+' . $phone;
+
+		return $phone;
+	}
+}
+
+if (!function_exists('format_phone')) {
+	function format_phone($phone)
+	{
+		$phone = ltrim($phone, '+');
+		if (strlen($phone) == 11) $phone = ltrim($phone, '1');
+		$phone = preg_replace("/^1?(\d{3})(\d{3})(\d{4})$/", "($1) $2-$3", $phone);
+
+		return $phone;
+	}
+}
