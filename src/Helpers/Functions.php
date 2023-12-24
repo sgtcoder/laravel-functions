@@ -14,7 +14,7 @@ if (!function_exists('cached_asset')) {
 	 *
 	 * @param  mixed $path
 	 * @param  mixed $bustQuery
-	 * @return void
+	 * @return mixed
 	 */
 	function cached_asset($path, $bustQuery = false)
 	{
@@ -51,7 +51,7 @@ if (!function_exists('array_to_object')) {
 	 * array_to_object
 	 *
 	 * @param  mixed $array
-	 * @return void
+	 * @return mixed
 	 */
 	function array_to_object($array)
 	{
@@ -70,7 +70,7 @@ if (!function_exists('generate_random_hex')) {
 	 * generate_random_hex
 	 *
 	 * @param  mixed $strlen
-	 * @return void
+	 * @return mixed
 	 */
 	function generate_random_hex($strlen = 16)
 	{
@@ -86,7 +86,7 @@ if (!function_exists('format_bytes')) {
 	 *
 	 * @param  mixed $size
 	 * @param  mixed $precision
-	 * @return void
+	 * @return mixed
 	 */
 	function format_bytes($size, $precision = 2)
 	{
@@ -103,7 +103,7 @@ if (!function_exists('csv_to_array')) {
 	 *
 	 * @param  mixed $filename
 	 * @param  mixed $trim
-	 * @return void
+	 * @return mixed
 	 */
 	function csv_to_array($filename, $trim = '')
 	{
@@ -142,7 +142,7 @@ if (!function_exists('ascii_only')) {
 	 * ascii_only
 	 *
 	 * @param  mixed $text
-	 * @return void
+	 * @return mixed
 	 */
 	function ascii_only($text)
 	{
@@ -156,7 +156,7 @@ if (!function_exists('is_valid_object')) {
 	 *
 	 * @param  mixed $object
 	 * @param  mixed $index
-	 * @return void
+	 * @return mixed
 	 */
 	function is_valid_object($object, $index = "")
 	{
@@ -181,7 +181,7 @@ if (!function_exists('url_exists')) {
 	 * url_exists
 	 *
 	 * @param  mixed $url
-	 * @return void
+	 * @return mixed
 	 */
 	function url_exists($url = NULL)
 	{
@@ -202,7 +202,7 @@ if (!function_exists('get_base64_info')) {
 	 * get_base64_info
 	 *
 	 * @param  mixed $base64_data
-	 * @return void
+	 * @return mixed
 	 */
 	function get_base64_info($base64_data)
 	{
@@ -224,7 +224,7 @@ if (!function_exists('unslugify')) {
 	 * unslugify
 	 *
 	 * @param  mixed $slug
-	 * @return void
+	 * @return mixed
 	 */
 	function unslugify($slug)
 	{
@@ -240,7 +240,7 @@ if (!function_exists('format_date')) {
 	 *
 	 * @param  mixed $date
 	 * @param  mixed $format
-	 * @return void
+	 * @return mixed
 	 */
 	function format_date($date, $format)
 	{
@@ -263,7 +263,7 @@ if (!function_exists('get_states')) {
 	 * get_states
 	 *
 	 * @param  mixed $state
-	 * @return void
+	 * @return mixed
 	 */
 	function get_states($state = NULL)
 	{
@@ -284,7 +284,7 @@ if (!function_exists('get_countries')) {
 	 * get_countries
 	 *
 	 * @param  mixed $country
-	 * @return void
+	 * @return mixed
 	 */
 	function get_countries($country = NULL)
 	{
@@ -305,7 +305,7 @@ if (!function_exists('age_from_date')) {
 	 * age_from_date
 	 *
 	 * @param  mixed $date_of_birth
-	 * @return void
+	 * @return mixed
 	 */
 	function age_from_date($date_of_birth)
 	{
@@ -326,7 +326,7 @@ if (!function_exists('get_signed_url')) {
 	 * get_signed_url
 	 *
 	 * @param  mixed $media
-	 * @return void
+	 * @return mixed
 	 */
 	function get_signed_url($media)
 	{
@@ -345,7 +345,7 @@ if (!function_exists('get_all_model_media')) {
 	 * get_all_model_media
 	 *
 	 * @param  mixed $model
-	 * @return void
+	 * @return mixed
 	 */
 	function get_all_model_media($model)
 	{
@@ -367,7 +367,7 @@ if (!function_exists('replace_mappings')) {
 	 *
 	 * @param  mixed $body
 	 * @param  mixed $mappings
-	 * @return void
+	 * @return mixed
 	 */
 	function replace_mappings($body, $mappings)
 	{
@@ -383,7 +383,7 @@ if (!function_exists('create_password')) {
 	 * create_password
 	 *
 	 * @param  mixed $mask
-	 * @return void
+	 * @return mixed
 	 */
 	function create_password($mask)
 	{
@@ -431,7 +431,7 @@ if (!function_exists('genRandomString')) {
 	 * @param  mixed $upper
 	 * @param  mixed $nums
 	 * @param  mixed $special
-	 * @return void
+	 * @return mixed
 	 */
 	function genRandomString($length = 32, $lower = true, $upper = true, $nums = true, $special = false)
 	{
@@ -476,7 +476,7 @@ if (!function_exists('generateNewToken')) {
 	/**
 	 * generateNewToken
 	 *
-	 * @return void
+	 * @return mixed
 	 */
 	function generateNewToken()
 	{
@@ -495,7 +495,7 @@ if (!function_exists('log_string')) {
 	 * @param  mixed $signature
 	 * @param  mixed $type
 	 * @param  mixed $message
-	 * @return void
+	 * @return mixed
 	 */
 	function log_string($signature, $type, $message = NULL)
 	{
@@ -513,7 +513,7 @@ if (!function_exists('convert_meters_to_miles')) {
 	 *
 	 * @param  mixed $meters
 	 * @param  mixed $precision
-	 * @return void
+	 * @return mixed
 	 */
 	function convert_meters_to_miles($meters, $precision = 2)
 	{
@@ -529,7 +529,7 @@ if (!function_exists('convert_meters_to_feet')) {
 	 *
 	 * @param  mixed $meters
 	 * @param  mixed $precision
-	 * @return void
+	 * @return mixed
 	 */
 	function convert_meters_to_feet($meters, $precision = 2)
 	{
@@ -546,7 +546,7 @@ if (!function_exists('format_bytes')) {
 	 * @param  mixed $bytes
 	 * @param  mixed $precision
 	 * @param  mixed $decimals
-	 * @return void
+	 * @return mixed
 	 */
 	function format_bytes($bytes, $precision = 2, $decimals = 2)
 	{
@@ -566,7 +566,7 @@ if (!function_exists('adjust_brightness')) {
 	 *
 	 * @param  mixed $hex
 	 * @param  mixed $steps
-	 * @return void
+	 * @return mixed
 	 */
 	function adjust_brightness($hex, $steps)
 	{
@@ -600,7 +600,7 @@ if (!function_exists('template_replace')) {
 	 * @param  mixed $variable
 	 * @param  mixed $replace
 	 * @param  mixed $string
-	 * @return void
+	 * @return mixed
 	 */
 	function template_replace($variable, $replace, $string)
 	{
@@ -616,7 +616,7 @@ if (!function_exists('model_to_html')) {
 	 *
 	 * @param  mixed $model
 	 * @param  mixed $include_empty
-	 * @return void
+	 * @return mixed
 	 */
 	function model_to_html($model, $include_empty = true)
 	{
@@ -640,7 +640,7 @@ if (!function_exists('build_alert')) {
 	 * @param  mixed $status
 	 * @param  mixed $message
 	 * @param  mixed $class
-	 * @return void
+	 * @return mixed
 	 */
 	function build_alert($status, $message, $class = NULL)
 	{
@@ -653,7 +653,7 @@ if (!function_exists('get_model_count')) {
 	 * get_model_count
 	 *
 	 * @param  mixed $model
-	 * @return void
+	 * @return mixed
 	 */
 	function get_model_count($model)
 	{
@@ -672,7 +672,7 @@ if (!function_exists('sync_media')) {
 	 * @param  mixed $model
 	 * @param  mixed $single
 	 * @param  mixed $media_prefix
-	 * @return void
+	 * @return mixed
 	 */
 	function sync_media($prefix, $model = NULL, $single = true, $media_prefix = NULL)
 	{
@@ -709,7 +709,7 @@ if (!function_exists('update_status')) {
 	/**
 	 * update_status
 	 *
-	 * @return void
+	 * @return mixed
 	 */
 	function update_status()
 	{
@@ -738,7 +738,7 @@ if (!function_exists('get_signed_url')) {
 	 * get_signed_url
 	 *
 	 * @param  mixed $media
-	 * @return void
+	 * @return mixed
 	 */
 	function get_signed_url($media)
 	{
@@ -756,7 +756,7 @@ if (!function_exists('is_super_admin')) {
 	/**
 	 * is_super_admin
 	 *
-	 * @return void
+	 * @return mixed
 	 */
 	function is_super_admin()
 	{
@@ -776,7 +776,7 @@ if (!function_exists('get_tagged_models_media')) {
 	 *
 	 * @param  mixed $models
 	 * @param  mixed $model_tag
-	 * @return void
+	 * @return mixed
 	 */
 	function get_tagged_models_media($models, $model_tag)
 	{
@@ -793,7 +793,7 @@ if (!function_exists('get_roles')) {
 	/**
 	 * get_roles
 	 *
-	 * @return void
+	 * @return mixed
 	 */
 	function get_roles()
 	{
@@ -816,7 +816,7 @@ if (!function_exists('scale_image')) {
 	 * @param  mixed $url
 	 * @param  mixed $max_size
 	 * @param  mixed $type
-	 * @return void
+	 * @return mixed
 	 */
 	function scale_image($url, $max_size, $type = 'height')
 	{
@@ -841,7 +841,7 @@ if (!function_exists('unformat_phone')) {
 	 * unformat_phone
 	 *
 	 * @param  mixed $phone
-	 * @return void
+	 * @return mixed
 	 */
 	function unformat_phone($phone)
 	{
@@ -858,7 +858,7 @@ if (!function_exists('format_phone')) {
 	 * format_phone
 	 *
 	 * @param  mixed $phone
-	 * @return void
+	 * @return mixed
 	 */
 	function format_phone($phone)
 	{
