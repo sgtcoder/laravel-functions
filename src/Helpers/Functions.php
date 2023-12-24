@@ -760,7 +760,7 @@ if (!function_exists('is_super_admin')) {
 	 */
 	function is_super_admin()
 	{
-		$user_roles = auth()->user()->roles?->pluck('name')->toArray();
+		$user_roles = auth()->user()->roles->pluck('name')->toArray();
 
 		if (in_array('Super Admin', $user_roles)) {
 			return true;
