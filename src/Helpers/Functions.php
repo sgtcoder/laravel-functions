@@ -9,6 +9,13 @@ if (!function_exists('cached_asset')) {
 			RewriteRule ^(.+)\.(\d+)\.(js|css)$ $1\.$3 [L]
 		</IfModule>
 	*/
+	/**
+	 * cached_asset
+	 *
+	 * @param  mixed $path
+	 * @param  mixed $bustQuery
+	 * @return void
+	 */
 	function cached_asset($path, $bustQuery = false)
 	{
 		// Get the full path to the asset.
@@ -40,6 +47,12 @@ if (!function_exists('cached_asset')) {
 }
 
 if (!function_exists('array_to_object')) {
+	/**
+	 * array_to_object
+	 *
+	 * @param  mixed $array
+	 * @return void
+	 */
 	function array_to_object($array)
 	{
 		$object = (object) array();
@@ -53,6 +66,12 @@ if (!function_exists('array_to_object')) {
 }
 
 if (!function_exists('generate_random_hex')) {
+	/**
+	 * generate_random_hex
+	 *
+	 * @param  mixed $strlen
+	 * @return void
+	 */
 	function generate_random_hex($strlen = 16)
 	{
 		return strtoupper(implode(array_map(function () {
@@ -62,6 +81,13 @@ if (!function_exists('generate_random_hex')) {
 }
 
 if (!function_exists('format_bytes')) {
+	/**
+	 * format_bytes
+	 *
+	 * @param  mixed $size
+	 * @param  mixed $precision
+	 * @return void
+	 */
 	function format_bytes($size, $precision = 2)
 	{
 		$base = log($size, 1024);
@@ -72,6 +98,13 @@ if (!function_exists('format_bytes')) {
 }
 
 if (!function_exists('csv_to_array')) {
+	/**
+	 * csv_to_array
+	 *
+	 * @param  mixed $filename
+	 * @param  mixed $trim
+	 * @return void
+	 */
 	function csv_to_array($filename, $trim = '')
 	{
 		$row = 0;
@@ -105,6 +138,12 @@ if (!function_exists('csv_to_array')) {
 }
 
 if (!function_exists('ascii_only')) {
+	/**
+	 * ascii_only
+	 *
+	 * @param  mixed $text
+	 * @return void
+	 */
 	function ascii_only($text)
 	{
 		return preg_replace('/[[:^print:]]/', '', $text);
@@ -112,6 +151,13 @@ if (!function_exists('ascii_only')) {
 }
 
 if (!function_exists('is_valid_object')) {
+	/**
+	 * is_valid_object
+	 *
+	 * @param  mixed $object
+	 * @param  mixed $index
+	 * @return void
+	 */
 	function is_valid_object($object, $index = "")
 	{
 		if (!empty($index)) {
@@ -131,6 +177,12 @@ if (!function_exists('is_valid_object')) {
 }
 
 if (!function_exists('url_exists')) {
+	/**
+	 * url_exists
+	 *
+	 * @param  mixed $url
+	 * @return void
+	 */
 	function url_exists($url = NULL)
 	{
 		if ($url == NULL) return false;
@@ -146,6 +198,12 @@ if (!function_exists('url_exists')) {
 }
 
 if (!function_exists('get_base64_info')) {
+	/**
+	 * get_base64_info
+	 *
+	 * @param  mixed $base64_data
+	 * @return void
+	 */
 	function get_base64_info($base64_data)
 	{
 		$image_parts = explode(";base64,", $base64_data);
@@ -162,6 +220,12 @@ if (!function_exists('get_base64_info')) {
 }
 
 if (!function_exists('unslugify')) {
+	/**
+	 * unslugify
+	 *
+	 * @param  mixed $slug
+	 * @return void
+	 */
 	function unslugify($slug)
 	{
 		$text = ucwords(strtolower(str_replace('-', ' ', trim($slug))));
@@ -171,6 +235,13 @@ if (!function_exists('unslugify')) {
 }
 
 if (!function_exists('format_date')) {
+	/**
+	 * format_date
+	 *
+	 * @param  mixed $date
+	 * @param  mixed $format
+	 * @return void
+	 */
 	function format_date($date, $format)
 	{
 		if ($date) {
@@ -188,6 +259,12 @@ if (!function_exists('format_date')) {
 }
 
 if (!function_exists('get_states')) {
+	/**
+	 * get_states
+	 *
+	 * @param  mixed $state
+	 * @return void
+	 */
 	function get_states($state = NULL)
 	{
 		$states = '{"AL":"Alabama","AK":"Alaska","AZ":"Arizona","AR":"Arkansas","CA":"California","CO":"Colorado","CT":"Connecticut","DE":"Delaware","FL":"Florida","GA":"Georgia","HI":"Hawaii","ID":"Idaho","IL":"Illinois","IN":"Indiana","IA":"Iowa","KS":"Kansas","KY":"Kentucky","LA":"Louisiana","ME":"Maine","MD":"Maryland","MA":"Massachusetts","MI":"Michigan","MN":"Minnesota","MS":"Mississippi","MO":"Missouri","MT":"Montana","NE":"Nebraska","NV":"Nevada","NH":"New Hampshire","NJ":"New Jersey","NM":"New Mexico","NY":"New York","NC":"North Carolina","ND":"North Dakota","OH":"Ohio","OK":"Oklahoma","OR":"Oregon","PA":"Pennsylvania","RI":"Rhode Island","SC":"South Carolina","SD":"South Dakota","TN":"Tennessee","TX":"Texas","UT":"Utah","VT":"Vermont","VA":"Virginia","WA":"Washington","WV":"West Virginia","WI":"Wisconsin","WY":"Wyoming"}';
@@ -203,6 +280,12 @@ if (!function_exists('get_states')) {
 }
 
 if (!function_exists('get_countries')) {
+	/**
+	 * get_countries
+	 *
+	 * @param  mixed $country
+	 * @return void
+	 */
 	function get_countries($country = NULL)
 	{
 		$countries = '{"AF":"Afghanistan","AX":"land Islands","AL":"Albania","DZ":"Algeria","AS":"American Samoa","AD":"AndorrA","AO":"Angola","AI":"Anguilla","AQ":"Antarctica","AG":"Antigua and Barbuda","AR":"Argentina","AM":"Armenia","AW":"Aruba","AU":"Australia","AT":"Austria","AZ":"Azerbaijan","BS":"Bahamas","BH":"Bahrain","BD":"Bangladesh","BB":"Barbados","BY":"Belarus","BE":"Belgium","BZ":"Belize","BJ":"Benin","BM":"Bermuda","BT":"Bhutan","BO":"Bolivia","BA":"Bosnia and Herzegovina","BW":"Botswana","BV":"Bouvet Island","BR":"Brazil","IO":"British Indian Ocean Territory","BN":"Brunei Darussalam","BG":"Bulgaria","BF":"Burkina Faso","BI":"Burundi","KH":"Cambodia","CM":"Cameroon","CA":"Canada","CV":"Cape Verde","KY":"Cayman Islands","CF":"Central African Republic","TD":"Chad","CL":"Chile","CN":"China","CX":"Christmas Island","CC":"Cocos (Keeling) Islands","CO":"Colombia","KM":"Comoros","CG":"Congo","CD":"Congo, The Democratic Republic of the","CK":"Cook Islands","CR":"Costa Rica","CI":"Cote D\"Ivoire","HR":"Croatia","CU":"Cuba","CY":"Cyprus","CZ":"Czech Republic","DK":"Denmark","DJ":"Djibouti","DM":"Dominica","DO":"Dominican Republic","EC":"Ecuador","EG":"Egypt","SV":"El Salvador","GQ":"Equatorial Guinea","ER":"Eritrea","EE":"Estonia","ET":"Ethiopia","FK":"Falkland Islands (Malvinas)","FO":"Faroe Islands","FJ":"Fiji","FI":"Finland","FR":"France","GF":"French Guiana","PF":"French Polynesia","TF":"French Southern Territories","GA":"Gabon","GM":"Gambia","GE":"Georgia","DE":"Germany","GH":"Ghana","GI":"Gibraltar","GR":"Greece","GL":"Greenland","GD":"Grenada","GP":"Guadeloupe","GU":"Guam","GT":"Guatemala","GG":"Guernsey","GN":"Guinea","GW":"Guinea-Bissau","GY":"Guyana","HT":"Haiti","HM":"Heard Island and Mcdonald Islands","VA":"Holy See (Vatican City State)","HN":"Honduras","HK":"Hong Kong","HU":"Hungary","IS":"Iceland","IN":"India","ID":"Indonesia","IR":"Iran, Islamic Republic Of","IQ":"Iraq","IE":"Ireland","IM":"Isle of Man","IL":"Israel","IT":"Italy","JM":"Jamaica","JP":"Japan","JE":"Jersey","JO":"Jordan","KZ":"Kazakhstan","KE":"Kenya","KI":"Kiribati","KP":"Korea, Democratic People\"S Republic of","KR":"Korea, Republic of","KW":"Kuwait","KG":"Kyrgyzstan","LA":"Lao People\"S Democratic Republic","LV":"Latvia","LB":"Lebanon","LS":"Lesotho","LR":"Liberia","LY":"Libyan Arab Jamahiriya","LI":"Liechtenstein","LT":"Lithuania","LU":"Luxembourg","MO":"Macao","MK":"Macedonia, The Former Yugoslav Republic of","MG":"Madagascar","MW":"Malawi","MY":"Malaysia","MV":"Maldives","ML":"Mali","MT":"Malta","MH":"Marshall Islands","MQ":"Martinique","MR":"Mauritania","MU":"Mauritius","YT":"Mayotte","MX":"Mexico","FM":"Micronesia, Federated States of","MD":"Moldova, Republic of","MC":"Monaco","MN":"Mongolia","ME":"Montenegro","MS":"Montserrat","MA":"Morocco","MZ":"Mozambique","MM":"Myanmar","NA":"Namibia","NR":"Nauru","NP":"Nepal","NL":"Netherlands","AN":"Netherlands Antilles","NC":"New Caledonia","NZ":"New Zealand","NI":"Nicaragua","NE":"Niger","NG":"Nigeria","NU":"Niue","NF":"Norfolk Island","MP":"Northern Mariana Islands","NO":"Norway","OM":"Oman","PK":"Pakistan","PW":"Palau","PS":"Palestinian Territory, Occupied","PA":"Panama","PG":"Papua New Guinea","PY":"Paraguay","PE":"Peru","PH":"Philippines","PN":"Pitcairn","PL":"Poland","PT":"Portugal","PR":"Puerto Rico","QA":"Qatar","RE":"Reunion","RO":"Romania","RU":"Russian Federation","RW":"RWANDA","SH":"Saint Helena","KN":"Saint Kitts and Nevis","LC":"Saint Lucia","PM":"Saint Pierre and Miquelon","VC":"Saint Vincent and the Grenadines","WS":"Samoa","SM":"San Marino","ST":"Sao Tome and Principe","SA":"Saudi Arabia","SN":"Senegal","RS":"Serbia","SC":"Seychelles","SL":"Sierra Leone","SG":"Singapore","SK":"Slovakia","SI":"Slovenia","SB":"Solomon Islands","SO":"Somalia","ZA":"South Africa","GS":"South Georgia and the South Sandwich Islands","ES":"Spain","LK":"Sri Lanka","SD":"Sudan","SR":"Suriname","SJ":"Svalbard and Jan Mayen","SZ":"Swaziland","SE":"Sweden","CH":"Switzerland","SY":"Syrian Arab Republic","TW":"Taiwan, Province of China","TJ":"Tajikistan","TZ":"Tanzania, United Republic of","TH":"Thailand","TL":"Timor-Leste","TG":"Togo","TK":"Tokelau","TO":"Tonga","TT":"Trinidad and Tobago","TN":"Tunisia","TR":"Turkey","TM":"Turkmenistan","TC":"Turks and Caicos Islands","TV":"Tuvalu","UG":"Uganda","UA":"Ukraine","AE":"United Arab Emirates","GB":"United Kingdom","US":"United States","UM":"United States Minor Outlying Islands","UY":"Uruguay","UZ":"Uzbekistan","VU":"Vanuatu","VE":"Venezuela","VN":"Viet Nam","VG":"Virgin Islands, British","VI":"Virgin Islands, U.S.","WF":"Wallis and Futuna","EH":"Western Sahara","YE":"Yemen","ZM":"Zambia","ZW":"Zimbabwe"}';
@@ -218,6 +301,12 @@ if (!function_exists('get_countries')) {
 }
 
 if (!function_exists('age_from_date')) {
+	/**
+	 * age_from_date
+	 *
+	 * @param  mixed $date_of_birth
+	 * @return void
+	 */
 	function age_from_date($date_of_birth)
 	{
 		$today = date('Y-m-d');
@@ -233,6 +322,12 @@ if (!function_exists('age_from_date')) {
 }
 
 if (!function_exists('get_signed_url')) {
+	/**
+	 * get_signed_url
+	 *
+	 * @param  mixed $media
+	 * @return void
+	 */
 	function get_signed_url($media)
 	{
 		static $MediaService;
@@ -246,6 +341,12 @@ if (!function_exists('get_signed_url')) {
 }
 
 if (!function_exists('get_all_model_media')) {
+	/**
+	 * get_all_model_media
+	 *
+	 * @param  mixed $model
+	 * @return void
+	 */
 	function get_all_model_media($model)
 	{
 		$media_items = [];
@@ -261,6 +362,13 @@ if (!function_exists('get_all_model_media')) {
 }
 
 if (!function_exists('replace_mappings')) {
+	/**
+	 * replace_mappings
+	 *
+	 * @param  mixed $body
+	 * @param  mixed $mappings
+	 * @return void
+	 */
 	function replace_mappings($body, $mappings)
 	{
 		foreach ($mappings as $key => $value) {
@@ -271,6 +379,12 @@ if (!function_exists('replace_mappings')) {
 }
 
 if (!function_exists('create_password')) {
+	/**
+	 * create_password
+	 *
+	 * @param  mixed $mask
+	 * @return void
+	 */
 	function create_password($mask)
 	{
 		//$extended_chars = "!@#$%^&*()";
@@ -309,6 +423,16 @@ if (!function_exists('create_password')) {
 }
 
 if (!function_exists('genRandomString')) {
+	/**
+	 * genRandomString
+	 *
+	 * @param  mixed $length
+	 * @param  mixed $lower
+	 * @param  mixed $upper
+	 * @param  mixed $nums
+	 * @param  mixed $special
+	 * @return void
+	 */
 	function genRandomString($length = 32, $lower = true, $upper = true, $nums = true, $special = false)
 	{
 		$pool_lower = 'abcdefghijklmopqrstuvwxyz';
@@ -349,6 +473,11 @@ if (!function_exists('genRandomString')) {
 }
 
 if (!function_exists('generateNewToken')) {
+	/**
+	 * generateNewToken
+	 *
+	 * @return void
+	 */
 	function generateNewToken()
 	{
 		$random_string = genRandomString($length = 32, $lower = true, $upper = true, $nums = true, $special = true);
@@ -360,6 +489,14 @@ if (!function_exists('generateNewToken')) {
 }
 
 if (!function_exists('log_string')) {
+	/**
+	 * log_string
+	 *
+	 * @param  mixed $signature
+	 * @param  mixed $type
+	 * @param  mixed $message
+	 * @return void
+	 */
 	function log_string($signature, $type, $message = NULL)
 	{
 		$message = ($message) ? ': ' . $message : '';
@@ -371,6 +508,13 @@ if (!function_exists('log_string')) {
 }
 
 if (!function_exists('convert_meters_to_miles')) {
+	/**
+	 * convert_meters_to_miles
+	 *
+	 * @param  mixed $meters
+	 * @param  mixed $precision
+	 * @return void
+	 */
 	function convert_meters_to_miles($meters, $precision = 2)
 	{
 		if ($meters === NULL) return NULL;
@@ -380,6 +524,13 @@ if (!function_exists('convert_meters_to_miles')) {
 }
 
 if (!function_exists('convert_meters_to_feet')) {
+	/**
+	 * convert_meters_to_feet
+	 *
+	 * @param  mixed $meters
+	 * @param  mixed $precision
+	 * @return void
+	 */
 	function convert_meters_to_feet($meters, $precision = 2)
 	{
 		if ($meters === NULL) return NULL;
@@ -389,6 +540,14 @@ if (!function_exists('convert_meters_to_feet')) {
 }
 
 if (!function_exists('format_bytes')) {
+	/**
+	 * format_bytes
+	 *
+	 * @param  mixed $bytes
+	 * @param  mixed $precision
+	 * @param  mixed $decimals
+	 * @return void
+	 */
 	function format_bytes($bytes, $precision = 2, $decimals = 2)
 	{
 		$units = array('B', 'KB', 'MB', 'GB', 'TB');
@@ -402,6 +561,13 @@ if (!function_exists('format_bytes')) {
 }
 
 if (!function_exists('adjust_brightness')) {
+	/**
+	 * adjust_brightness
+	 *
+	 * @param  mixed $hex
+	 * @param  mixed $steps
+	 * @return void
+	 */
 	function adjust_brightness($hex, $steps)
 	{
 		// Steps should be between -255 and 255. Negative = darker, positive = lighter
@@ -428,6 +594,14 @@ if (!function_exists('adjust_brightness')) {
 }
 
 if (!function_exists('template_replace')) {
+	/**
+	 * template_replace
+	 *
+	 * @param  mixed $variable
+	 * @param  mixed $replace
+	 * @param  mixed $string
+	 * @return void
+	 */
 	function template_replace($variable, $replace, $string)
 	{
 		$string = preg_replace('/{{\s*' . $variable . '\s*}}/', $replace, $string);
@@ -437,6 +611,13 @@ if (!function_exists('template_replace')) {
 }
 
 if (!function_exists('model_to_html')) {
+	/**
+	 * model_to_html
+	 *
+	 * @param  mixed $model
+	 * @param  mixed $include_empty
+	 * @return void
+	 */
 	function model_to_html($model, $include_empty = true)
 	{
 		$data = $model->getFillable();
@@ -453,6 +634,14 @@ if (!function_exists('model_to_html')) {
 }
 
 if (!function_exists('build_alert')) {
+	/**
+	 * build_alert
+	 *
+	 * @param  mixed $status
+	 * @param  mixed $message
+	 * @param  mixed $class
+	 * @return void
+	 */
 	function build_alert($status, $message, $class = NULL)
 	{
 		return '<div class="alert alert-' . $status . ' ' . $class . '" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1000">' . $message . '</div>';
@@ -460,7 +649,12 @@ if (!function_exists('build_alert')) {
 }
 
 if (!function_exists('get_model_count')) {
-
+	/**
+	 * get_model_count
+	 *
+	 * @param  mixed $model
+	 * @return void
+	 */
 	function get_model_count($model)
 	{
 		$model = 'App\\Models\\' . $model;
@@ -471,7 +665,15 @@ if (!function_exists('get_model_count')) {
 }
 
 if (!function_exists('sync_media')) {
-
+	/**
+	 * sync_media
+	 *
+	 * @param  mixed $prefix
+	 * @param  mixed $model
+	 * @param  mixed $single
+	 * @param  mixed $media_prefix
+	 * @return void
+	 */
 	function sync_media($prefix, $model = NULL, $single = true, $media_prefix = NULL)
 	{
 		$MediaService = (new \App\Services\MediaService);
@@ -504,7 +706,11 @@ if (!function_exists('sync_media')) {
 }
 
 if (!function_exists('update_status')) {
-
+	/**
+	 * update_status
+	 *
+	 * @return void
+	 */
 	function update_status()
 	{
 		request()->validate([
@@ -528,6 +734,12 @@ if (!function_exists('update_status')) {
 }
 
 if (!function_exists('get_signed_url')) {
+	/**
+	 * get_signed_url
+	 *
+	 * @param  mixed $media
+	 * @return void
+	 */
 	function get_signed_url($media)
 	{
 		static $MediaService;
@@ -541,7 +753,11 @@ if (!function_exists('get_signed_url')) {
 }
 
 if (!function_exists('is_super_admin')) {
-
+	/**
+	 * is_super_admin
+	 *
+	 * @return void
+	 */
 	function is_super_admin()
 	{
 		$user_roles = auth()->user()->roles?->pluck('name')->toArray();
@@ -555,7 +771,13 @@ if (!function_exists('is_super_admin')) {
 }
 
 if (!function_exists('get_tagged_models_media')) {
-
+	/**
+	 * get_tagged_models_media
+	 *
+	 * @param  mixed $models
+	 * @param  mixed $model_tag
+	 * @return void
+	 */
 	function get_tagged_models_media($models, $model_tag)
 	{
 		$media_items = [];
@@ -568,6 +790,11 @@ if (!function_exists('get_tagged_models_media')) {
 }
 
 if (!function_exists('get_roles')) {
+	/**
+	 * get_roles
+	 *
+	 * @return void
+	 */
 	function get_roles()
 	{
 		$roles = \App\Models\Role::query();
@@ -583,6 +810,14 @@ if (!function_exists('get_roles')) {
 }
 
 if (!function_exists('scale_image')) {
+	/**
+	 * scale_image
+	 *
+	 * @param  mixed $url
+	 * @param  mixed $max_size
+	 * @param  mixed $type
+	 * @return void
+	 */
 	function scale_image($url, $max_size, $type = 'height')
 	{
 		$data = getimagesize($url);
@@ -602,6 +837,12 @@ if (!function_exists('scale_image')) {
 }
 
 if (!function_exists('unformat_phone')) {
+	/**
+	 * unformat_phone
+	 *
+	 * @param  mixed $phone
+	 * @return void
+	 */
 	function unformat_phone($phone)
 	{
 		$phone = preg_replace("/[^0-9]/", "", $phone);
@@ -613,6 +854,12 @@ if (!function_exists('unformat_phone')) {
 }
 
 if (!function_exists('format_phone')) {
+	/**
+	 * format_phone
+	 *
+	 * @param  mixed $phone
+	 * @return void
+	 */
 	function format_phone($phone)
 	{
 		$phone = preg_replace("/[^0-9]/", "", $phone);
