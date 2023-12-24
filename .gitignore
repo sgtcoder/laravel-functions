@@ -13,3 +13,4 @@ phpunit.xml
 testbench.yaml
 vendor
 /.vscode
+*.sh
