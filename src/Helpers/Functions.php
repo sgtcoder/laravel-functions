@@ -713,7 +713,7 @@ if (!function_exists('sync_media')) {
 
 				$media_metadata = request($prefix . '_metadata.' . $item);
 				if ($media_metadata) {
-					$media = Media::find($item);
+					$media = \Plank\Mediable\Media::find($item);
 
 					if ($media) {
 						$media->setAttribute('metadata', $media_metadata);
