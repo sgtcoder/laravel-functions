@@ -372,8 +372,27 @@ if (!function_exists('replace_mappings')) {
 	function replace_mappings($body, $mappings)
 	{
 		foreach ($mappings as $key => $value) {
-			$body = str_replace('{{' . $key . '}}', $value, $body);
+			$body = preg_replace('/{{\s*' . $key . '\s*}}/', $value, $body);
 		}
+
+		return $body;
+	}
+}
+
+if (!function_exists('replace_custom_mappings')) {
+	/**
+	 * replace_custom_mappings
+	 *
+	 * @param  mixed $body
+	 * @param  mixed $mappings
+	 * @return void
+	 */
+	function replace_custom_mappings($body, $mappings)
+	{
+		foreach ($mappings as $key => $value) {
+			$body = str_replace($key, $value, $body);
+		}
+
 		return $body;
 	}
 }
