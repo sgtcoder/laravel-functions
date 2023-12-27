@@ -385,7 +385,7 @@ if (!function_exists('replace_custom_mappings')) {
 	 *
 	 * @param  mixed $body
 	 * @param  mixed $mappings
-	 * @return void
+	 * @return mixed
 	 */
 	function replace_custom_mappings($body, $mappings)
 	{
