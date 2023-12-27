@@ -706,8 +706,19 @@ if (!function_exists('sync_media')) {
 		// Crop new images
 		if (request($prefix . '_media')) {
 			foreach (request($prefix . '_media') as $item) {
-				if (isset(request($prefix . '_data')[$item])) {
-					$MediaService->update_media_crop($item, request($prefix . '_data')[$item]);
+				$media_data = request($prefix . '_data.' . $item);
+				if ($media_data) {
+					$MediaService->update_media_crop($item, $media_data);
+				}
+
+				$media_metadata = request($prefix . '_metadata.' . $item);
+				if ($media_metadata) {
+					$media = Media::find($item);
+
+					if ($media) {
+						$media->setAttribute('metadata', $media_metadata);
+						$media->save();
+					}
 				}
 			}
 
