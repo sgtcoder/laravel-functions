@@ -899,3 +899,40 @@ if (!function_exists('format_phone')) {
 		return $phone;
 	}
 }
+
+if (!function_exists('get_auth_prefix')) {
+	/**
+	 * get_auth_prefix
+	 *
+	 * @return mixed
+	 */
+	function get_auth_prefix()
+	{
+		$route = str()->of(request()->route()->getName())->explode('.');
+
+		return $route[0] ?? null;
+	}
+}
+
+if (!function_exists('get_intended_route')) {
+	/**
+	 * get_intended_route
+	 *
+	 * @param  mixed $prefix
+	 * @return mixed
+	 */
+	function get_intended_route($prefix)
+	{
+		$intended_url = redirect()->intended()->getTargetUrl();
+
+		$route = \Route::getRoutes()->match(\Request::create($intended_url))->getName();
+
+		$route = str()->of($route)->explode('.');
+
+		if (($route[0] ?? null) == $prefix) {
+			return $intended_url;
+		}
+
+		return null;
+	}
+}
