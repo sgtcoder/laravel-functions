@@ -4,7 +4,6 @@ namespace SgtCoder\LaravelFunctions\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class AuthApi
@@ -18,14 +17,12 @@ class AuthApi
      */
     public function handle(Request $request, Closure $next, $config_name)
     {
-        $response = $next($request);
-
         if ($config_name) {
             $valid_token = config($config_name);
-            $token = $request->token;
+            $token = request()->header('token', request('token'));
 
             if ($token == $valid_token) {
-                return $response;
+                return $next($request);
             }
         }
 
