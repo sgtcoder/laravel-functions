@@ -2,18 +2,28 @@
 
 namespace SgtCoder\LaravelFunctions;
 
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Illuminate\Support\ServiceProvider;
 
-class LaravelFunctionsServiceProvider extends PackageServiceProvider
+// https://laravel.com/docs/10.x/packages
+class LaravelFunctionsServiceProvider extends ServiceProvider
 {
-    public function configurePackage(Package $package): void
+    /**
+     * Bootstrap the application services.
+     *
+     * @return void
+     */
+    public function boot()
     {
-        /*
-         * This class is a Package Service Provider
-         *
-         * More info: https://github.com/spatie/laravel-package-tools
-         */
-        $package->name('laravel-functions');
+        if ($this->app->runningInConsole()) {
+        }
+    }
+
+    /**
+     * Register the application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
     }
 }
