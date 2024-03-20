@@ -2,12 +2,14 @@
 
 namespace SgtCoder\LaravelFunctions\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Arr;
-use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Illuminate\Database\Query\Builder;
+
+use Illuminate\Support\{
+    Facades\Blade,
+    Arr,
+    ServiceProvider as BaseServiceProvider
+};
 
 class CustomServiceProvider extends BaseServiceProvider
 {
@@ -46,6 +48,11 @@ class CustomServiceProvider extends BaseServiceProvider
         Builder::macro('whereLikeRaw', function ($column, $search) {
             /** @phpstan-ignore-next-line */
             return $this->whereRaw($column . ' LIKE "%' . $search . '%"');
+        });
+
+        Builder::macro('orWhereLikeRaw', function ($column, $search) {
+            /** @phpstan-ignore-next-line */
+            return $this->orWhereRaw($column . ' LIKE "%' . $search . '%"');
         });
     }
 

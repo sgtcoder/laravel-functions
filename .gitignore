@@ -14,3 +14,4 @@ testbench.yaml
 vendor
 /.vscode
 *.sh
+tmp
