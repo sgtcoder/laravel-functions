@@ -976,3 +976,68 @@ if (!function_exists('get_timezones')) {
 		return $timezones;
 	}
 }
+
+if (!function_exists('get_guards')) {
+	/**
+	 * get_guards
+	 *
+	 * @return mixed
+	 */
+	function get_guards()
+	{
+		$guards = collect(config('auth.guards'))->keys()->mapWithKeys(function ($guard) {
+			return [$guard => ucwords($guard)];
+		});
+
+		return $guards;
+	}
+}
+
+if (!function_exists('create_password')) {
+	/**
+	 * create_password
+	 *
+	 * @param  mixed $deprecrated
+	 * @return mixed
+	 */
+	function create_password($deprecrated = null)
+	{
+		return (new \SgtCoder\LaravelFunctions\Services\PasswordService)->password(16);
+	}
+}
+
+if (!function_exists('generate_new_token')) {
+	/**
+	 * generate_new_token
+	 *
+	 * @return mixed
+	 */
+	function generate_new_token()
+	{
+		return (new \SgtCoder\LaravelFunctions\Services\PasswordService)->hex(16);
+	}
+}
+
+if (!function_exists('generateNewToken')) {
+	/**
+	 * generateNewToken
+	 *
+	 * @return mixed
+	 */
+	function generateNewToken()
+	{
+		return generate_new_token();
+	}
+}
+
+if (!function_exists('generate_mac_address')) {
+	/**
+	 * generate_mac_address
+	 *
+	 * @return mixed
+	 */
+	function generate_mac_address()
+	{
+		return (new \SgtCoder\LaravelFunctions\Services\PasswordService)->generate_mac_address();
+	}
+}
