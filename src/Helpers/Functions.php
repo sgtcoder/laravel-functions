@@ -333,6 +333,7 @@ if (!function_exists('get_signed_url')) {
 		static $MediaService;
 
 		if (empty($MediaService)) {
+			// @phpstan-ignore-next-line
 			$MediaService = (new \App\Services\MediaService);
 		}
 
@@ -394,116 +395,6 @@ if (!function_exists('replace_custom_mappings')) {
 		}
 
 		return $body;
-	}
-}
-
-if (!function_exists('create_password')) {
-	/**
-	 * create_password
-	 *
-	 * @param  mixed $mask
-	 * @return mixed
-	 */
-	function create_password($mask)
-	{
-		//$extended_chars = "!@#$%^&*()";
-		$extended_chars = "@#^*";
-		$length = strlen($mask);
-		$pwd = '';
-		$p_char = '';
-
-		for ($c = 0; $c < $length; $c++) {
-			$ch = $mask[$c];
-			switch ($ch) {
-				case '#':
-					$p_char = rand(0, 9);
-					break;
-				case 'C':
-					$p_char = chr(rand(65, 90));
-					break;
-				case 'c':
-					$p_char = chr(rand(97, 122));
-					break;
-				case 'X':
-					do {
-						$p_char = rand(65, 122);
-					} while ($p_char > 90 && $p_char < 97 && $p_char != 92); //remove \
-					$p_char = chr($p_char);
-					break;
-				case '!':
-					$p_char = $extended_chars[rand(0, strlen($extended_chars) - 1)];
-					break;
-			}
-			$pwd .= $p_char;
-		}
-
-		return trim($pwd);
-	}
-}
-
-if (!function_exists('genRandomString')) {
-	/**
-	 * genRandomString
-	 *
-	 * @param  mixed $length
-	 * @param  mixed $lower
-	 * @param  mixed $upper
-	 * @param  mixed $nums
-	 * @param  mixed $special
-	 * @return mixed
-	 */
-	function genRandomString($length = 32, $lower = true, $upper = true, $nums = true, $special = false)
-	{
-		$pool_lower = 'abcdefghijklmopqrstuvwxyz';
-		$pool_upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		$pool_nums = '0123456789';
-		$pool_special = '!$%^&*+#~/|';
-
-		$pool = '';
-		$res = '';
-
-		if ($lower === true) {
-			$pool .= $pool_lower;
-		}
-		if ($upper === true) {
-			$pool .= $pool_upper;
-		}
-		if ($nums === true) {
-			$pool .= $pool_nums;
-		}
-		if ($special === true) {
-			$pool .= $pool_special;
-		}
-
-		if (($length < 0) || ($length == 0)) {
-			return $res;
-		}
-
-		srand((int) microtime() * 1000000);
-
-		for ($i = 0; $i < $length; $i++) {
-			$charidx = rand() % strlen($pool);
-			$char = substr($pool, $charidx, 1);
-			$res .= $char;
-		}
-
-		return $res;
-	}
-}
-
-if (!function_exists('generateNewToken')) {
-	/**
-	 * generateNewToken
-	 *
-	 * @return mixed
-	 */
-	function generateNewToken()
-	{
-		$random_string = genRandomString($length = 32, $lower = true, $upper = true, $nums = true, $special = true);
-
-		$random_string = base64_encode($random_string);
-
-		return $random_string;
 	}
 }
 
@@ -695,6 +586,7 @@ if (!function_exists('sync_media')) {
 	 */
 	function sync_media($prefix, $model = NULL, $single = true, $media_prefix = NULL)
 	{
+		// @phpstan-ignore-next-line
 		$MediaService = (new \App\Services\MediaService);
 
 		$media_prefix ??= $prefix;
@@ -708,11 +600,13 @@ if (!function_exists('sync_media')) {
 			foreach (request($prefix . '_media') as $item) {
 				$media_data = request($prefix . '_data.' . $item);
 				if ($media_data) {
+					// @phpstan-ignore-next-line
 					$MediaService->update_media_crop($item, $media_data);
 				}
 
 				$media_metadata = request($prefix . '_metadata.' . $item);
 				if ($media_metadata) {
+					// @phpstan-ignore-next-line
 					$media = \Plank\Mediable\Media::find($item);
 
 					if ($media) {
@@ -775,6 +669,7 @@ if (!function_exists('get_signed_url')) {
 		static $MediaService;
 
 		if (empty($MediaService)) {
+			// @phpstan-ignore-next-line
 			$MediaService = (new \App\Services\MediaService);
 		}
 
@@ -790,7 +685,8 @@ if (!function_exists('is_super_admin')) {
 	 */
 	function is_super_admin()
 	{
-		$user_roles = auth()->user()->roles->pluck('name')->toArray();
+		// @phpstan-ignore-next-line
+		$user_roles = request()->user()->roles->pluck('name')->toArray();
 
 		if (in_array('Super Admin', $user_roles)) {
 			return true;
@@ -827,6 +723,7 @@ if (!function_exists('get_roles')) {
 	 */
 	function get_roles()
 	{
+		// @phpstan-ignore-next-line
 		$roles = \App\Models\Role::query();
 
 		if (!is_super_admin()) {
@@ -1077,5 +974,70 @@ if (!function_exists('get_timezones')) {
 		);
 
 		return $timezones;
+	}
+}
+
+if (!function_exists('get_guards')) {
+	/**
+	 * get_guards
+	 *
+	 * @return mixed
+	 */
+	function get_guards()
+	{
+		$guards = collect(config('auth.guards'))->keys()->mapWithKeys(function ($guard) {
+			return [$guard => ucwords($guard)];
+		});
+
+		return $guards;
+	}
+}
+
+if (!function_exists('create_password')) {
+	/**
+	 * create_password
+	 *
+	 * @param  mixed $deprecrated
+	 * @return mixed
+	 */
+	function create_password($deprecrated = null)
+	{
+		return (new \SgtCoder\LaravelFunctions\Services\PasswordService)->password(16);
+	}
+}
+
+if (!function_exists('generate_new_token')) {
+	/**
+	 * generate_new_token
+	 *
+	 * @return mixed
+	 */
+	function generate_new_token()
+	{
+		return (new \SgtCoder\LaravelFunctions\Services\PasswordService)->hex(16);
+	}
+}
+
+if (!function_exists('generateNewToken')) {
+	/**
+	 * generateNewToken
+	 *
+	 * @return mixed
+	 */
+	function generateNewToken()
+	{
+		return generate_new_token();
+	}
+}
+
+if (!function_exists('generate_mac_address')) {
+	/**
+	 * generate_mac_address
+	 *
+	 * @return mixed
+	 */
+	function generate_mac_address()
+	{
+		return (new \SgtCoder\LaravelFunctions\Services\PasswordService)->generate_mac_address();
 	}
 }

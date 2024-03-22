@@ -3,7 +3,6 @@
 namespace SgtCoder\LaravelFunctions\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\App;
 
 class HttpsProtocol
 {
