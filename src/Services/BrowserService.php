@@ -38,7 +38,7 @@ class BrowserService
 
         $data = $this->api_call($path, $method_type = 'get', $payload);
 
-        return $data['wan'] ?? null;
+        return $data;
     }
 
     public function api_call($path, $method_type = 'get', $payload = null)
