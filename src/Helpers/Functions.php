@@ -1,4 +1,16 @@
 <?php
+
+if (!function_exists('get_plank_media_class')) {
+	function get_plank_media_class()
+	{
+		if (class_exists('App\Models\Media')) {
+			return '\App\Models\Media';
+		}
+
+		return '\Plank\Mediable\Media';
+	}
+}
+
 if (!function_exists('cached_asset')) {
 	// https://laravel-tricks.com/tricks/easier-caching-with-cached-asset
 	/*
@@ -589,10 +601,15 @@ if (!function_exists('sync_media')) {
 		// @phpstan-ignore-next-line
 		$MediaService = (new \App\Services\MediaService);
 
+		$PlankMediaClass = get_plank_media_class();
+
 		$media_prefix ??= $prefix;
 
 		if (request($prefix . '_delete')) {
 			if ($model && $model->firstMedia($prefix)) $model->firstMedia($media_prefix)->delete();
+
+			$media_delete = $PlankMediaClass::find($media_prefix);
+			if ($media_delete) $media_delete->delete();
 		}
 
 		// Crop new images
@@ -607,7 +624,7 @@ if (!function_exists('sync_media')) {
 				$media_metadata = request($prefix . '_metadata.' . $item);
 				if ($media_metadata) {
 					// @phpstan-ignore-next-line
-					$media = \Plank\Mediable\Media::find($item);
+					$media = $PlankMediaClass::find($item);
 
 					if ($media) {
 						$media->setAttribute('metadata', $media_metadata);
