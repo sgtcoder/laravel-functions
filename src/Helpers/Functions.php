@@ -417,15 +417,28 @@ if (!function_exists('log_string')) {
 	 * @param  mixed $signature
 	 * @param  mixed $type
 	 * @param  mixed $message
-	 * @return mixed
+	 * @param  mixed $newline
+	 * @return void
 	 */
-	function log_string($signature, $type, $message = NULL)
+	function log_string($signature, $type = 'DEFAULT', $message = null, $newline = false)
 	{
-		$message = ($message) ? ': ' . $message : '';
+		$log_name = explode(' ', $signature);
+		$log_name = $log_name[0];
 
-		$log = '[' . now()->format('Y-m-d H:i:s') . '][' . $signature . '][' . $type . ']' . $message;
+		$log = '[' . now()->format('Y-m-d H:i:s') . '][' . $log_name . '][' . $type . ']: ';
 
-		return $log;
+		$template = match ($type) {
+			'INFO' => '<fg=#ffc107;options=bold>' . $log . '</>' . $message,
+			'SUCCESS' => '<fg=#28a745;options=bold>' . $log . '</>' . $message,
+			'WARNING' => '<fg=#ffc107;options=bold>' . $log . '</>' . $message,
+			'ERROR' => '<fg=#dc3545;options=bold>' . $log . '</>' . $message,
+			'DEFAULT' => '<fg=#000000;options=bold>' . $log . '</>' . $message,
+			default => '<fg=#000000;options=bold>' . $log . '</>' . $message,
+		};
+
+		if ($newline) $template .= "\n";
+
+		return $template;
 	}
 }
 
