@@ -1071,3 +1071,48 @@ if (!function_exists('generate_mac_address')) {
 		return (new \SgtCoder\LaravelFunctions\Services\PasswordService)->generate_mac_address();
 	}
 }
+
+if (!function_exists('array_to_html')) {
+	/**
+	 * array_to_html
+	 *
+	 * @param  mixed $data
+	 * @param  mixed $keys
+	 * @return void
+	 */
+	function array_to_html($data, $keys)
+	{
+		$html = '<style>td{color: #fff;padding: 5px;}</style>';
+
+		$html .= '<table>';
+		$html .= '<thead><tr>';
+		foreach ($keys as $key => $type) {
+			$html .= '<td><strong>' . ucwords(str_replace('_', ' ', $key)) . '</strong></td>';
+		}
+
+		$html .= '</tr></thead>';
+
+		$html .= '<tbody>';
+
+		foreach ($data as $value) {
+			$html .= '<tr>';
+
+			foreach ($keys as $key => $type) {
+				$the_value = $value->$key;
+
+				if ($type == 'date') {
+					$the_value = now()->parse($the_value)->format('m/d/Y');
+				}
+
+				$html .= '<td>' . $the_value . '</td>';
+			}
+
+			$html .= '</tr>';
+		}
+
+		$html .= '</tbody>';
+		$html .= '</table>';
+
+		return $html;
+	}
+}
