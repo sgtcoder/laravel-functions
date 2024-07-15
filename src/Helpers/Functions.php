@@ -1097,14 +1097,18 @@ if (!function_exists('array_to_html')) {
 		foreach ($data as $value) {
 			$html .= '<tr>';
 
-			foreach ($keys as $key => $type) {
+			foreach ($keys as $key => $types) {
+				$types = explode('|', $types);
 				$the_value = $value->$key;
 
-				if ($type == 'date') {
+				if (in_array('date', $types)) {
 					$the_value = now()->parse($the_value)->format('m/d/Y');
 				}
 
-				$html .= '<td>' . $the_value . '</td>';
+				$styles = '';
+				if ($types) $styles = implode(';', $types);
+
+				$html .= '<td style="' . $styles . '">' . $the_value . '</td>';
 			}
 
 			$html .= '</tr>';
