@@ -1120,3 +1120,16 @@ if (!function_exists('array_to_html')) {
 		return $html;
 	}
 }
+
+if (!content_for('content_for')) {
+	/**
+	 * content_for
+	 *
+	 * @param  mixed $section
+	 * @return void
+	 */
+	function content_for($section)
+	{
+		return array_key_exists($section, app('view')->getSections());
+	}
+}
