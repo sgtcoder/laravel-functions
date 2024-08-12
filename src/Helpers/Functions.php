@@ -1121,7 +1121,7 @@ if (!function_exists('array_to_html')) {
 	}
 }
 
-if (!content_for('content_for')) {
+if (!function_exists('content_for')) {
 	/**
 	 * content_for
 	 *
