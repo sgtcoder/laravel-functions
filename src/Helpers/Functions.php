@@ -275,13 +275,17 @@ if (!function_exists('get_states')) {
 	 * get_states
 	 *
 	 * @param  mixed $state
-	 * @return mixed
+	 * @param  mixed $add_states
+	 * @return void
 	 */
-	function get_states($state = NULL)
+	function get_states($state = NULL, $add_states = [])
 	{
 		$states = '{"AL":"Alabama","AK":"Alaska","AZ":"Arizona","AR":"Arkansas","CA":"California","CO":"Colorado","CT":"Connecticut","DE":"Delaware","FL":"Florida","GA":"Georgia","HI":"Hawaii","ID":"Idaho","IL":"Illinois","IN":"Indiana","IA":"Iowa","KS":"Kansas","KY":"Kentucky","LA":"Louisiana","ME":"Maine","MD":"Maryland","MA":"Massachusetts","MI":"Michigan","MN":"Minnesota","MS":"Mississippi","MO":"Missouri","MT":"Montana","NE":"Nebraska","NV":"Nevada","NH":"New Hampshire","NJ":"New Jersey","NM":"New Mexico","NY":"New York","NC":"North Carolina","ND":"North Dakota","OH":"Ohio","OK":"Oklahoma","OR":"Oregon","PA":"Pennsylvania","RI":"Rhode Island","SC":"South Carolina","SD":"South Dakota","TN":"Tennessee","TX":"Texas","UT":"Utah","VT":"Vermont","VA":"Virginia","WA":"Washington","WV":"West Virginia","WI":"Wisconsin","WY":"Wyoming"}';
 
 		$states = json_decode($states, TRUE);
+		$states = array_merge($states, $add_states);
+
+		asort($states);
 
 		if ($state) {
 			return $states[$state] ?? NULL;
