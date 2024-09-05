@@ -1137,3 +1137,72 @@ if (!function_exists('content_for')) {
 		return array_key_exists($section, app('view')->getSections());
 	}
 }
+
+if (!function_exists('download_datatable')) {
+	/**
+	 * download_datatable
+	 *
+	 * @param  mixed $data
+	 * @param  mixed $model_name
+	 * @param  mixed $additional_columns
+	 * @param  mixed $remove_columns
+	 * @param  mixed $model_only
+	 * @return void
+	 */
+	function download_datatable($data, $model_name, $additional_columns = [], $remove_columns = [], $model_only = false)
+	{
+		$model = '\App\Models\\' . $model_name;
+		$table_name = app($model)->getTable();
+
+		if ($model_only) {
+			$columns = app($model)->getFillable();
+		} else {
+			$columns = collect(request('columns'))->pluck('data')->toArray();
+		}
+
+		$remove_columns = array_merge($remove_columns, ['actions']);
+
+		$columns = array_merge($columns, $additional_columns);
+		$columns = array_diff($columns, $remove_columns);
+
+		$filename = $table_name . '_' . now()->format('Y-m-d') . '.csv';
+
+		// Reject
+		$disable_models = ['User'];
+		if (in_array($model_name, $disable_models)) {
+			throw new AuthorizationException;
+
+			return false;
+		}
+
+		request()->merge(['length' => -1]);
+		$data = $data->toJson()->getData(true)['data'];
+
+		$headers = array(
+			"Content-type"        => "text/csv",
+			"Content-Disposition" => "attachment; filename=$filename",
+			"Pragma"              => "no-cache",
+			"Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+			"Expires"             => "0"
+		);
+
+		$callback = function () use ($data, $columns) {
+			$file = fopen('php://output', 'w');
+			fputcsv($file, $columns);
+
+			foreach ($data as $item) {
+				$data_item = [];
+
+				foreach ($columns as $column) {
+					$data_item[$column] = strip_tags($item[$column]);
+				}
+
+				fputcsv($file, $data_item);
+			}
+
+			fclose($file);
+		};
+
+		return response()->stream($callback, 200, $headers);
+	}
+}
