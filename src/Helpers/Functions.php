@@ -422,7 +422,7 @@ if (!function_exists('log_string')) {
 	 * @param  mixed $type
 	 * @param  mixed $message
 	 * @param  mixed $newline
-	 * @return void
+	 * @return string
 	 */
 	function log_string($signature, $type = 'DEFAULT', $message = null, $newline = false)
 	{
