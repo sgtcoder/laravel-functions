@@ -1206,3 +1206,16 @@ if (!function_exists('download_datatable')) {
 		return response()->stream($callback, 200, $headers);
 	}
 }
+
+if (!function_exists('strip_https')) {
+	/**
+	 * strip_https
+	 *
+	 * @param  mixed $url
+	 * @return void
+	 */
+	function strip_https($url)
+	{
+		return preg_replace('#^https?://#', '', rtrim($url, '/'));
+	}
+}
