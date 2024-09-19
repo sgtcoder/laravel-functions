@@ -422,14 +422,16 @@ if (!function_exists('log_string')) {
 	 * @param  mixed $type
 	 * @param  mixed $message
 	 * @param  mixed $newline
-	 * @return string
+	 * @param  mixed $disable_timestamp
+	 * @return void
 	 */
-	function log_string($signature, $type = 'DEFAULT', $message = null, $newline = false)
+	function log_string($signature, $type = 'DEFAULT', $message = null, $newline = false, $disable_timestamp = false)
 	{
 		$log_name = explode(' ', $signature);
 		$log_name = $log_name[0];
 
-		$log = '[' . now()->format('Y-m-d H:i:s') . '][' . $log_name . '][' . $type . ']: ';
+		$log = null;
+		if (!$disable_timestamp) $log = '[' . now()->format('Y-m-d H:i:s') . '][' . $log_name . '][' . $type . ']: ';
 
 		$template = match ($type) {
 			'INFO' => '<fg=#ffc107;options=bold>' . $log . '</>' . $message,
