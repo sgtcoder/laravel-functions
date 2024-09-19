@@ -421,12 +421,14 @@ if (!function_exists('log_string')) {
 	 * @param  mixed $signature
 	 * @param  mixed $type
 	 * @param  mixed $message
-	 * @param  mixed $newline
 	 * @param  mixed $disable_timestamp
+	 * @param  mixed $newline
 	 * @return void
 	 */
-	function log_string($signature, $type = 'DEFAULT', $message = null, $newline = false, $disable_timestamp = false)
+	function log_string($signature = null, $type = 'DEFAULT', $message = null, $disable_timestamp = false, $newline = false)
 	{
+		if ($signature == null) return '';
+
 		$log_name = explode(' ', $signature);
 		$log_name = $log_name[0];
 
@@ -445,6 +447,26 @@ if (!function_exists('log_string')) {
 		if ($newline) $template .= "\n";
 
 		return $template;
+	}
+}
+
+if (!function_exists('console_log')) {
+	/**
+	 * console_log
+	 *
+	 * @param  mixed $signature
+	 * @param  mixed $type
+	 * @param  mixed $message
+	 * @param  mixed $disable_timestamp
+	 * @param  mixed $newline
+	 * @return void
+	 */
+	function console_log($signature = null, $type = 'DEFAULT', $message = null, $disable_timestamp = false, $newline = false)
+	{
+		$template = log_string($signature, $type, $message, $disable_timestamp, $newline);
+
+		$output = new \Symfony\Component\Console\Output\ConsoleOutput();
+		$output->writeln($template);
 	}
 }
 
