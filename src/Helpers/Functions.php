@@ -1243,3 +1243,26 @@ if (!function_exists('strip_https')) {
 		return preg_replace('#^https?://#', '', rtrim($url, '/'));
 	}
 }
+
+if (!function_exists('icmp_ping')) {
+	/**
+	 * icmp_ping
+	 *
+	 * @param  mixed $ip
+	 * @param  mixed $count
+	 * @return void
+	 */
+	function icmp_ping($ip, $count = 4)
+	{
+		$process = \Symfony\Component\Process\Process::fromShellCommandline('ping ' . $ip . ' -c ' . $count);
+		$process->setTimeout(28800);
+		$process->disableOutput();
+		$process->run();
+
+		if (!$process->isSuccessful()) {
+			return false;
+		}
+
+		return true;
+	}
+}
