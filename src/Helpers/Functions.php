@@ -276,7 +276,7 @@ if (!function_exists('get_states')) {
 	 *
 	 * @param  mixed $state
 	 * @param  mixed $add_states
-	 * @return void
+	 * @return mixed
 	 */
 	function get_states($state = NULL, $add_states = [])
 	{
@@ -423,7 +423,7 @@ if (!function_exists('log_string')) {
 	 * @param  mixed $message
 	 * @param  mixed $disable_timestamp
 	 * @param  mixed $newline
-	 * @return void
+	 * @return mixed
 	 */
 	function log_string($signature = null, $type = 'DEFAULT', $message = null, $disable_timestamp = false, $newline = false)
 	{
@@ -459,7 +459,7 @@ if (!function_exists('console_log')) {
 	 * @param  mixed $message
 	 * @param  mixed $disable_timestamp
 	 * @param  mixed $newline
-	 * @return void
+	 * @return mixed
 	 */
 	function console_log($signature = null, $type = 'DEFAULT', $message = null, $disable_timestamp = false, $newline = false)
 	{
@@ -467,6 +467,8 @@ if (!function_exists('console_log')) {
 
 		$output = new \Symfony\Component\Console\Output\ConsoleOutput();
 		$output->writeln($template);
+
+		return true;
 	}
 }
 
@@ -1106,7 +1108,7 @@ if (!function_exists('array_to_html')) {
 	 *
 	 * @param  mixed $data
 	 * @param  mixed $keys
-	 * @return void
+	 * @return mixed
 	 */
 	function array_to_html($data, $keys)
 	{
@@ -1133,8 +1135,7 @@ if (!function_exists('array_to_html')) {
 					$the_value = now()->parse($the_value)->format('m/d/Y');
 				}
 
-				$styles = '';
-				if ($types) $styles = implode(';', $types);
+				$styles = implode(';', $types);
 
 				$html .= '<td style="' . $styles . '">' . $the_value . '</td>';
 			}
@@ -1154,7 +1155,7 @@ if (!function_exists('content_for')) {
 	 * content_for
 	 *
 	 * @param  mixed $section
-	 * @return void
+	 * @return mixed
 	 */
 	function content_for($section)
 	{
@@ -1171,7 +1172,7 @@ if (!function_exists('download_datatable')) {
 	 * @param  mixed $additional_columns
 	 * @param  mixed $remove_columns
 	 * @param  mixed $model_only
-	 * @return void
+	 * @return mixed
 	 */
 	function download_datatable($data, $model_name, $additional_columns = [], $remove_columns = [], $model_only = false)
 	{
@@ -1194,9 +1195,7 @@ if (!function_exists('download_datatable')) {
 		// Reject
 		$disable_models = ['User'];
 		if (in_array($model_name, $disable_models)) {
-			throw new AuthorizationException;
-
-			return false;
+			throw new \Illuminate\Auth\Access\AuthorizationException;
 		}
 
 		request()->merge(['length' => -1]);
@@ -1236,7 +1235,7 @@ if (!function_exists('strip_https')) {
 	 * strip_https
 	 *
 	 * @param  mixed $url
-	 * @return void
+	 * @return mixed
 	 */
 	function strip_https($url)
 	{
@@ -1250,7 +1249,7 @@ if (!function_exists('icmp_ping')) {
 	 *
 	 * @param  mixed $ip
 	 * @param  mixed $count
-	 * @return void
+	 * @return mixed
 	 */
 	function icmp_ping($ip, $count = 4)
 	{

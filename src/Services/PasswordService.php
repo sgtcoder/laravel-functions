@@ -79,13 +79,9 @@ class PasswordService
 
     public function generate_mac_address($qty = 1, $html = false)
     {
-        // @phpstan-ignore-next-line
-        $MacAddress = new \BlakeGardner\MacAddress;
-
         $macs = [];
         for ($i = 1; $i <= $qty; $i++) {
-            // @phpstan-ignore-next-line
-            $macs[] = $MacAddress->generateMacAddress();
+            $macs[] = fake()->macAddress();
         }
 
         if ($html) {
