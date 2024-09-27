@@ -256,6 +256,7 @@ if (!function_exists('slugify')) {
 	function slugify($slug)
 	{
 		$slug = trim($slug);
+		$slug = str()->of($slug)->replace(':', '_');
 		$slug = str()->slug($slug);
 		$slug = str()->of($slug)->replace('-', '_');
 
