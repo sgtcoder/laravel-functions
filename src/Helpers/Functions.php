@@ -1234,8 +1234,8 @@ if (!function_exists('strip_https')) {
 	/**
 	 * strip_https
 	 *
-	 * @param  mixed $url
-	 * @return mixed
+	 * @param  string $url
+	 * @return string
 	 */
 	function strip_https($url)
 	{
@@ -1247,9 +1247,9 @@ if (!function_exists('icmp_ping')) {
 	/**
 	 * icmp_ping
 	 *
-	 * @param  mixed $ip
-	 * @param  mixed $count
-	 * @return mixed
+	 * @param  string $ip
+	 * @param  integer $count
+	 * @return boolean
 	 */
 	function icmp_ping($ip, $count = 4)
 	{
@@ -1263,5 +1263,51 @@ if (!function_exists('icmp_ping')) {
 		}
 
 		return true;
+	}
+}
+
+if (!function_exists('email_template_exists')) {
+	/**
+	 * email_template_exists
+	 *
+	 * @param  string $template
+	 * @return boolean
+	 */
+	function email_template_exists($template)
+	{
+		return view()->exists('emails.' . $template);
+	}
+}
+
+if (!function_exists('make_directory')) {
+	/**
+	 * make_directory
+	 *
+	 * @param  string $path
+	 * @return boolean
+	 */
+	function make_directory($path)
+	{
+		if (!Illuminate\Support\Facades\File::exists($path)) {
+			Illuminate\Support\Facades\File::makeDirectory($path);
+		}
+
+		return true;
+	}
+}
+
+if (!function_exists('command_log_name')) {
+	/**
+	 * command_log_name
+	 *
+	 * @param  string $command
+	 * @return string
+	 */
+	function command_log_name($command)
+	{
+		$command = explode(' ', $command);
+		$command = str_replace(':', '_', $command[0]) . '.log';
+
+		return $command;
 	}
 }
