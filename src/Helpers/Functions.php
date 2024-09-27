@@ -235,14 +235,31 @@ if (!function_exists('unslugify')) {
 	/**
 	 * unslugify
 	 *
-	 * @param  mixed $slug
-	 * @return mixed
+	 * @param  string $slug
+	 * @return string
 	 */
 	function unslugify($slug)
 	{
-		$text = ucwords(strtolower(str_replace('-', ' ', trim($slug))));
+		$slug = ucwords(strtolower(str_replace('-', ' ', trim($slug))));
 
-		return $text;
+		return $slug;
+	}
+}
+
+if (!function_exists('slugify')) {
+	/**
+	 * slugify
+	 *
+	 * @param  string $slug
+	 * @return string
+	 */
+	function slugify($slug)
+	{
+		$slug = trim($slug);
+		$slug = str()->slug($slug);
+		$slug = str()->of($slug)->replace('-', '_');
+
+		return $slug;
 	}
 }
 
@@ -1305,8 +1322,10 @@ if (!function_exists('command_log_name')) {
 	 */
 	function command_log_name($command)
 	{
-		$command = explode(' ', $command);
-		$command = str_replace(':', '_', $command[0]) . '.log';
+		$command = explode(' ', $command)[0] ?? null;
+
+		$command = slugify($command);
+		$command = $command . '.log';
 
 		return $command;
 	}
