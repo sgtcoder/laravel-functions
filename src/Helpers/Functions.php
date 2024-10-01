@@ -947,6 +947,10 @@ if (!function_exists('get_guard_data')) {
 
 		$guard = str()->of($middlewares)->replace('auth:', '')->toString();
 
+		if ($guard == 'auth') {
+			$guard = 'web';
+		}
+
 		return [
 			'prefix' => $prefix,
 			'guard' => $guard,
