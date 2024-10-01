@@ -928,6 +928,32 @@ if (!function_exists('get_guards')) {
 	}
 }
 
+if (!function_exists('get_guard_data')) {
+	/**
+	 * get_guard_data
+	 *
+	 * @param  mixed $url
+	 * @return array
+	 */
+	function get_guard_data($url)
+	{
+		$prefix = \Route::getRoutes()->match(\Request::create($url))->getPrefix();
+		$prefix = ltrim($prefix, '/');
+
+		$middlewares = \Route::getRoutes()->match(\Request::create($url))->gatherMiddleware();
+		$middlewares = collect($middlewares)->filter(function ($middleware) {
+			return str()->startsWith($middleware, 'auth');
+		})->first();
+
+		$guard = str()->of($middlewares)->replace('auth:', '')->toString();
+
+		return [
+			'prefix' => $prefix,
+			'guard' => $guard,
+		];
+	}
+}
+
 if (!function_exists('get_timezones')) {
 	/**
 	 * get_guards
