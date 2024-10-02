@@ -85,6 +85,7 @@ final class LaravelEmail
         // Filter Emails
         $filtered_emails = [];
         foreach ($to_emails as $email) {
+            $email = strtolower($email);
             $domain = explode("@", $email)[1] ?? null;
 
             if (!in_array($domain, $blacklist_email_domains)) {
