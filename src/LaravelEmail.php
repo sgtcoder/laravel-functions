@@ -20,11 +20,20 @@ final class LaravelEmail
     private static $bcc_emails;
 
     /**
+     * Holds Blacklist Email Domains
+     */
+    private static $blacklist_email_domains;
+
+    /**
      * Private Construct
      */
     private function __construct($to_emails)
     {
         self::$to_emails = $to_emails;
+
+        $blacklist_email_domains = explode(',', strtolower(env('BLACKLIST_EMAIL_DOMAINS')));
+        $blacklist_email_domains[] = 'mailinator.com';
+        self::$blacklist_email_domains = $blacklist_email_domains;
     }
 
     /**
@@ -71,13 +80,14 @@ final class LaravelEmail
         $to_emails = self::$to_emails;
         $cc_emails = self::$cc_emails;
         $bcc_emails = self::$bcc_emails;
+        $blacklist_email_domains = self::$blacklist_email_domains;
 
         // Filter Emails
         $filtered_emails = [];
         foreach ($to_emails as $email) {
             $domain = explode("@", $email)[1] ?? null;
 
-            if (!in_array($domain, ['mailinator.com', 'noemail.com'])) {
+            if (!in_array($domain, $blacklist_email_domains)) {
                 $filtered_emails[] = $email;
             }
         }
