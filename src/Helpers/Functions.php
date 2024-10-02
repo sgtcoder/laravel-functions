@@ -1361,3 +1361,18 @@ if (!function_exists('command_log_name')) {
 		return $command;
 	}
 }
+
+if (!function_exists('send_laravel_email')) {
+	/**
+	 * send_laravel_email
+	 *
+	 * @param array $to_emails
+	 * @return mixed
+	 */
+	function send_laravel_email($to_emails)
+	{
+		$laravel_email = \SgtCoder\LaravelFunctions\LaravelEmail::send_laravel_email($to_emails);
+
+		return $laravel_email;
+	}
+}
