@@ -84,7 +84,7 @@ final class LaravelEmail
 
         $to_emails = $filtered_emails;
 
-        $emailer = Mail::to($to_emails);
+        $emailer = \Mail::to($to_emails);
         if ($cc_emails) $emailer->cc($cc_emails);
         if ($bcc_emails) $emailer->bcc($bcc_emails);
 
