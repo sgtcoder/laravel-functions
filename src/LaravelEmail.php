@@ -82,9 +82,9 @@ final class LaravelEmail
         $bcc_emails = self::$bcc_emails;
         $blacklist_email_domains = self::$blacklist_email_domains;
 
-        if (!is_array($to_emails)) $to_emails = [$to_emails];
-        if (!is_array($cc_emails)) $cc_emails = [$cc_emails];
-        if (!is_array($bcc_emails)) $bcc_emails = [$bcc_emails];
+        if ($to_emails && !is_array($to_emails)) $to_emails = [$to_emails];
+        if ($cc_emails && !is_array($cc_emails)) $cc_emails = [$cc_emails];
+        if ($bcc_emails && !is_array($bcc_emails)) $bcc_emails = [$bcc_emails];
 
         // Filter Emails
         $filtered_emails = [];
