@@ -1366,7 +1366,7 @@ if (!function_exists('send_laravel_email')) {
 	/**
 	 * send_laravel_email
 	 *
-	 * @param array $to_emails
+	 * @param string|array $to_emails
 	 * @return mixed
 	 */
 	function send_laravel_email($to_emails)
