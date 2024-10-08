@@ -1085,22 +1085,6 @@ if (!function_exists('get_timezones')) {
 	}
 }
 
-if (!function_exists('get_guards')) {
-	/**
-	 * get_guards
-	 *
-	 * @return mixed
-	 */
-	function get_guards()
-	{
-		$guards = collect(config('auth.guards'))->keys()->mapWithKeys(function ($guard) {
-			return [$guard => ucwords($guard)];
-		});
-
-		return $guards;
-	}
-}
-
 if (!function_exists('create_password')) {
 	/**
 	 * create_password
