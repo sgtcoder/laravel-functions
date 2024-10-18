@@ -933,13 +933,16 @@ if (!function_exists('get_guard_permissions')) {
 	/**
 	 * get_guard_permissions
 	 *
-	 * @param  string $guard_name
+	 * @param  mixed $guard_name
+	 * @param  mixed $name_only
 	 * @return mixed
 	 */
-	function get_guard_permissions($guard_name)
+	function get_guard_permissions($guard_name, $name_only = false)
 	{
 		// @phpstan-ignore-next-line
 		$permissions = \App\Models\Permission::where('guard_name', $guard_name)->get();
+
+		if ($name_only) return $permissions->pluck('name')->toArray();
 
 		return $permissions;
 	}
