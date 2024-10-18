@@ -920,7 +920,8 @@ if (!function_exists('get_guards')) {
 	 */
 	function get_guards()
 	{
-		$guards = collect(config('auth.guards'))->keys()->mapWithKeys(function ($guard) {
+		// @phpstan-ignore-next-line
+		$guards = collect(\App\Models\Permission::defaultPermissions())->keys()->mapWithKeys(function ($guard) {
 			return [$guard => ucwords($guard)];
 		});
 
@@ -928,11 +929,27 @@ if (!function_exists('get_guards')) {
 	}
 }
 
+if (!function_exists('get_guard_permissions')) {
+	/**
+	 * get_guard_permissions
+	 *
+	 * @param  string $guard_name
+	 * @return mixed
+	 */
+	function get_guard_permissions($guard_name)
+	{
+		// @phpstan-ignore-next-line
+		$permissions = \App\Models\Permission::where('guard_name', $guard_name)->get();
+
+		return $permissions;
+	}
+}
+
 if (!function_exists('get_guard_data')) {
 	/**
 	 * get_guard_data
 	 *
-	 * @param  mixed $url
+	 * @param string $url
 	 * @return array
 	 */
 	function get_guard_data($url)

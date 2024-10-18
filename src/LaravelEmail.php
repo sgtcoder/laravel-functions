@@ -73,7 +73,8 @@ final class LaravelEmail
     /**
      * Chained Send
      *
-     * @return static
+     * @param  mixed $mail_class
+     * @return mixed
      */
     public static function send($mail_class)
     {
