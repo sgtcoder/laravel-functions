@@ -79,12 +79,18 @@ class CustomServiceProvider extends BaseServiceProvider
             return NULL;
         });
 
+        Blade::directive('svg', function ($filepath) {
+            return "<?php echo file_get_contents(public_path(" . $filepath . ")); ?>";
+        });
+
         Blade::anonymousComponentPath(resource_path('views/emails/components'), 'email');
 
         // https://github.com/korridor/laravel-has-many-sync
         HasMany::macro('sync', function (array $data, bool $deleting = true): array {
             $changes = [
-                'created' => [], 'deleted' => [], 'updated' => [],
+                'created' => [],
+                'deleted' => [],
+                'updated' => [],
             ];
 
             /** @var HasMany $this */
