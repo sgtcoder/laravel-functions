@@ -445,7 +445,7 @@ if (!function_exists('log_string')) {
 	 */
 	function log_string($signature = null, $type = 'DEFAULT', $message = null, $disable_timestamp = false, $newline = false)
 	{
-		if ($signature == null) return '';
+		if ($signature === null) return '';
 
 		$log_name = explode(' ', $signature);
 		$log_name = $log_name[0];
@@ -485,6 +485,21 @@ if (!function_exists('console_log')) {
 
 		$output = new \Symfony\Component\Console\Output\ConsoleOutput();
 		$output->writeln($template);
+
+		return true;
+	}
+}
+
+if (!function_exists('console_log_line')) {
+	/**
+	 * console_log_line
+	 *
+	 * @return mixed
+	 */
+	function console_log_line()
+	{
+		$output = new \Symfony\Component\Console\Output\ConsoleOutput();
+		$output->writeln('');
 
 		return true;
 	}

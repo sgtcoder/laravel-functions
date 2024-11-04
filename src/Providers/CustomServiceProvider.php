@@ -84,6 +84,7 @@ class CustomServiceProvider extends BaseServiceProvider
         });
 
         Blade::anonymousComponentPath(resource_path('views/emails/components'), 'email');
+        Blade::anonymousComponentPath(resource_path('svg'), 'svg');
 
         // https://github.com/korridor/laravel-has-many-sync
         HasMany::macro('sync', function (array $data, bool $deleting = true): array {
