@@ -77,6 +77,19 @@ if (!function_exists('array_to_object')) {
 	}
 }
 
+if (!function_exists('convert_array_to_object')) {
+	/**
+	 * convert_array_to_object
+	 *
+	 * @param  mixed $array
+	 * @return mixed
+	 */
+	function convert_array_to_object($array)
+	{
+		return json_decode(json_encode($array));
+	}
+}
+
 if (!function_exists('generate_random_hex')) {
 	/**
 	 * generate_random_hex
