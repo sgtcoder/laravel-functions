@@ -1408,3 +1408,16 @@ if (!function_exists('send_laravel_email')) {
 		return $laravel_email;
 	}
 }
+
+if (!function_exists('is_livewire_redirect')) {
+	/**
+	 * is_livewire_redirect
+	 *
+	 * @param  mixed $redirect_url
+	 * @return mixed
+	 */
+	function is_livewire_redirect($redirect_url)
+	{
+		return request()->getHttpHost() == parse_url($redirect_url, PHP_URL_HOST);
+	}
+}
