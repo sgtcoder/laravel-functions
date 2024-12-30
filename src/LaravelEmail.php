@@ -31,6 +31,7 @@ final class LaravelEmail
     {
         self::$to_emails = $to_emails;
 
+        /** @phpstan-ignore-next-line */
         $blacklist_email_domains = explode(',', strtolower(env('BLACKLIST_EMAIL_DOMAINS')));
         $blacklist_email_domains[] = 'mailinator.com';
         self::$blacklist_email_domains = $blacklist_email_domains;
