@@ -21,6 +21,7 @@ class CustomServiceProvider extends BaseServiceProvider
     public function register()
     {
         // Force Route SSL
+        /** @phpstan-ignore-next-line */
         if (!env('DISABLE_SSL', FALSE)) {
             \Illuminate\Support\Facades\URL::forceScheme('https');
         }
@@ -76,7 +77,7 @@ class CustomServiceProvider extends BaseServiceProvider
         });
 
         Blade::directive('todo', function ($key) {
-            return NULL;
+            return null;
         });
 
         Blade::directive('svg', function ($filepath) {
