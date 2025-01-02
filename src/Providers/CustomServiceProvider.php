@@ -77,7 +77,7 @@ class CustomServiceProvider extends BaseServiceProvider
         });
 
         Blade::directive('todo', function ($key) {
-            return NULL;
+            return null;
         });
 
         Blade::directive('svg', function ($filepath) {

@@ -208,9 +208,9 @@ if (!function_exists('url_exists')) {
 	 * @param  mixed $url
 	 * @return mixed
 	 */
-	function url_exists($url = NULL)
+	function url_exists($url = null)
 	{
-		if ($url == NULL) return false;
+		if ($url == null) return false;
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 5);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
@@ -296,7 +296,7 @@ if (!function_exists('format_date')) {
 				return $date;
 			}
 		} else {
-			return NULL;
+			return null;
 		}
 	}
 }
@@ -309,7 +309,7 @@ if (!function_exists('get_states')) {
 	 * @param  mixed $add_states
 	 * @return mixed
 	 */
-	function get_states($state = NULL, $add_states = [])
+	function get_states($state = null, $add_states = [])
 	{
 		$states = '{"AL":"Alabama","AK":"Alaska","AZ":"Arizona","AR":"Arkansas","CA":"California","CO":"Colorado","CT":"Connecticut","DE":"Delaware","FL":"Florida","GA":"Georgia","HI":"Hawaii","ID":"Idaho","IL":"Illinois","IN":"Indiana","IA":"Iowa","KS":"Kansas","KY":"Kentucky","LA":"Louisiana","ME":"Maine","MD":"Maryland","MA":"Massachusetts","MI":"Michigan","MN":"Minnesota","MS":"Mississippi","MO":"Missouri","MT":"Montana","NE":"Nebraska","NV":"Nevada","NH":"New Hampshire","NJ":"New Jersey","NM":"New Mexico","NY":"New York","NC":"North Carolina","ND":"North Dakota","OH":"Ohio","OK":"Oklahoma","OR":"Oregon","PA":"Pennsylvania","RI":"Rhode Island","SC":"South Carolina","SD":"South Dakota","TN":"Tennessee","TX":"Texas","UT":"Utah","VT":"Vermont","VA":"Virginia","WA":"Washington","WV":"West Virginia","WI":"Wisconsin","WY":"Wyoming"}';
 
@@ -319,7 +319,7 @@ if (!function_exists('get_states')) {
 		asort($states);
 
 		if ($state) {
-			return $states[$state] ?? NULL;
+			return $states[$state] ?? null;
 		}
 
 		return $states;
@@ -333,14 +333,14 @@ if (!function_exists('get_countries')) {
 	 * @param  mixed $country
 	 * @return mixed
 	 */
-	function get_countries($country = NULL)
+	function get_countries($country = null)
 	{
 		$countries = '{"AF":"Afghanistan","AX":"land Islands","AL":"Albania","DZ":"Algeria","AS":"American Samoa","AD":"AndorrA","AO":"Angola","AI":"Anguilla","AQ":"Antarctica","AG":"Antigua and Barbuda","AR":"Argentina","AM":"Armenia","AW":"Aruba","AU":"Australia","AT":"Austria","AZ":"Azerbaijan","BS":"Bahamas","BH":"Bahrain","BD":"Bangladesh","BB":"Barbados","BY":"Belarus","BE":"Belgium","BZ":"Belize","BJ":"Benin","BM":"Bermuda","BT":"Bhutan","BO":"Bolivia","BA":"Bosnia and Herzegovina","BW":"Botswana","BV":"Bouvet Island","BR":"Brazil","IO":"British Indian Ocean Territory","BN":"Brunei Darussalam","BG":"Bulgaria","BF":"Burkina Faso","BI":"Burundi","KH":"Cambodia","CM":"Cameroon","CA":"Canada","CV":"Cape Verde","KY":"Cayman Islands","CF":"Central African Republic","TD":"Chad","CL":"Chile","CN":"China","CX":"Christmas Island","CC":"Cocos (Keeling) Islands","CO":"Colombia","KM":"Comoros","CG":"Congo","CD":"Congo, The Democratic Republic of the","CK":"Cook Islands","CR":"Costa Rica","CI":"Cote D\"Ivoire","HR":"Croatia","CU":"Cuba","CY":"Cyprus","CZ":"Czech Republic","DK":"Denmark","DJ":"Djibouti","DM":"Dominica","DO":"Dominican Republic","EC":"Ecuador","EG":"Egypt","SV":"El Salvador","GQ":"Equatorial Guinea","ER":"Eritrea","EE":"Estonia","ET":"Ethiopia","FK":"Falkland Islands (Malvinas)","FO":"Faroe Islands","FJ":"Fiji","FI":"Finland","FR":"France","GF":"French Guiana","PF":"French Polynesia","TF":"French Southern Territories","GA":"Gabon","GM":"Gambia","GE":"Georgia","DE":"Germany","GH":"Ghana","GI":"Gibraltar","GR":"Greece","GL":"Greenland","GD":"Grenada","GP":"Guadeloupe","GU":"Guam","GT":"Guatemala","GG":"Guernsey","GN":"Guinea","GW":"Guinea-Bissau","GY":"Guyana","HT":"Haiti","HM":"Heard Island and Mcdonald Islands","VA":"Holy See (Vatican City State)","HN":"Honduras","HK":"Hong Kong","HU":"Hungary","IS":"Iceland","IN":"India","ID":"Indonesia","IR":"Iran, Islamic Republic Of","IQ":"Iraq","IE":"Ireland","IM":"Isle of Man","IL":"Israel","IT":"Italy","JM":"Jamaica","JP":"Japan","JE":"Jersey","JO":"Jordan","KZ":"Kazakhstan","KE":"Kenya","KI":"Kiribati","KP":"Korea, Democratic People\"S Republic of","KR":"Korea, Republic of","KW":"Kuwait","KG":"Kyrgyzstan","LA":"Lao People\"S Democratic Republic","LV":"Latvia","LB":"Lebanon","LS":"Lesotho","LR":"Liberia","LY":"Libyan Arab Jamahiriya","LI":"Liechtenstein","LT":"Lithuania","LU":"Luxembourg","MO":"Macao","MK":"Macedonia, The Former Yugoslav Republic of","MG":"Madagascar","MW":"Malawi","MY":"Malaysia","MV":"Maldives","ML":"Mali","MT":"Malta","MH":"Marshall Islands","MQ":"Martinique","MR":"Mauritania","MU":"Mauritius","YT":"Mayotte","MX":"Mexico","FM":"Micronesia, Federated States of","MD":"Moldova, Republic of","MC":"Monaco","MN":"Mongolia","ME":"Montenegro","MS":"Montserrat","MA":"Morocco","MZ":"Mozambique","MM":"Myanmar","NA":"Namibia","NR":"Nauru","NP":"Nepal","NL":"Netherlands","AN":"Netherlands Antilles","NC":"New Caledonia","NZ":"New Zealand","NI":"Nicaragua","NE":"Niger","NG":"Nigeria","NU":"Niue","NF":"Norfolk Island","MP":"Northern Mariana Islands","NO":"Norway","OM":"Oman","PK":"Pakistan","PW":"Palau","PS":"Palestinian Territory, Occupied","PA":"Panama","PG":"Papua New Guinea","PY":"Paraguay","PE":"Peru","PH":"Philippines","PN":"Pitcairn","PL":"Poland","PT":"Portugal","PR":"Puerto Rico","QA":"Qatar","RE":"Reunion","RO":"Romania","RU":"Russian Federation","RW":"RWANDA","SH":"Saint Helena","KN":"Saint Kitts and Nevis","LC":"Saint Lucia","PM":"Saint Pierre and Miquelon","VC":"Saint Vincent and the Grenadines","WS":"Samoa","SM":"San Marino","ST":"Sao Tome and Principe","SA":"Saudi Arabia","SN":"Senegal","RS":"Serbia","SC":"Seychelles","SL":"Sierra Leone","SG":"Singapore","SK":"Slovakia","SI":"Slovenia","SB":"Solomon Islands","SO":"Somalia","ZA":"South Africa","GS":"South Georgia and the South Sandwich Islands","ES":"Spain","LK":"Sri Lanka","SD":"Sudan","SR":"Suriname","SJ":"Svalbard and Jan Mayen","SZ":"Swaziland","SE":"Sweden","CH":"Switzerland","SY":"Syrian Arab Republic","TW":"Taiwan, Province of China","TJ":"Tajikistan","TZ":"Tanzania, United Republic of","TH":"Thailand","TL":"Timor-Leste","TG":"Togo","TK":"Tokelau","TO":"Tonga","TT":"Trinidad and Tobago","TN":"Tunisia","TR":"Turkey","TM":"Turkmenistan","TC":"Turks and Caicos Islands","TV":"Tuvalu","UG":"Uganda","UA":"Ukraine","AE":"United Arab Emirates","GB":"United Kingdom","US":"United States","UM":"United States Minor Outlying Islands","UY":"Uruguay","UZ":"Uzbekistan","VU":"Vanuatu","VE":"Venezuela","VN":"Viet Nam","VG":"Virgin Islands, British","VI":"Virgin Islands, U.S.","WF":"Wallis and Futuna","EH":"Western Sahara","YE":"Yemen","ZM":"Zambia","ZW":"Zimbabwe"}';
 
 		$countries = json_decode($countries, TRUE);
 
 		if ($country) {
-			return $countries[$country] ?? NULL;
+			return $countries[$country] ?? null;
 		}
 
 		return $countries;
@@ -361,7 +361,7 @@ if (!function_exists('age_from_date')) {
 		try {
 			$years = date_diff(date_create($date_of_birth), date_create($today))->format('%y');
 		} catch (exception $e) {
-			return NULL;
+			return null;
 		}
 
 		return $years;
@@ -528,7 +528,7 @@ if (!function_exists('convert_meters_to_miles')) {
 	 */
 	function convert_meters_to_miles($meters, $precision = 2)
 	{
-		if ($meters === NULL) return NULL;
+		if ($meters === null) return null;
 
 		return round($meters * 0.000621371, $precision);
 	}
@@ -544,7 +544,7 @@ if (!function_exists('convert_meters_to_feet')) {
 	 */
 	function convert_meters_to_feet($meters, $precision = 2)
 	{
-		if ($meters === NULL) return NULL;
+		if ($meters === null) return null;
 
 		return round($meters * 3.2808399, $precision);
 	}
@@ -653,7 +653,7 @@ if (!function_exists('build_alert')) {
 	 * @param  mixed $class
 	 * @return mixed
 	 */
-	function build_alert($status, $message, $class = NULL)
+	function build_alert($status, $message, $class = null)
 	{
 		return '<div class="alert alert-' . $status . ' ' . $class . '" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1000">' . $message . '</div>';
 	}
@@ -685,7 +685,7 @@ if (!function_exists('sync_media')) {
 	 * @param  mixed $media_prefix
 	 * @return mixed
 	 */
-	function sync_media($prefix, $model = NULL, $single = true, $media_prefix = NULL)
+	function sync_media($prefix, $model = null, $single = true, $media_prefix = null)
 	{
 		// @phpstan-ignore-next-line
 		$MediaService = (new \App\Services\MediaService);
@@ -702,7 +702,7 @@ if (!function_exists('sync_media')) {
 		}
 
 		// Crop new images
-		if (request($prefix . '_media')) {
+		if (request($prefix . '_media') && is_array(request($prefix . '_media'))) {
 			foreach (request($prefix . '_media') as $item) {
 				$media_data = request($prefix . '_data.' . $item);
 				if ($media_data) {
@@ -1385,7 +1385,7 @@ if (!function_exists('command_log_name')) {
 	 */
 	function command_log_name($command)
 	{
-		$command = explode(' ', $command)[0];
+		$command = explode(' ', $command)[0] ?? null;
 
 		$command = slugify($command);
 		$command = $command . '.log';
