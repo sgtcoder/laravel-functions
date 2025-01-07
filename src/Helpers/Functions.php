@@ -347,6 +347,23 @@ if (!function_exists('get_countries')) {
 	}
 }
 
+if (!function_exists('get_provinces')) {
+	/**
+	 * get_provinces
+	 *
+	 * @param  mixed $province
+	 * @return mixed
+	 */
+	function get_provinces($province = null)
+	{
+		$provinces = '{"AB":"Alberta","BC":"British Columbia","MB":"Manitoba","NB":"New Brunswick","NL":"Newfoundland and Labrador","NS":"Nova Scotia","ON":"Ontario","PE":"Prince Edward Island","QC":"Quebec","SK":"Saskatchewan"}';
+
+		$provinces = json_decode($provinces, TRUE);
+
+		return $provinces[$province] ?? null;
+	}
+}
+
 if (!function_exists('age_from_date')) {
 	/**
 	 * age_from_date
