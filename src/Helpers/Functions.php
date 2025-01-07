@@ -373,9 +373,10 @@ if (!function_exists('get_states_html')) {
 	 * get_states_html
 	 *
 	 * @param  mixed $placeholder
+	 * @param  mixed $selected
 	 * @return mixed
 	 */
-	function get_states_html($placeholder = null)
+	function get_states_html($placeholder = null, $selected = null)
 	{
 		$states = get_states();
 
@@ -385,8 +386,8 @@ if (!function_exists('get_states_html')) {
 			$html = '<option value="">' . $placeholder . '</option>';
 		}
 
-		foreach ($states as $state) {
-			$html .= '<option value="' . $state . '">' . $state . '</option>';
+		foreach ($states as $state_key => $state_value) {
+			$html .= '<option value="' . $state_key . '"' . ($selected == $state_key ? ' selected' : '') . '>' . $state_value . '</option>';
 		}
 
 		return $html;
@@ -398,9 +399,10 @@ if (!function_exists('get_provinces_html')) {
 	 * get_provinces_html
 	 *
 	 * @param  mixed $placeholder
+	 * @param  mixed $selected
 	 * @return mixed
 	 */
-	function get_provinces_html($placeholder = null)
+	function get_provinces_html($placeholder = null, $selected = null)
 	{
 		$provinces = get_provinces();
 
@@ -410,8 +412,8 @@ if (!function_exists('get_provinces_html')) {
 			$html = '<option value="">' . $placeholder . '</option>';
 		}
 
-		foreach ($provinces as $province) {
-			$html .= '<option value="' . $province . '">' . $province . '</option>';
+		foreach ($provinces as $province_key => $province_value) {
+			$html .= '<option value="' . $province_key . '"' . ($selected == $province_key ? ' selected' : '') . '>' . $province_value . '</option>';
 		}
 
 		return $html;
