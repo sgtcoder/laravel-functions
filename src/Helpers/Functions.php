@@ -356,7 +356,7 @@ if (!function_exists('get_provinces')) {
 	 */
 	function get_provinces($province = null)
 	{
-		$provinces = '{"AB":"Alberta","BC":"British Columbia","MB":"Manitoba","NB":"New Brunswick","NL":"Newfoundland and Labrador","NS":"Nova Scotia","ON":"Ontario","PE":"Prince Edward Island","QC":"Quebec","SK":"Saskatchewan"}';
+		$provinces = '{"AB":"Alberta","BC":"British Columbia","MB":"Manitoba","NB":"New Brunswick","NL":"Newfoundland and Labrador","NS":"Nova Scotia","ON":"Ontario","PE":"Prince Edward Island","QC":"Quebec","SK":"Saskatchewan","YT":"Yukon","NT":"Northwest Territories","NU":"Nunavut"}';
 
 		$provinces = json_decode($provinces, true);
 
