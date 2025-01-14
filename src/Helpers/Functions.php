@@ -1458,7 +1458,7 @@ if (!function_exists('command_log_name')) {
 	 */
 	function command_log_name($command)
 	{
-		$command = explode(' ', $command)[0] ?? null;
+		$command = explode(' ', $command)[0];
 
 		$command = slugify($command);
 		$command = $command . '.log';

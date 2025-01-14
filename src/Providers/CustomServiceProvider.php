@@ -7,6 +7,7 @@ use Illuminate\Database\Query\Builder;
 
 use Illuminate\Support\{
     Facades\Blade,
+    Facades\Route,
     Arr,
     ServiceProvider as BaseServiceProvider
 };
@@ -155,6 +156,25 @@ class CustomServiceProvider extends BaseServiceProvider
             $changes['updated'] = $castKeys(Arr::pluck($updatedRows, $relatedKeyName));
 
             return $changes;
+        });
+
+        // Macro for Domain Array Route
+        Route::macro("domain", function (array $domains, \Closure $definition) {
+            $domain = request()->getHost();
+
+            if (in_array($domain, $domains)) {
+                Route::group(['domain' => $domain], $definition);
+            }
+        });
+
+        // Macro for Static View
+        Route::macro('staticView', function ($uri, $view, $data = [], $status = 200, $headers = []) {
+            return $this->get($uri, [
+                'uses' => function () use ($view, $data, $status, $headers) {
+                    return response()->view($view, $data, $status)->withHeaders($headers);
+                },
+                'namespace' => null
+            ]);
         });
     }
 }
