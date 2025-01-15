@@ -1494,3 +1494,23 @@ if (!function_exists('is_livewire_redirect')) {
 		return request()->getHttpHost() == parse_url($redirect_url, PHP_URL_HOST);
 	}
 }
+
+if (!function_exists('log_channel')) {
+	/**
+	 * log_channel
+	 *
+	 * @param  mixed $type
+	 * @param  mixed $message
+	 * @param  mixed $args
+	 * @param  mixed $channel
+	 * @return mixed
+	 */
+	function log_channel($type, $message, $args = [], $channel = null)
+	{
+		$channel ??= config('logging.default');
+
+		\Illuminate\Support\Facades\Log::channel($channel)->{$type}($message, $args);
+
+		return true;
+	}
+}
