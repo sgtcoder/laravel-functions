@@ -1509,7 +1509,7 @@ if (!function_exists('log_channel')) {
 	{
 		$channel ??= config('logging.default');
 
-		\Illuminate\Support\Facades\Log::channel($channel)->{$type}($message, $args);
+		\Illuminate\Support\Facades\Log::channel($channel)->{$type}($message, [$args]);
 
 		return true;
 	}
