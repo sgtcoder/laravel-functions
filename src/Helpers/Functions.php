@@ -597,13 +597,21 @@ if (!function_exists('convert_meters_to_miles')) {
 	 *
 	 * @param  mixed $meters
 	 * @param  mixed $precision
+	 * @param  mixed $floor
 	 * @return mixed
 	 */
-	function convert_meters_to_miles($meters, $precision = 2)
+	function convert_meters_to_miles($meters, $precision = 2, $floor = false)
 	{
 		if ($meters === null) return null;
 
-		return round($meters * 0.000621371, $precision);
+		$miles = $meters * 0.000621371;
+
+		if ($floor) {
+			$multiplier = pow(10, $precision);
+			return floor($miles * $multiplier) / $multiplier;
+		}
+
+		return round($miles, $precision);
 	}
 }
 
@@ -613,13 +621,21 @@ if (!function_exists('convert_meters_to_feet')) {
 	 *
 	 * @param  mixed $meters
 	 * @param  mixed $precision
+	 * @param  mixed $floor
 	 * @return mixed
 	 */
-	function convert_meters_to_feet($meters, $precision = 2)
+	function convert_meters_to_feet($meters, $precision = 2, $floor = false)
 	{
 		if ($meters === null) return null;
 
-		return round($meters * 3.2808399, $precision);
+		$feet = $meters * 3.2808399;
+
+		if ($floor) {
+			$multiplier = pow(10, $precision);
+			return floor($feet * $multiplier) / $multiplier;
+		}
+
+		return round($feet, $precision);
 	}
 }
 
