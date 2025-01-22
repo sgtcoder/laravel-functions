@@ -90,6 +90,19 @@ if (!function_exists('convert_array_to_object')) {
 	}
 }
 
+if (!function_exists('convert_to_array')) {
+	/**
+	 * convert_to_array
+	 *
+	 * @param  mixed $value
+	 * @return mixed
+	 */
+	function convert_to_array($value)
+	{
+		return json_decode(json_encode($value), true);
+	}
+}
+
 if (!function_exists('generate_random_hex')) {
 	/**
 	 * generate_random_hex
@@ -1543,8 +1556,7 @@ if (!function_exists('log_response')) {
 	 */
 	function log_response($type, $message, $args = [], $log_name = 'api_logs')
 	{
-		$args ??= [];
-
+		$args = is_array($args) ? $args : [$args];
 		$channel = \Illuminate\Support\Facades\Log::build([
 			'driver' => 'single',
 			'path' => storage_path('logs/' . $log_name . '.log'),
