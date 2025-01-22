@@ -6,3 +6,4 @@ parameters:
     tmpDir: tmp
     level: 5
     reportUnmatchedIgnoredErrors: false
+    ignoreErrors:

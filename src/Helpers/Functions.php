@@ -1530,3 +1530,26 @@ if (!function_exists('log_channel')) {
 		return true;
 	}
 }
+
+if (!function_exists('log_response')) {
+	/**
+	 * log_response
+	 *
+	 * @param  mixed $type
+	 * @param  mixed $message
+	 * @param  mixed $args
+	 * @param  mixed $log_name
+	 * @return mixed
+	 */
+	function log_response($type, $message, $args = [], $log_name = 'api_logs')
+	{
+		$args ??= [];
+
+		$channel = \Illuminate\Support\Facades\Log::build([
+			'driver' => 'single',
+			'path' => storage_path('logs/' . $log_name . '.log'),
+		]);
+
+		$channel->{$type}($message, $args);
+	}
+}
