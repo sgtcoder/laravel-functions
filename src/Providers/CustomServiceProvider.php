@@ -169,7 +169,7 @@ class CustomServiceProvider extends BaseServiceProvider
 
         // Macro for Static View
         Route::macro('staticView', function ($uri, $view, $data = [], $status = 200, $headers = []) {
-            return $this->get($uri, [
+            return Route::get($uri, [
                 'uses' => function () use ($view, $data, $status, $headers) {
                     return response()->view($view, $data, $status)->withHeaders($headers);
                 },

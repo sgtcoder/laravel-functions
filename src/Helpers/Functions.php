@@ -597,13 +597,21 @@ if (!function_exists('convert_meters_to_miles')) {
 	 *
 	 * @param  mixed $meters
 	 * @param  mixed $precision
+	 * @param  mixed $floor
 	 * @return mixed
 	 */
-	function convert_meters_to_miles($meters, $precision = 2)
+	function convert_meters_to_miles($meters, $precision = 2, $floor = false)
 	{
 		if ($meters === null) return null;
 
-		return round($meters * 0.000621371, $precision);
+		$miles = $meters * 0.000621371;
+
+		if ($floor) {
+			$multiplier = pow(10, $precision);
+			return floor($miles * $multiplier) / $multiplier;
+		}
+
+		return round($miles, $precision);
 	}
 }
 
@@ -613,13 +621,21 @@ if (!function_exists('convert_meters_to_feet')) {
 	 *
 	 * @param  mixed $meters
 	 * @param  mixed $precision
+	 * @param  mixed $floor
 	 * @return mixed
 	 */
-	function convert_meters_to_feet($meters, $precision = 2)
+	function convert_meters_to_feet($meters, $precision = 2, $floor = false)
 	{
 		if ($meters === null) return null;
 
-		return round($meters * 3.2808399, $precision);
+		$feet = $meters * 3.2808399;
+
+		if ($floor) {
+			$multiplier = pow(10, $precision);
+			return floor($feet * $multiplier) / $multiplier;
+		}
+
+		return round($feet, $precision);
 	}
 }
 
@@ -1492,5 +1508,48 @@ if (!function_exists('is_livewire_redirect')) {
 	function is_livewire_redirect($redirect_url)
 	{
 		return request()->getHttpHost() == parse_url($redirect_url, PHP_URL_HOST);
+	}
+}
+
+if (!function_exists('log_channel')) {
+	/**
+	 * log_channel
+	 *
+	 * @param  mixed $type
+	 * @param  mixed $message
+	 * @param  mixed $args
+	 * @param  mixed $channel
+	 * @return mixed
+	 */
+	function log_channel($type, $message, $args = [], $channel = null)
+	{
+		$channel ??= config('logging.default');
+
+		\Illuminate\Support\Facades\Log::channel($channel)->{$type}($message, [$args]);
+
+		return true;
+	}
+}
+
+if (!function_exists('log_response')) {
+	/**
+	 * log_response
+	 *
+	 * @param  mixed $type
+	 * @param  mixed $message
+	 * @param  mixed $args
+	 * @param  mixed $log_name
+	 * @return mixed
+	 */
+	function log_response($type, $message, $args = [], $log_name = 'api_logs')
+	{
+		$args ??= [];
+
+		$channel = \Illuminate\Support\Facades\Log::build([
+			'driver' => 'single',
+			'path' => storage_path('logs/' . $log_name . '.log'),
+		]);
+
+		$channel->{$type}($message, $args);
 	}
 }
