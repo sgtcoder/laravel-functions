@@ -1556,11 +1556,12 @@ if (!function_exists('log_response')) {
 	 */
 	function log_response($type, $message, $args = [], $log_name = 'api_logs')
 	{
+		$args = is_array($args) ? $args : [$args];
 		$channel = \Illuminate\Support\Facades\Log::build([
 			'driver' => 'single',
 			'path' => storage_path('logs/' . $log_name . '.log'),
 		]);
 
-		$channel->{$type}($message, [$args]);
+		$channel->{$type}($message, $args);
 	}
 }
