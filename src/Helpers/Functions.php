@@ -90,6 +90,19 @@ if (!function_exists('convert_array_to_object')) {
 	}
 }
 
+if (!function_exists('convert_to_array')) {
+	/**
+	 * convert_to_array
+	 *
+	 * @param  mixed $value
+	 * @return mixed
+	 */
+	function convert_to_array($value)
+	{
+		return json_decode(json_encode($value), true);
+	}
+}
+
 if (!function_exists('generate_random_hex')) {
 	/**
 	 * generate_random_hex
