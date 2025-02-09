@@ -531,6 +531,22 @@ if (!function_exists('replace_custom_mappings')) {
 	}
 }
 
+if (!function_exists('get_log_name')) {
+	/**
+	 * get_log_name
+	 *
+	 * @param  mixed $signature
+	 * @return mixed
+	 */
+	function get_log_name($signature)
+	{
+		$log_name = explode(' ', $signature);
+		$log_name = $log_name[0];
+
+		return $log_name;
+	}
+}
+
 if (!function_exists('log_string')) {
 	/**
 	 * log_string
@@ -546,8 +562,7 @@ if (!function_exists('log_string')) {
 	{
 		if ($signature === null) return '';
 
-		$log_name = explode(' ', $signature);
-		$log_name = $log_name[0];
+		$log_name = get_log_name($signature);
 
 		$log = null;
 		if (!$disable_timestamp) $log = '[' . now()->format('Y-m-d H:i:s') . '][' . $log_name . '][' . $type . ']: ';
