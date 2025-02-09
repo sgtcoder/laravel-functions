@@ -1547,6 +1547,7 @@ if (!function_exists('log_channel')) {
 	 * @param  mixed $message
 	 * @param  mixed $args
 	 * @param  mixed $channel
+	 * @param  mixed $log_name
 	 * @return mixed
 	 */
 	function log_channel($type, $message, $args = [], $channel = null, $log_name = false)
