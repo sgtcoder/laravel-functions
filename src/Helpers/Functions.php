@@ -1549,9 +1549,13 @@ if (!function_exists('log_channel')) {
 	 * @param  mixed $channel
 	 * @return mixed
 	 */
-	function log_channel($type, $message, $args = [], $channel = null)
+	function log_channel($type, $message, $args = [], $channel = null, $log_name = false)
 	{
 		$channel ??= config('logging.default');
+
+		if ($log_name) {
+			$message = get_log_name($message);
+		}
 
 		\Illuminate\Support\Facades\Log::channel($channel)->{$type}($message, [$args]);
 
