@@ -55,6 +55,7 @@ class PasswordService
         while (!$is_valid) {
             $password = str()->password($length);
             $password = str()->replace('\\', '/', $password);
+            $password = str()->replace('#', '!', $password);
 
             $is_valid = str()->of($password)->substr(0, 1)->isMatch('/[A-Za-z]/');
         }

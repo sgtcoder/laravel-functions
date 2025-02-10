@@ -21,13 +21,26 @@ class BrowserService
 
         $data = $this->api_call($path, $method_type = 'get', $payload);
 
-        $data = $data->filter(function ($item) {
+        $data = $data->sortDesc()->filter(function ($item) {
             if (strpos($item, 'Mozilla/5.0 (X11; Linux x86_64)') !== false) {
                 return true;
             }
         });
 
         return $data->first();
+    }
+
+    public function get_random_browser()
+    {
+        $path = '';
+
+        $payload = [];
+
+        $data = $this->api_call($path, $method_type = 'get', $payload);
+
+        $data = $data->random();
+
+        return $data;
     }
 
     public function get_browsers()
@@ -38,7 +51,7 @@ class BrowserService
 
         $data = $this->api_call($path, $method_type = 'get', $payload);
 
-        return $data;
+        return $data->sortDesc();
     }
 
     public function api_call($path, $method_type = 'get', $payload = null)

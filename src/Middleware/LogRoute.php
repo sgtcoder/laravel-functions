@@ -27,7 +27,7 @@ class LogRoute
             if (isset($request_array[$ignore])) $request_array[$ignore] = 'NULLED';
         }
 
-        $user = request()->user();
+        $user = request()->user() ?? auth('sanctum')->user();
 
         // @phpstan-ignore-next-line
         $log = LogRouteModel::create([

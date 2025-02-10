@@ -531,6 +531,22 @@ if (!function_exists('replace_custom_mappings')) {
 	}
 }
 
+if (!function_exists('get_log_name')) {
+	/**
+	 * get_log_name
+	 *
+	 * @param  mixed $signature
+	 * @return mixed
+	 */
+	function get_log_name($signature)
+	{
+		$log_name = explode(' ', $signature);
+		$log_name = $log_name[0];
+
+		return $log_name;
+	}
+}
+
 if (!function_exists('log_string')) {
 	/**
 	 * log_string
@@ -546,8 +562,7 @@ if (!function_exists('log_string')) {
 	{
 		if ($signature === null) return '';
 
-		$log_name = explode(' ', $signature);
-		$log_name = $log_name[0];
+		$log_name = get_log_name($signature);
 
 		$log = null;
 		if (!$disable_timestamp) $log = '[' . now()->format('Y-m-d H:i:s') . '][' . $log_name . '][' . $type . ']: ';
@@ -1532,11 +1547,16 @@ if (!function_exists('log_channel')) {
 	 * @param  mixed $message
 	 * @param  mixed $args
 	 * @param  mixed $channel
+	 * @param  mixed $log_name
 	 * @return mixed
 	 */
-	function log_channel($type, $message, $args = [], $channel = null)
+	function log_channel($type, $message, $args = [], $channel = null, $log_name = false)
 	{
 		$channel ??= config('logging.default');
+
+		if ($log_name) {
+			$message = get_log_name($message);
+		}
 
 		\Illuminate\Support\Facades\Log::channel($channel)->{$type}($message, [$args]);
 
@@ -1563,5 +1583,170 @@ if (!function_exists('log_response')) {
 		]);
 
 		$channel->{$type}($message, $args);
+	}
+}
+
+if (!function_exists('getResourceRoutesForNameHelper')) {
+	/**
+	 * getResourceRoutesForNameHelper
+	 *
+	 * @param  mixed $name
+	 * @return mixed
+	 */
+	function getResourceRoutesForNameHelper($name)
+	{
+		return [
+			'index' => $name . ".index",
+			'create' => $name . ".create",
+			'store' => $name . ".store",
+			'show' => $name . ".show",
+			'edit' => $name . ".edit",
+			'update' => $name . ".update",
+			'destroy' => $name . ".destroy",
+		];
+	}
+}
+
+if (!function_exists('get_reading_time')) {
+	/**
+	 * get_reading_time
+	 *
+	 * @param  mixed $length
+	 * @param  mixed $types
+	 * @return mixed
+	 */
+	function get_reading_time($length, $types = 'words')
+	{
+		if (empty($length)) return null;
+
+		if ($type == 'words') {
+			$words_per_minute_low = 100;
+			$words_per_minute_high = 260;
+
+			$reading_slow = ceil($length / $words_per_minute_low);
+			$reading_fast = ceil($length / $words_per_minute_high);
+
+			return $reading_fast . '-' . $reading_slow;
+		} else {
+			$cpm = 987;
+			$variance = 118;
+			$charactersPerMinuteLow = $cpm - $variance;
+			$charactersPerMinuteHigh = $cpm + $variance;
+
+			$readingTimeMinsSlow = ceil($length / $charactersPerMinuteLow);
+			$readingTimeMinsFast = ceil($length / $charactersPerMinuteHigh);
+
+			return $readingTimeMinsFast . '-' . $readingTimeMinsSlow;
+		}
+	}
+}
+
+if (!function_exists('days_ago')) {
+	/**
+	 * days_ago
+	 *
+	 * @param  mixed $date
+	 * @param  mixed $timezone
+	 * @return mixed
+	 */
+	function days_ago($date, $timezone = null)
+	{
+		$date = now()->parse($date);
+
+		if ($timezone) {
+			$date = $date->timezone($timezone);
+		}
+
+		return (int)$date->diffInDays();
+	}
+}
+
+if (!function_exists('format_date_carbon')) {
+	/**
+	 * format_date_carbon
+	 *
+	 * @param  mixed $date
+	 * @param  mixed $format
+	 * @param  mixed $timezone
+	 * @return mixed
+	 */
+	function format_date_carbon($date, $format = 'm/d/y', $timezone = null)
+	{
+		$time_ago = is_bool($format) ? $format : false;
+
+		$date = now()->parse($date);
+
+		if ($timezone) {
+			$date = $date->timezone($timezone);
+		}
+
+		if ($time_ago) {
+			$date = $date->diffForHumans();
+		} else {
+			$date = $date->format($format);
+		}
+
+		return $date;
+	}
+}
+
+if (!function_exists('get_months')) {
+	/**
+	 * get_months
+	 *
+	 * @param  mixed $month
+	 * @param  mixed $shorthand
+	 * @return mixed
+	 */
+	function get_months($month = null, $shorthand = false)
+	{
+		if ($shorthand) {
+			$months = [
+				'1' => 'Jan',
+				'2' => 'Feb',
+				'3' => 'Mar',
+				'4' => 'Apr',
+				'5' => 'May',
+				'6' => 'Jun',
+				'7' => 'Jul',
+				'8' => 'Aug',
+				'9' => 'Sep',
+				'10' => 'Oct',
+				'11' => 'Nov',
+				'12' => 'Dec',
+			];
+		} else {
+			$months = [
+				'1' => 'January',
+				'2' => 'February',
+				'3' => 'March',
+				'4' => 'April',
+				'5' => 'May',
+				'6' => 'June',
+				'7' => 'July',
+				'8' => 'August',
+				'9' => 'September',
+				'10' => 'October',
+				'11' => 'November',
+				'12' => 'December',
+			];
+		}
+
+		if ($month) return $months[$month] ?? null;
+
+		return $months;
+	}
+}
+
+if (!function_exists('floor_number')) {
+	/**
+	 * floor_number
+	 *
+	 * @param  mixed $number
+	 * @return mixed
+	 */
+	function floor_number($number)
+	{
+		return number_format(floor($number), 0, '.');
 	}
 }
