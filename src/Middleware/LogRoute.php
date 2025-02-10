@@ -23,11 +23,11 @@ class LogRoute
         // @phpstan-ignore-next-line
         $ignorable = (new \App\Models\LogRoute)->ignorable;
 
-        foreach ($ignorable as $ignore) {
+        foreach ($ignorable ?? [] as $ignore) {
             if (isset($request_array[$ignore])) $request_array[$ignore] = 'NULLED';
         }
 
-        $user = request()->user() ?? auth('sanctum')->user();
+        $user = request()->user();
 
         // @phpstan-ignore-next-line
         $log = LogRouteModel::create([
