@@ -85,6 +85,18 @@ class CustomServiceProvider extends BaseServiceProvider
             return "<?php echo file_get_contents(public_path(" . $filepath . ")); ?>";
         });
 
+        Blade::directive('abort', function ($data) {
+            preg_match('/(\d+),\s*[\'"]([^\'"]+)[\'"]/', $data, $matches);
+            $code = $matches[1];
+            $message = $matches[2];
+
+            return "<?php abort($code, '$message'); ?>";
+        });
+
+        Blade::directive('require_token', function ($token) {
+            return "<?php if (request('token') !== $token) abort(403, 'Unauthorized'); ?>";
+        });
+
         Blade::anonymousComponentPath(resource_path('views/emails/components'), 'email');
         Blade::anonymousComponentPath(resource_path('svg'), 'svg');
 
