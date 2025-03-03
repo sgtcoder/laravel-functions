@@ -93,8 +93,14 @@ class CustomServiceProvider extends BaseServiceProvider
             return "<?php abort($code, '$message'); ?>";
         });
 
-        Blade::directive('require_token', function ($token) {
-            return "<?php if (request('token') !== $token) abort(403, 'Unauthorized'); ?>";
+        Blade::directive('require_token', function ($tokens) {
+            return "<?php 
+                \$tokens = is_array({$tokens}) ? {$tokens} : explode(',', {$tokens});
+                \$request_token = request()->header('token') ?? request('token');
+                if (!in_array(\$request_token, \$tokens)) {
+                    abort(403, 'Unauthorized');
+                }
+            ?>";
         });
 
         Blade::anonymousComponentPath(resource_path('views/emails/components'), 'email');
