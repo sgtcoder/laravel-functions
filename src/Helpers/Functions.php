@@ -1750,3 +1750,24 @@ if (!function_exists('floor_number')) {
 		return number_format(floor($number), 0, '.');
 	}
 }
+
+if (!function_exists('get_class_basename')) {
+	/**
+	 * get_class_basename
+	 *
+	 * @param  mixed $model
+	 * @param  mixed $snake
+	 * @return mixed
+	 */
+	function get_class_basename($model, $snake = false)
+	{
+		$class_name = get_class($model);
+		$class_name = basename(str_replace('\\', '/', $class_name));
+
+		if ($snake) {
+			$class_name = str()->snake($class_name);
+		}
+
+		return $class_name;
+	}
+}
