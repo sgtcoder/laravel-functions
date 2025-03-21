@@ -1771,3 +1771,16 @@ if (!function_exists('get_class_basename')) {
 		return $class_name;
 	}
 }
+
+if (!function_exists('parse_bool')) {
+	/**
+	 * parse_bool
+	 *
+	 * @param  mixed $value
+	 * @return mixed
+	 */
+	function parse_bool($value)
+	{
+		return preg_match('/^\s*["\']?(true|1)["\']?\s*$/i', $value);
+	}
+}
