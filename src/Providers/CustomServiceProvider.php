@@ -94,17 +94,12 @@ class CustomServiceProvider extends BaseServiceProvider
         });
 
         Blade::directive('require_token', function ($tokens) {
-            return "<?php 
-                \$tokens = is_array({$tokens}) ? {$tokens} : explode(',', {$tokens});
-                \$request_token = request()->header('token') ?? request('token');
-                if (!in_array(\$request_token, \$tokens)) {
-                    abort(403, 'Unauthorized');
-                }
-            ?>";
+            return "<?php require_token({$tokens}); ?>";
         });
 
         Blade::anonymousComponentPath(resource_path('views/emails/components'), 'email');
         Blade::anonymousComponentPath(resource_path('svg'), 'svg');
+        Blade::anonymousComponentPath(resource_path('img'), 'img');
 
         // https://github.com/korridor/laravel-has-many-sync
         HasMany::macro('sync', function (array $data, bool $deleting = true): array {

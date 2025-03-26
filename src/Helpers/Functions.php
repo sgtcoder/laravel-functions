@@ -1784,3 +1784,20 @@ if (!function_exists('parse_bool')) {
 		return preg_match('/^\s*["\']?(true|1)["\']?\s*$/i', $value);
 	}
 }
+
+if (!function_exists('require_token')) {
+	/**
+	 * require_token
+	 *
+	 * @param  mixed $tokens
+	 * @return mixed
+	 */
+	function require_token($tokens)
+	{
+		$tokens = is_array($tokens) ? $tokens : explode(',', $tokens);
+		$request_token = request()->header('token') ?? request('token');
+		if (!in_array($request_token, $tokens)) {
+			abort(403, 'Unauthorized');
+		}
+	}
+}
