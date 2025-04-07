@@ -33,6 +33,7 @@ class LogRoute
         $log = LogRouteModel::create([
             'model_type' => ($user) ? get_class($user) : null,
             'model_id' => $user->id ?? null,
+            'api_provider' => 'system',
             'uri' => request()->getUri(),
             'request_body' => json_encode($request_array),
             'method' => request()->getMethod(),
