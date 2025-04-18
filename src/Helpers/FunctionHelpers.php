@@ -1,16 +1,5 @@
 <?php
 
-if (!function_exists('get_plank_media_class')) {
-	function get_plank_media_class()
-	{
-		if (class_exists('App\Models\Media')) {
-			return '\App\Models\Media';
-		}
-
-		return '\Plank\Mediable\Media';
-	}
-}
-
 if (!function_exists('cached_asset')) {
 	// https://laravel-tricks.com/tricks/easier-caching-with-cached-asset
 	/*
@@ -115,23 +104,6 @@ if (!function_exists('generate_random_hex')) {
 		return strtoupper(implode(array_map(function () {
 			return dechex(mt_rand(0, 15));
 		}, array_fill(0, $strlen, null))));
-	}
-}
-
-if (!function_exists('format_bytes')) {
-	/**
-	 * format_bytes
-	 *
-	 * @param  mixed $size
-	 * @param  mixed $precision
-	 * @return mixed
-	 */
-	function format_bytes($size, $precision = 2)
-	{
-		$base = log($size, 1024);
-		$suffixes = array('', 'KB', 'MB', 'GB', 'TB');
-
-		return round(pow(1024, $base - floor($base)), $precision) . ' ' . $suffixes[floor($base)];
 	}
 }
 
@@ -257,182 +229,6 @@ if (!function_exists('get_base64_info')) {
 	}
 }
 
-if (!function_exists('unslugify')) {
-	/**
-	 * unslugify
-	 *
-	 * @param  string $slug
-	 * @return string
-	 */
-	function unslugify($slug)
-	{
-		$slug = ucwords(strtolower(str_replace('-', ' ', trim($slug))));
-
-		return $slug;
-	}
-}
-
-if (!function_exists('slugify')) {
-	/**
-	 * slugify
-	 *
-	 * @param  string $slug
-	 * @return string
-	 */
-	function slugify($slug)
-	{
-		$slug = trim($slug);
-		$slug = str()->of($slug)->replace(':', '_');
-		$slug = str()->slug($slug);
-		$slug = str()->of($slug)->replace('-', '_');
-
-		return $slug;
-	}
-}
-
-if (!function_exists('format_date')) {
-	/**
-	 * format_date
-	 *
-	 * @param  mixed $date
-	 * @param  mixed $format
-	 * @return mixed
-	 */
-	function format_date($date, $format)
-	{
-		if ($date) {
-			try {
-				$date = new DateTime($date);
-				$date = $date->format($format);
-				return $date;
-			} catch (Exception $e) {
-				return $date;
-			}
-		} else {
-			return null;
-		}
-	}
-}
-
-if (!function_exists('get_countries')) {
-	/**
-	 * get_countries
-	 *
-	 * @param  mixed $country
-	 * @return mixed
-	 */
-	function get_countries($country = null)
-	{
-		$countries = '{"AF":"Afghanistan","AX":"land Islands","AL":"Albania","DZ":"Algeria","AS":"American Samoa","AD":"AndorrA","AO":"Angola","AI":"Anguilla","AQ":"Antarctica","AG":"Antigua and Barbuda","AR":"Argentina","AM":"Armenia","AW":"Aruba","AU":"Australia","AT":"Austria","AZ":"Azerbaijan","BS":"Bahamas","BH":"Bahrain","BD":"Bangladesh","BB":"Barbados","BY":"Belarus","BE":"Belgium","BZ":"Belize","BJ":"Benin","BM":"Bermuda","BT":"Bhutan","BO":"Bolivia","BA":"Bosnia and Herzegovina","BW":"Botswana","BV":"Bouvet Island","BR":"Brazil","IO":"British Indian Ocean Territory","BN":"Brunei Darussalam","BG":"Bulgaria","BF":"Burkina Faso","BI":"Burundi","KH":"Cambodia","CM":"Cameroon","CA":"Canada","CV":"Cape Verde","KY":"Cayman Islands","CF":"Central African Republic","TD":"Chad","CL":"Chile","CN":"China","CX":"Christmas Island","CC":"Cocos (Keeling) Islands","CO":"Colombia","KM":"Comoros","CG":"Congo","CD":"Congo, The Democratic Republic of the","CK":"Cook Islands","CR":"Costa Rica","CI":"Cote D\"Ivoire","HR":"Croatia","CU":"Cuba","CY":"Cyprus","CZ":"Czech Republic","DK":"Denmark","DJ":"Djibouti","DM":"Dominica","DO":"Dominican Republic","EC":"Ecuador","EG":"Egypt","SV":"El Salvador","GQ":"Equatorial Guinea","ER":"Eritrea","EE":"Estonia","ET":"Ethiopia","FK":"Falkland Islands (Malvinas)","FO":"Faroe Islands","FJ":"Fiji","FI":"Finland","FR":"France","GF":"French Guiana","PF":"French Polynesia","TF":"French Southern Territories","GA":"Gabon","GM":"Gambia","GE":"Georgia","DE":"Germany","GH":"Ghana","GI":"Gibraltar","GR":"Greece","GL":"Greenland","GD":"Grenada","GP":"Guadeloupe","GU":"Guam","GT":"Guatemala","GG":"Guernsey","GN":"Guinea","GW":"Guinea-Bissau","GY":"Guyana","HT":"Haiti","HM":"Heard Island and Mcdonald Islands","VA":"Holy See (Vatican City State)","HN":"Honduras","HK":"Hong Kong","HU":"Hungary","IS":"Iceland","IN":"India","ID":"Indonesia","IR":"Iran, Islamic Republic Of","IQ":"Iraq","IE":"Ireland","IM":"Isle of Man","IL":"Israel","IT":"Italy","JM":"Jamaica","JP":"Japan","JE":"Jersey","JO":"Jordan","KZ":"Kazakhstan","KE":"Kenya","KI":"Kiribati","KP":"Korea, Democratic People\"S Republic of","KR":"Korea, Republic of","KW":"Kuwait","KG":"Kyrgyzstan","LA":"Lao People\"S Democratic Republic","LV":"Latvia","LB":"Lebanon","LS":"Lesotho","LR":"Liberia","LY":"Libyan Arab Jamahiriya","LI":"Liechtenstein","LT":"Lithuania","LU":"Luxembourg","MO":"Macao","MK":"Macedonia, The Former Yugoslav Republic of","MG":"Madagascar","MW":"Malawi","MY":"Malaysia","MV":"Maldives","ML":"Mali","MT":"Malta","MH":"Marshall Islands","MQ":"Martinique","MR":"Mauritania","MU":"Mauritius","YT":"Mayotte","MX":"Mexico","FM":"Micronesia, Federated States of","MD":"Moldova, Republic of","MC":"Monaco","MN":"Mongolia","ME":"Montenegro","MS":"Montserrat","MA":"Morocco","MZ":"Mozambique","MM":"Myanmar","NA":"Namibia","NR":"Nauru","NP":"Nepal","NL":"Netherlands","AN":"Netherlands Antilles","NC":"New Caledonia","NZ":"New Zealand","NI":"Nicaragua","NE":"Niger","NG":"Nigeria","NU":"Niue","NF":"Norfolk Island","MP":"Northern Mariana Islands","NO":"Norway","OM":"Oman","PK":"Pakistan","PW":"Palau","PS":"Palestinian Territory, Occupied","PA":"Panama","PG":"Papua New Guinea","PY":"Paraguay","PE":"Peru","PH":"Philippines","PN":"Pitcairn","PL":"Poland","PT":"Portugal","PR":"Puerto Rico","QA":"Qatar","RE":"Reunion","RO":"Romania","RU":"Russian Federation","RW":"RWANDA","SH":"Saint Helena","KN":"Saint Kitts and Nevis","LC":"Saint Lucia","PM":"Saint Pierre and Miquelon","VC":"Saint Vincent and the Grenadines","WS":"Samoa","SM":"San Marino","ST":"Sao Tome and Principe","SA":"Saudi Arabia","SN":"Senegal","RS":"Serbia","SC":"Seychelles","SL":"Sierra Leone","SG":"Singapore","SK":"Slovakia","SI":"Slovenia","SB":"Solomon Islands","SO":"Somalia","ZA":"South Africa","GS":"South Georgia and the South Sandwich Islands","ES":"Spain","LK":"Sri Lanka","SD":"Sudan","SR":"Suriname","SJ":"Svalbard and Jan Mayen","SZ":"Swaziland","SE":"Sweden","CH":"Switzerland","SY":"Syrian Arab Republic","TW":"Taiwan, Province of China","TJ":"Tajikistan","TZ":"Tanzania, United Republic of","TH":"Thailand","TL":"Timor-Leste","TG":"Togo","TK":"Tokelau","TO":"Tonga","TT":"Trinidad and Tobago","TN":"Tunisia","TR":"Turkey","TM":"Turkmenistan","TC":"Turks and Caicos Islands","TV":"Tuvalu","UG":"Uganda","UA":"Ukraine","AE":"United Arab Emirates","GB":"United Kingdom","US":"United States","UM":"United States Minor Outlying Islands","UY":"Uruguay","UZ":"Uzbekistan","VU":"Vanuatu","VE":"Venezuela","VN":"Viet Nam","VG":"Virgin Islands, British","VI":"Virgin Islands, U.S.","WF":"Wallis and Futuna","EH":"Western Sahara","YE":"Yemen","ZM":"Zambia","ZW":"Zimbabwe"}';
-
-		$countries = json_decode($countries, true);
-
-		if ($country) {
-			return $countries[$country] ?? null;
-		}
-
-		return $countries;
-	}
-}
-
-if (!function_exists('get_states')) {
-	/**
-	 * get_states
-	 *
-	 * @param  mixed $state
-	 * @param  mixed $add_states
-	 * @return mixed
-	 */
-	function get_states($state = null, $add_states = [])
-	{
-		$states = '{"AL":"Alabama","AK":"Alaska","AZ":"Arizona","AR":"Arkansas","CA":"California","CO":"Colorado","CT":"Connecticut","DE":"Delaware","FL":"Florida","GA":"Georgia","HI":"Hawaii","ID":"Idaho","IL":"Illinois","IN":"Indiana","IA":"Iowa","KS":"Kansas","KY":"Kentucky","LA":"Louisiana","ME":"Maine","MD":"Maryland","MA":"Massachusetts","MI":"Michigan","MN":"Minnesota","MS":"Mississippi","MO":"Missouri","MT":"Montana","NE":"Nebraska","NV":"Nevada","NH":"New Hampshire","NJ":"New Jersey","NM":"New Mexico","NY":"New York","NC":"North Carolina","ND":"North Dakota","OH":"Ohio","OK":"Oklahoma","OR":"Oregon","PA":"Pennsylvania","RI":"Rhode Island","SC":"South Carolina","SD":"South Dakota","TN":"Tennessee","TX":"Texas","UT":"Utah","VT":"Vermont","VA":"Virginia","WA":"Washington","WV":"West Virginia","WI":"Wisconsin","WY":"Wyoming"}';
-
-		$states = json_decode($states, true);
-		$states = array_merge($states, $add_states);
-
-		asort($states);
-
-		if ($state) {
-			return $states[$state] ?? null;
-		}
-
-		return $states;
-	}
-}
-
-if (!function_exists('get_provinces')) {
-	/**
-	 * get_provinces
-	 *
-	 * @param  mixed $province
-	 * @return mixed
-	 */
-	function get_provinces($province = null)
-	{
-		$provinces = '{"AB":"Alberta","BC":"British Columbia","MB":"Manitoba","NB":"New Brunswick","NL":"Newfoundland and Labrador","NS":"Nova Scotia","ON":"Ontario","PE":"Prince Edward Island","QC":"Quebec","SK":"Saskatchewan","YT":"Yukon","NT":"Northwest Territories","NU":"Nunavut"}';
-
-		$provinces = json_decode($provinces, true);
-
-		if ($province) {
-			return $provinces[$province] ?? null;
-		}
-
-		return $provinces;
-	}
-}
-
-if (!function_exists('get_states_html')) {
-	/**
-	 * get_states_html
-	 *
-	 * @param  mixed $placeholder
-	 * @param  mixed $selected
-	 * @return mixed
-	 */
-	function get_states_html($placeholder = null, $selected = null)
-	{
-		$states = get_states();
-
-		$html = '';
-
-		if ($placeholder) {
-			$html = '<option value="">' . $placeholder . '</option>';
-		}
-
-		foreach ($states as $state_key => $state_value) {
-			$html .= '<option value="' . $state_key . '"' . ($selected == $state_key ? ' selected' : '') . '>' . $state_value . '</option>';
-		}
-
-		return $html;
-	}
-}
-
-if (!function_exists('get_provinces_html')) {
-	/**
-	 * get_provinces_html
-	 *
-	 * @param  mixed $placeholder
-	 * @param  mixed $selected
-	 * @return mixed
-	 */
-	function get_provinces_html($placeholder = null, $selected = null)
-	{
-		$provinces = get_provinces();
-
-		$html = '';
-
-		if ($placeholder) {
-			$html = '<option value="">' . $placeholder . '</option>';
-		}
-
-		foreach ($provinces as $province_key => $province_value) {
-			$html .= '<option value="' . $province_key . '"' . ($selected == $province_key ? ' selected' : '') . '>' . $province_value . '</option>';
-		}
-
-		return $html;
-	}
-}
-
 if (!function_exists('age_from_date')) {
 	/**
 	 * age_from_date
@@ -451,171 +247,6 @@ if (!function_exists('age_from_date')) {
 		}
 
 		return $years;
-	}
-}
-
-if (!function_exists('get_signed_url')) {
-	/**
-	 * get_signed_url
-	 *
-	 * @param  mixed $media
-	 * @return mixed
-	 */
-	function get_signed_url($media)
-	{
-		static $MediaService;
-
-		if (empty($MediaService)) {
-			// @phpstan-ignore-next-line
-			$MediaService = (new \App\Services\MediaService);
-		}
-
-		return $MediaService->get_signed_url($media);
-	}
-}
-
-if (!function_exists('get_all_model_media')) {
-	/**
-	 * get_all_model_media
-	 *
-	 * @param  mixed $model
-	 * @return mixed
-	 */
-	function get_all_model_media($model)
-	{
-		$media_items = [];
-
-		foreach ($model->getAllMediaByTag() as $media_group) {
-			foreach ($media_group as $media) {
-				$media_items[] = $media;
-			}
-		}
-
-		return $media_items;
-	}
-}
-
-if (!function_exists('replace_mappings')) {
-	/**
-	 * replace_mappings
-	 *
-	 * @param  mixed $body
-	 * @param  mixed $mappings
-	 * @return mixed
-	 */
-	function replace_mappings($body, $mappings)
-	{
-		foreach ($mappings as $key => $value) {
-			$body = preg_replace('/{{\s*' . $key . '\s*}}/', $value, $body);
-		}
-
-		return $body;
-	}
-}
-
-if (!function_exists('replace_custom_mappings')) {
-	/**
-	 * replace_custom_mappings
-	 *
-	 * @param  mixed $body
-	 * @param  mixed $mappings
-	 * @return mixed
-	 */
-	function replace_custom_mappings($body, $mappings)
-	{
-		foreach ($mappings as $key => $value) {
-			$body = str_replace($key, $value, $body);
-		}
-
-		return $body;
-	}
-}
-
-if (!function_exists('get_log_name')) {
-	/**
-	 * get_log_name
-	 *
-	 * @param  mixed $signature
-	 * @return mixed
-	 */
-	function get_log_name($signature)
-	{
-		$log_name = explode(' ', $signature);
-		$log_name = $log_name[0];
-
-		return $log_name;
-	}
-}
-
-if (!function_exists('log_string')) {
-	/**
-	 * log_string
-	 *
-	 * @param  mixed $signature
-	 * @param  mixed $type
-	 * @param  mixed $message
-	 * @param  mixed $disable_timestamp
-	 * @param  mixed $newline
-	 * @return mixed
-	 */
-	function log_string($signature = null, $type = 'DEFAULT', $message = null, $disable_timestamp = false, $newline = false)
-	{
-		if ($signature === null) return '';
-
-		$log_name = get_log_name($signature);
-
-		$log = null;
-		if (!$disable_timestamp) $log = '[' . now()->format('Y-m-d H:i:s') . '][' . $log_name . '][' . $type . ']: ';
-
-		$template = match ($type) {
-			'INFO' => '<fg=#ffc107;options=bold>' . $log . '</>' . $message,
-			'SUCCESS' => '<fg=#28a745;options=bold>' . $log . '</>' . $message,
-			'WARNING' => '<fg=#ffc107;options=bold>' . $log . '</>' . $message,
-			'ERROR' => '<fg=#dc3545;options=bold>' . $log . '</>' . $message,
-			'DEFAULT' => '<fg=#000000;options=bold>' . $log . '</>' . $message,
-			default => '<fg=#000000;options=bold>' . $log . '</>' . $message,
-		};
-
-		if ($newline) $template .= "\n";
-
-		return $template;
-	}
-}
-
-if (!function_exists('console_log')) {
-	/**
-	 * console_log
-	 *
-	 * @param  mixed $signature
-	 * @param  mixed $type
-	 * @param  mixed $message
-	 * @param  mixed $disable_timestamp
-	 * @param  mixed $newline
-	 * @return mixed
-	 */
-	function console_log($signature = null, $type = 'DEFAULT', $message = null, $disable_timestamp = false, $newline = false)
-	{
-		$template = log_string($signature, $type, $message, $disable_timestamp, $newline);
-
-		$output = new \Symfony\Component\Console\Output\ConsoleOutput();
-		$output->writeln($template);
-
-		return true;
-	}
-}
-
-if (!function_exists('console_log_line')) {
-	/**
-	 * console_log_line
-	 *
-	 * @return mixed
-	 */
-	function console_log_line()
-	{
-		$output = new \Symfony\Component\Console\Output\ConsoleOutput();
-		$output->writeln('');
-
-		return true;
 	}
 }
 
@@ -667,27 +298,6 @@ if (!function_exists('convert_meters_to_feet')) {
 	}
 }
 
-if (!function_exists('format_bytes')) {
-	/**
-	 * format_bytes
-	 *
-	 * @param  mixed $bytes
-	 * @param  mixed $precision
-	 * @param  mixed $decimals
-	 * @return mixed
-	 */
-	function format_bytes($bytes, $precision = 2, $decimals = 2)
-	{
-		$units = array('B', 'KB', 'MB', 'GB', 'TB');
-
-		$bytes = max($bytes, 0);
-		$pow = floor(($bytes ? log($bytes) : 0) / log(1024));
-		$pow = min($pow, count($units) - 1);
-
-		return round($bytes, $precision) . $units[$pow];
-	}
-}
-
 if (!function_exists('adjust_brightness')) {
 	/**
 	 * adjust_brightness
@@ -718,46 +328,6 @@ if (!function_exists('adjust_brightness')) {
 		}
 
 		return $return;
-	}
-}
-
-if (!function_exists('template_replace')) {
-	/**
-	 * template_replace
-	 *
-	 * @param  mixed $variable
-	 * @param  mixed $replace
-	 * @param  mixed $string
-	 * @return mixed
-	 */
-	function template_replace($variable, $replace, $string)
-	{
-		$string = preg_replace('/{{\s*' . $variable . '\s*}}/', $replace, $string);
-
-		return $string;
-	}
-}
-
-if (!function_exists('model_to_html')) {
-	/**
-	 * model_to_html
-	 *
-	 * @param  mixed $model
-	 * @param  mixed $include_empty
-	 * @return mixed
-	 */
-	function model_to_html($model, $include_empty = true)
-	{
-		$data = $model->getFillable();
-
-		$html = '';
-		foreach ($data as $key) {
-			if ($model->$key || $include_empty) {
-				$html .= '<p style="margin: 5px 0;"><strong>' . ucwords(str_replace('_', ' ', $key)) . ':</strong> ' . $model->$key . '</p>';
-			}
-		}
-
-		return $html;
 	}
 }
 
@@ -792,66 +362,6 @@ if (!function_exists('get_model_count')) {
 	}
 }
 
-if (!function_exists('sync_media')) {
-	/**
-	 * sync_media
-	 *
-	 * @param  mixed $prefix
-	 * @param  mixed $model
-	 * @param  mixed $single
-	 * @param  mixed $media_prefix
-	 * @return mixed
-	 */
-	function sync_media($prefix, $model = null, $single = true, $media_prefix = null)
-	{
-		// @phpstan-ignore-next-line
-		$MediaService = (new \App\Services\MediaService);
-
-		$PlankMediaClass = get_plank_media_class();
-
-		$media_prefix ??= $prefix;
-
-		if (request($prefix . '_delete')) {
-			if ($model && $model->firstMedia($prefix)) $model->firstMedia($media_prefix)->delete();
-
-			$media_delete = $PlankMediaClass::find($media_prefix);
-			if ($media_delete) $media_delete->delete();
-		}
-
-		// Crop new images
-		if (request($prefix . '_media') && is_array(request($prefix . '_media'))) {
-			foreach (request($prefix . '_media') as $item) {
-				$media_data = request($prefix . '_data.' . $item);
-				if ($media_data) {
-					// @phpstan-ignore-next-line
-					$MediaService->update_media_crop($item, $media_data);
-				}
-
-				$media_metadata = request($prefix . '_metadata.' . $item);
-				if ($media_metadata) {
-					// @phpstan-ignore-next-line
-					$media = $PlankMediaClass::find($item);
-
-					if ($media) {
-						$media->setAttribute('metadata', $media_metadata);
-						$media->save();
-					}
-				}
-			}
-
-			if ($single) {
-				// Sync media and orders
-				if ($model) $model->syncMedia(request($prefix . '_media'), $media_prefix);
-			}
-		}
-
-		if (!$single) {
-			// Sync media and orders
-			if ($model) $model->syncMedia(request($prefix . '_media'), $media_prefix);
-		}
-	}
-}
-
 if (!function_exists('update_status')) {
 	/**
 	 * update_status
@@ -880,26 +390,6 @@ if (!function_exists('update_status')) {
 	}
 }
 
-if (!function_exists('get_signed_url')) {
-	/**
-	 * get_signed_url
-	 *
-	 * @param  mixed $media
-	 * @return mixed
-	 */
-	function get_signed_url($media)
-	{
-		static $MediaService;
-
-		if (empty($MediaService)) {
-			// @phpstan-ignore-next-line
-			$MediaService = (new \App\Services\MediaService);
-		}
-
-		return $MediaService->get_signed_url($media);
-	}
-}
-
 if (!function_exists('is_super_admin')) {
 	/**
 	 * is_super_admin
@@ -916,25 +406,6 @@ if (!function_exists('is_super_admin')) {
 		}
 
 		return false;
-	}
-}
-
-if (!function_exists('get_tagged_models_media')) {
-	/**
-	 * get_tagged_models_media
-	 *
-	 * @param  mixed $models
-	 * @param  mixed $model_tag
-	 * @return mixed
-	 */
-	function get_tagged_models_media($models, $model_tag)
-	{
-		$media_items = [];
-		foreach ($models as $model) {
-			$media_items[] = $model->firstMedia($model_tag);
-		}
-
-		return $media_items;
 	}
 }
 
@@ -956,170 +427,6 @@ if (!function_exists('get_roles')) {
 		$roles = $roles->pluck('name', 'id')->toArray();
 
 		return $roles;
-	}
-}
-
-if (!function_exists('scale_image')) {
-	/**
-	 * scale_image
-	 *
-	 * @param  mixed $url
-	 * @param  mixed $max_size
-	 * @param  mixed $type
-	 * @return mixed
-	 */
-	function scale_image($url, $max_size, $type = 'height')
-	{
-		$data = getimagesize($url);
-		$width = $data[0];
-		$height = $data[1];
-
-		if ($type == 'height') {
-			$scaled_width = $width / ($height / $max_size);
-			$scaled_height = $max_size;
-		} else {
-			$scaled_width = $max_size;
-			$scaled_height = $height / ($width / $max_size);
-		}
-
-		return ['width' => $scaled_width, 'height' => $scaled_height];
-	}
-}
-
-if (!function_exists('unformat_phone')) {
-	/**
-	 * unformat_phone
-	 *
-	 * @param  mixed $phone
-	 * @return mixed
-	 */
-	function unformat_phone($phone)
-	{
-		$phone = preg_replace("/[^0-9]/", "", $phone);
-		if (strlen($phone) == 10) $phone = '+1' . $phone;
-		if (strlen($phone) == 11) $phone = '+' . $phone;
-
-		return $phone;
-	}
-}
-
-if (!function_exists('format_phone')) {
-	/**
-	 * format_phone
-	 *
-	 * @param  mixed $phone
-	 * @return mixed
-	 */
-	function format_phone($phone)
-	{
-		$phone = preg_replace("/[^0-9]/", "", $phone);
-		if (strlen($phone) == 11) $phone = ltrim($phone, '1');
-		$phone = preg_replace("/^1?(\d{3})(\d{3})(\d{4})$/", "($1) $2-$3", $phone);
-
-		return $phone;
-	}
-}
-
-if (!function_exists('get_auth_prefix')) {
-	/**
-	 * get_auth_prefix
-	 *
-	 * @return mixed
-	 */
-	function get_auth_prefix()
-	{
-		$route = str()->of(request()->route()->getName())->explode('.');
-
-		return $route[0] ?? null;
-	}
-}
-
-if (!function_exists('get_intended_route')) {
-	/**
-	 * get_intended_route
-	 *
-	 * @param  mixed $prefix
-	 * @return mixed
-	 */
-	function get_intended_route($prefix)
-	{
-		$intended_url = redirect()->intended()->getTargetUrl();
-
-		$route = \Route::getRoutes()->match(\Request::create($intended_url))->getName();
-
-		$route = str()->of($route)->explode('.');
-
-		if (($route[0] ?? null) == $prefix) {
-			return $intended_url;
-		}
-
-		return null;
-	}
-}
-
-if (!function_exists('get_guards')) {
-	/**
-	 * get_guards
-	 *
-	 * @return mixed
-	 */
-	function get_guards()
-	{
-		// @phpstan-ignore-next-line
-		$guards = collect(\App\Models\Permission::defaultPermissions())->keys()->mapWithKeys(function ($guard) {
-			return [$guard => ucwords($guard)];
-		});
-
-		return $guards;
-	}
-}
-
-if (!function_exists('get_guard_permissions')) {
-	/**
-	 * get_guard_permissions
-	 *
-	 * @param  mixed $guard_name
-	 * @param  mixed $name_only
-	 * @return mixed
-	 */
-	function get_guard_permissions($guard_name, $name_only = false)
-	{
-		// @phpstan-ignore-next-line
-		$permissions = \App\Models\Permission::where('guard_name', $guard_name)->get();
-
-		if ($name_only) return $permissions->pluck('name')->toArray();
-
-		return $permissions;
-	}
-}
-
-if (!function_exists('get_guard_data')) {
-	/**
-	 * get_guard_data
-	 *
-	 * @param string $url
-	 * @return array
-	 */
-	function get_guard_data($url)
-	{
-		$prefix = \Route::getRoutes()->match(\Request::create($url))->getPrefix();
-		$prefix = ltrim($prefix, '/');
-
-		$middlewares = \Route::getRoutes()->match(\Request::create($url))->gatherMiddleware();
-		$middlewares = collect($middlewares)->filter(function ($middleware) {
-			return str()->startsWith($middleware, 'auth');
-		})->first();
-
-		$guard = str()->of($middlewares)->replace('auth:', '')->toString();
-
-		if ($guard == 'auth') {
-			$guard = 'web';
-		}
-
-		return [
-			'prefix' => $prefix,
-			'guard' => $guard,
-		];
 	}
 }
 
@@ -1299,54 +606,6 @@ if (!function_exists('generate_mac_address')) {
 	}
 }
 
-if (!function_exists('array_to_html')) {
-	/**
-	 * array_to_html
-	 *
-	 * @param  mixed $data
-	 * @param  mixed $keys
-	 * @return mixed
-	 */
-	function array_to_html($data, $keys)
-	{
-		$html = '<style>td{color: #fff;padding: 5px;}</style>';
-
-		$html .= '<table>';
-		$html .= '<thead><tr>';
-		foreach ($keys as $key => $type) {
-			$html .= '<td><strong>' . ucwords(str_replace('_', ' ', $key)) . '</strong></td>';
-		}
-
-		$html .= '</tr></thead>';
-
-		$html .= '<tbody>';
-
-		foreach ($data as $value) {
-			$html .= '<tr>';
-
-			foreach ($keys as $key => $types) {
-				$types = explode('|', $types);
-				$the_value = $value->$key;
-
-				if (in_array('date', $types)) {
-					$the_value = now()->parse($the_value)->format('m/d/Y');
-				}
-
-				$styles = implode(';', $types);
-
-				$html .= '<td style="' . $styles . '">' . $the_value . '</td>';
-			}
-
-			$html .= '</tr>';
-		}
-
-		$html .= '</tbody>';
-		$html .= '</table>';
-
-		return $html;
-	}
-}
-
 if (!function_exists('content_for')) {
 	/**
 	 * content_for
@@ -1463,19 +722,6 @@ if (!function_exists('icmp_ping')) {
 	}
 }
 
-if (!function_exists('email_template_exists')) {
-	/**
-	 * email_template_exists
-	 *
-	 * @param  string $template
-	 * @return boolean
-	 */
-	function email_template_exists($template)
-	{
-		return view()->exists('emails.' . $template);
-	}
-}
-
 if (!function_exists('make_directory')) {
 	/**
 	 * make_directory
@@ -1490,24 +736,6 @@ if (!function_exists('make_directory')) {
 		}
 
 		return true;
-	}
-}
-
-if (!function_exists('command_log_name')) {
-	/**
-	 * command_log_name
-	 *
-	 * @param  string $command
-	 * @return string
-	 */
-	function command_log_name($command)
-	{
-		$command = explode(' ', $command)[0];
-
-		$command = slugify($command);
-		$command = $command . '.log';
-
-		return $command;
 	}
 }
 
@@ -1539,53 +767,6 @@ if (!function_exists('is_livewire_redirect')) {
 	}
 }
 
-if (!function_exists('log_channel')) {
-	/**
-	 * log_channel
-	 *
-	 * @param  mixed $type
-	 * @param  mixed $message
-	 * @param  mixed $args
-	 * @param  mixed $channel
-	 * @param  mixed $log_name
-	 * @return mixed
-	 */
-	function log_channel($type, $message, $args = [], $channel = null, $log_name = false)
-	{
-		$channel ??= config('logging.default');
-
-		if ($log_name) {
-			$message = get_log_name($message);
-		}
-
-		\Illuminate\Support\Facades\Log::channel($channel)->{$type}($message, [$args]);
-
-		return true;
-	}
-}
-
-if (!function_exists('log_response')) {
-	/**
-	 * log_response
-	 *
-	 * @param  mixed $type
-	 * @param  mixed $message
-	 * @param  mixed $args
-	 * @param  mixed $log_name
-	 * @return mixed
-	 */
-	function log_response($type, $message, $args = [], $log_name = 'api_logs')
-	{
-		$args = is_array($args) ? $args : [$args];
-		$channel = \Illuminate\Support\Facades\Log::build([
-			'driver' => 'single',
-			'path' => storage_path('logs/' . $log_name . '.log'),
-		]);
-
-		$channel->{$type}($message, $args);
-	}
-}
-
 if (!function_exists('getResourceRoutesForNameHelper')) {
 	/**
 	 * getResourceRoutesForNameHelper
@@ -1612,10 +793,10 @@ if (!function_exists('get_reading_time')) {
 	 * get_reading_time
 	 *
 	 * @param  mixed $length
-	 * @param  mixed $types
+	 * @param  mixed $type
 	 * @return mixed
 	 */
-	function get_reading_time($length, $types = 'words')
+	function get_reading_time($length, $type = 'words')
 	{
 		if (empty($length)) return null;
 
@@ -1782,22 +963,5 @@ if (!function_exists('parse_bool')) {
 	function parse_bool($value)
 	{
 		return preg_match('/^\s*["\']?(true|1)["\']?\s*$/i', $value);
-	}
-}
-
-if (!function_exists('require_token')) {
-	/**
-	 * require_token
-	 *
-	 * @param  mixed $tokens
-	 * @return mixed
-	 */
-	function require_token($tokens)
-	{
-		$tokens = is_array($tokens) ? $tokens : explode(',', $tokens);
-		$request_token = request()->header('token') ?? request('token');
-		if (!in_array($request_token, $tokens)) {
-			abort(403, 'Unauthorized');
-		}
 	}
 }
