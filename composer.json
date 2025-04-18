@@ -27,7 +27,7 @@
             "SgtCoder\\LaravelFunctions\\": "src/"
         },
         "files": [
-            "src/Helpers/Functions.php"
+            "src/Helpers.php"
         ]
     },
     "autoload-dev": {
