@@ -708,7 +708,7 @@ if (!function_exists('icmp_ping')) {
 	 * @param  integer $interval
 	 * @return boolean
 	 */
-	function icmp_ping($ip, $count = 4, $interval = 1000)
+	function icmp_ping($ip, $count = 4, $interval = 1)
 	{
 		$process = \Symfony\Component\Process\Process::fromShellCommandline('ping ' . $ip . ' -c ' . $count . ' -i ' . $interval);
 		$process->setTimeout(28800);
