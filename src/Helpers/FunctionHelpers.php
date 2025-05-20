@@ -705,11 +705,12 @@ if (!function_exists('icmp_ping')) {
 	 *
 	 * @param  string $ip
 	 * @param  integer $count
+	 * @param  integer $interval
 	 * @return boolean
 	 */
-	function icmp_ping($ip, $count = 4)
+	function icmp_ping($ip, $count = 4, $interval = 1)
 	{
-		$process = \Symfony\Component\Process\Process::fromShellCommandline('ping ' . $ip . ' -c ' . $count);
+		$process = \Symfony\Component\Process\Process::fromShellCommandline('ping ' . $ip . ' -c ' . $count . ' -i ' . $interval);
 		$process->setTimeout(28800);
 		$process->disableOutput();
 		$process->run();
@@ -719,6 +720,42 @@ if (!function_exists('icmp_ping')) {
 		}
 
 		return true;
+	}
+}
+
+if (!function_exists('icmp_ping_batch')) {
+	/**
+	 * icmp_ping_batch
+	 *
+	 * @param  mixed $ips
+	 * @param  integer $count
+	 * @param  integer $interval
+	 * @param  integer $pool_size
+	 * @param  string $signature
+	 * @return void
+	 */
+	function icmp_ping_batch($ips, $count = 4, $interval = 1, $pool_size = 4, $signature = null)
+	{
+		if (!is_array($ips)) {
+			$ips = [$ips];
+		}
+
+		collect($ips)
+			->chunk($pool_size)
+			->each(function ($batch, $batch_index) use ($count, $interval, $signature) {
+				$results = \Illuminate\Support\Facades\Process::concurrently(function (\Illuminate\Process\Pool $pool) use ($batch, $count, $interval) {
+					$batch->each(function ($ip) use ($pool, $count, $interval) {
+						$pool->command(['ping', '-c', $count, '-i', $interval, $ip])->timeout(28800);
+					});
+				});
+
+				$results->collect()->each(function ($process, $index) use ($batch, $signature) {
+					$ip = $batch->values()[$index];
+					$result = $process->successful();
+
+					console_log($signature, $result ? 'SUCCESS' : 'ERROR', $ip);
+				});
+			});
 	}
 }
 

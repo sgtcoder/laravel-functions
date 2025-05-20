@@ -175,7 +175,7 @@ class CustomServiceProvider extends BaseServiceProvider
         Route::macro("domain", function (array $domains, \Closure $definition) {
             $domain = request()->getHost();
 
-            if (in_array($domain, $domains)) {
+            if (in_array($domain, $domains) || empty($domains)) {
                 Route::group(['domain' => $domain], $definition);
             }
         });
