@@ -600,9 +600,9 @@ if (!function_exists('generate_mac_address')) {
 	 *
 	 * @return mixed
 	 */
-	function generate_mac_address()
+	function generate_mac_address($qty = 1, $html = false)
 	{
-		return (new \SgtCoder\LaravelFunctions\Services\PasswordService)->generate_mac_address();
+		return (new \SgtCoder\LaravelFunctions\Services\PasswordService)->generate_mac_address($qty, $html);
 	}
 }
 
