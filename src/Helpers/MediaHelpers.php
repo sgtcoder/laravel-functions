@@ -109,6 +109,8 @@ if (!function_exists('sync_media')) {
             // Sync media and orders
             if ($model) $model->syncMedia(request($prefix . '_media'), $media_prefix);
         }
+
+        return ($single) ? collect(request($prefix . '_media'))->values()->first() : request($prefix . '_media');
     }
 }
 
