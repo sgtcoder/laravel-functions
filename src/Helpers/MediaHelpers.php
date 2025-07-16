@@ -72,10 +72,17 @@ if (!function_exists('sync_media')) {
         $media_prefix ??= $prefix;
 
         if (request($prefix . '_delete')) {
-            if ($model && $model->firstMedia($prefix)) $model->firstMedia($media_prefix)->delete();
+            if (is_array(request($prefix . '_delete'))) {
+                foreach (request($prefix . '_delete') as $item) {
+                    $media = $PlankMediaClass::find($item);
+                    if ($media) $media->delete();
+                }
+            } else {
+                if ($model && $model->firstMedia($prefix)) $model->firstMedia($media_prefix)->delete();
 
-            $media_delete = $PlankMediaClass::find($media_prefix);
-            if ($media_delete) $media_delete->delete();
+                $media_delete = $PlankMediaClass::find($media_prefix);
+                if ($media_delete) $media_delete->delete();
+            }
         }
 
         // Crop new images
