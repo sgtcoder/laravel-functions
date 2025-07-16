@@ -122,9 +122,15 @@ if (!function_exists('format_bytes')) {
      */
     function format_bytes($size, $precision = 2)
     {
-        $base = log($size, 1024);
-        $suffixes = array('', 'KB', 'MB', 'GB', 'TB');
+        if ($size <= 0) {
+            return '0 B';
+        }
 
-        return round(pow(1024, $base - floor($base)), $precision) . ' ' . $suffixes[floor($base)];
+        $base = log($size, 1024);
+        $suffixes = ['B', 'KB', 'MB', 'GB', 'TB'];
+        $index = (int) floor($base);
+        $value = $size / pow(1024, $index);
+
+        return round($value, $precision) . ' ' . $suffixes[$index];
     }
 }
