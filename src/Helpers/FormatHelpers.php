@@ -38,20 +38,22 @@ if (!function_exists('format_bytes')) {
     /**
      * format_bytes
      *
-     * @param  mixed $bytes
+     * @param  mixed $size
      * @param  mixed $precision
-     * @param  mixed $decimals
      * @return mixed
      */
-    function format_bytes($bytes, $precision = 2, $decimals = 2)
+    function format_bytes($size, $precision = 2)
     {
-        $units = array('B', 'KB', 'MB', 'GB', 'TB');
+        if ($size <= 0) {
+            return '0 B';
+        }
 
-        $bytes = max($bytes, 0);
-        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
-        $pow = min($pow, count($units) - 1);
+        $base = log($size, 1024);
+        $suffixes = ['B', 'KB', 'MB', 'GB', 'TB'];
+        $index = (int) floor($base);
+        $value = $size / pow(1024, $index);
 
-        return round($bytes, $precision) . $units[$pow];
+        return round($value, $precision) . ' ' . $suffixes[$index];
     }
 }
 
@@ -109,28 +111,5 @@ if (!function_exists('format_date')) {
         } else {
             return null;
         }
-    }
-}
-
-if (!function_exists('format_bytes')) {
-    /**
-     * format_bytes
-     *
-     * @param  mixed $size
-     * @param  mixed $precision
-     * @return mixed
-     */
-    function format_bytes($size, $precision = 2)
-    {
-        if ($size <= 0) {
-            return '0 B';
-        }
-
-        $base = log($size, 1024);
-        $suffixes = ['B', 'KB', 'MB', 'GB', 'TB'];
-        $index = (int) floor($base);
-        $value = $size / pow(1024, $index);
-
-        return round($value, $precision) . ' ' . $suffixes[$index];
     }
 }
