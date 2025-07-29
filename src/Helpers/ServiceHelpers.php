@@ -8,7 +8,13 @@ if (!function_exists('browser_service')) {
      */
     function browser_service()
     {
-        return new \SgtCoder\LaravelFunctions\Services\BrowserService();
+        static $instance = null;
+
+        if ($instance === null) {
+            $instance = new \SgtCoder\LaravelFunctions\Services\BrowserService();
+        }
+
+        return $instance;
     }
 }
 
@@ -20,7 +26,13 @@ if (!function_exists('captcha_service')) {
      */
     function captcha_service()
     {
-        return new \SgtCoder\LaravelFunctions\Services\CaptchaService();
+        static $instance = null;
+
+        if ($instance === null) {
+            $instance = new \SgtCoder\LaravelFunctions\Services\CaptchaService();
+        }
+
+        return $instance;
     }
 }
 
@@ -32,6 +44,49 @@ if (!function_exists('password_service')) {
      */
     function password_service()
     {
-        return new \SgtCoder\LaravelFunctions\Services\PasswordService();
+        static $instance = null;
+
+        if ($instance === null) {
+            $instance = new \SgtCoder\LaravelFunctions\Services\PasswordService();
+        }
+
+        return $instance;
+    }
+}
+
+if (!function_exists('http')) {
+    /**
+     * http
+     *
+     * @return \Illuminate\Http\Client\Factory
+     */
+    function http()
+    {
+        static $instance = null;
+
+        if ($instance === null) {
+            $instance = \Illuminate\Support\Facades\Http::getFacadeRoot();
+        }
+
+        return $instance;
+    }
+}
+
+if (!function_exists('media_service')) {
+    /**
+     * media_service
+     *
+     * @return object
+     */
+    function media_service()
+    {
+        static $instance = null;
+
+        if ($instance === null) {
+            // @phpstan-ignore-next-line
+            $instance = new \App\Services\MediaService;
+        }
+
+        return $instance;
     }
 }
