@@ -76,7 +76,7 @@ if (!function_exists('media_service')) {
     /**
      * media_service
      *
-     * @return \App\Services\MediaService
+     * @return object
      */
     function media_service()
     {
