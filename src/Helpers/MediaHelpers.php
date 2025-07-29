@@ -20,14 +20,7 @@ if (!function_exists('get_signed_url')) {
      */
     function get_signed_url($media)
     {
-        static $MediaService;
-
-        if (empty($MediaService)) {
-            // @phpstan-ignore-next-line
-            $MediaService = (new \App\Services\MediaService);
-        }
-
-        return $MediaService->get_signed_url($media);
+        return media_service()->get_signed_url($media);
     }
 }
 
@@ -64,9 +57,6 @@ if (!function_exists('sync_media')) {
      */
     function sync_media($prefix, $model = null, $single = true, $media_prefix = null)
     {
-        // @phpstan-ignore-next-line
-        $MediaService = (new \App\Services\MediaService);
-
         $PlankMediaClass = get_plank_media_class();
 
         $media_prefix ??= $prefix;
@@ -91,7 +81,7 @@ if (!function_exists('sync_media')) {
                 $media_data = request($prefix . '_data.' . $item);
                 if ($media_data) {
                     // @phpstan-ignore-next-line
-                    $MediaService->update_media_crop($item, $media_data);
+                    media_service()->update_media_crop($item, $media_data);
                 }
 
                 $media_metadata = request($prefix . '_metadata.' . $item);
@@ -118,26 +108,6 @@ if (!function_exists('sync_media')) {
         }
 
         return ($single) ? collect(request($prefix . '_media'))->values()->first() : request($prefix . '_media');
-    }
-}
-
-if (!function_exists('get_signed_url')) {
-    /**
-     * get_signed_url
-     *
-     * @param  mixed $media
-     * @return mixed
-     */
-    function get_signed_url($media)
-    {
-        static $MediaService;
-
-        if (empty($MediaService)) {
-            // @phpstan-ignore-next-line
-            $MediaService = (new \App\Services\MediaService);
-        }
-
-        return $MediaService->get_signed_url($media);
     }
 }
 
