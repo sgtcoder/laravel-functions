@@ -35,3 +35,15 @@ if (!function_exists('password_service')) {
         return new \SgtCoder\LaravelFunctions\Services\PasswordService();
     }
 }
+
+if (!function_exists('http')) {
+    /**
+     * http
+     *
+     * @return \Illuminate\Support\Facades\Http
+     */
+    function http()
+    {
+        return \Illuminate\Support\Facades\Http::getFacadeRoot();
+    }
+}
