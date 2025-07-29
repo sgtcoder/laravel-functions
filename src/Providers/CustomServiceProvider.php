@@ -27,6 +27,9 @@ class CustomServiceProvider extends BaseServiceProvider
             \Illuminate\Support\Facades\URL::forceScheme('https');
         }
 
+        // Class alias for Http facade
+        class_alias(\Illuminate\Support\Facades\Http::class, 'Http');
+
         // Macro for simple where
         Builder::macro('if', function ($condition, $column, $operator, $value) {
             if ($condition) {
