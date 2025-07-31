@@ -56,6 +56,12 @@ class CustomServiceProvider extends BaseServiceProvider
             /** @phpstan-ignore-next-line */
             return $this->orWhereRaw($column . ' LIKE "%' . $search . '%"');
         });
+
+        Builder::macro('updateRaw', function ($sql, $bindings = []) {
+            $q = $this->getQuery();
+            $q->getConnection()->update("UPDATE {$q->from} SET {$sql}" . (!empty($q->wheres) ? ' ' . $q->grammar->compileWheres($q, $q->wheres) : ''), array_merge($bindings, $q->getBindings()));
+            return $this;
+        });
     }
 
     /**
