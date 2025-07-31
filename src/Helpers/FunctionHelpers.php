@@ -1002,3 +1002,21 @@ if (!function_exists('parse_bool')) {
 		return preg_match('/^\s*["\']?(true|1)["\']?\s*$/i', $value);
 	}
 }
+
+if (!function_exists('isset_bool')) {
+	/**
+	 * isset_bool
+	 *
+	 * @param  mixed $value
+	 * @param  mixed $default
+	 * @return mixed
+	 */
+	function isset_bool($value, $default = false)
+	{
+		if (isset($value)) {
+			return $value;
+		}
+
+		return $default;
+	}
+}
