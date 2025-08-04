@@ -1020,3 +1020,24 @@ if (!function_exists('isset_bool')) {
 		return $default;
 	}
 }
+
+if (!function_exists('build_get_url')) {
+	/**
+	 * build_get_url
+	 *
+	 * @param  mixed $url
+	 * @param  mixed $payload
+	 * @return mixed
+	 */
+	function build_get_url($url, $payload = [])
+	{
+		$query_parts = [];
+		foreach ($payload as $key => $value) {
+			$query_parts[] = $key . '=' . $value;
+		}
+
+		$full_url = $url . '?' . implode('&', $query_parts);
+
+		return $full_url;
+	}
+}
