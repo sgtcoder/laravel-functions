@@ -65,6 +65,20 @@ class CustomServiceProvider extends BaseServiceProvider
             $q->getConnection()->update("UPDATE {$q->from} SET {$sql}" . (!empty($q->wheres) ? ' ' . $q->grammar->compileWheres($q, $q->wheres) : ''), array_merge($bindings, $q->getBindings()));
             return $this;
         });
+
+        Builder::macro('whereIf', function ($condition, $callback) {
+            if ($condition) {
+                return $this->where($callback);
+            }
+            return $this;
+        });
+
+        EloquentBuilder::macro('whereIf', function ($condition, $callback) {
+            if ($condition) {
+                return $this->where($callback);
+            }
+            return $this;
+        });
     }
 
     /**
