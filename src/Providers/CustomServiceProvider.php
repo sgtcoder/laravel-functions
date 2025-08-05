@@ -2,9 +2,12 @@
 
 namespace SgtCoder\LaravelFunctions\Providers;
 
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
 
+use Illuminate\Database\Eloquent\{
+    Relations\HasMany,
+    Builder as EloquentBuilder
+};
 use Illuminate\Support\{
     Facades\Blade,
     Facades\Route,
@@ -57,7 +60,7 @@ class CustomServiceProvider extends BaseServiceProvider
             return $this->orWhereRaw($column . ' LIKE "%' . $search . '%"');
         });
 
-        Builder::macro('updateRaw', function ($sql, $bindings = []) {
+        EloquentBuilder::macro('updateRaw', function ($sql, $bindings = []) {
             $q = $this->getQuery();
             $q->getConnection()->update("UPDATE {$q->from} SET {$sql}" . (!empty($q->wheres) ? ' ' . $q->grammar->compileWheres($q, $q->wheres) : ''), array_merge($bindings, $q->getBindings()));
             return $this;
