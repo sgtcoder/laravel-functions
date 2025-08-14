@@ -94,6 +94,17 @@ if (!function_exists('sync_media')) {
                         $media->save();
                     }
                 }
+
+                $media_featured = request($prefix . '_featured.' . $item);
+                if ($media_featured) {
+                    // @phpstan-ignore-next-line
+                    $media = $PlankMediaClass::find($item);
+
+                    if ($media) {
+                        $media->setAttribute('featured', $media_featured);
+                        $media->save();
+                    }
+                }
             }
 
             if ($single) {
