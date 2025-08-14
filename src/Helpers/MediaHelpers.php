@@ -79,13 +79,13 @@ if (!function_exists('sync_media')) {
         if (request($prefix . '_media') && is_array(request($prefix . '_media'))) {
             foreach (request($prefix . '_media') as $item) {
                 $media_data = request($prefix . '_data.' . $item);
-                if ($media_data) {
+                if (isset($media_data)) {
                     // @phpstan-ignore-next-line
                     media_service()->update_media_crop($item, $media_data);
                 }
 
                 $media_metadata = request($prefix . '_metadata.' . $item);
-                if ($media_metadata) {
+                if (isset($media_metadata)) {
                     // @phpstan-ignore-next-line
                     $media = $PlankMediaClass::find($item);
 
@@ -96,7 +96,7 @@ if (!function_exists('sync_media')) {
                 }
 
                 $media_featured = request($prefix . '_featured.' . $item);
-                if ($media_featured) {
+                if (isset($media_featured)) {
                     // @phpstan-ignore-next-line
                     $media = $PlankMediaClass::find($item);
 
