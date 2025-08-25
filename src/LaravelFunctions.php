@@ -2,6 +2,4 @@
 
 namespace SgtCoder\LaravelFunctions;
 
-class LaravelFunctions
-{
-}
+class LaravelFunctions {}
