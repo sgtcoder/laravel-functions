@@ -11,6 +11,7 @@ if (!function_exists('get_log_name')) {
     {
         $log_name = explode(' ', $signature);
         $log_name = $log_name[0];
+        $log_name = str_replace(["\r\n", "\r", "\n"], '', $log_name);
 
         return $log_name;
     }
