@@ -1046,3 +1046,19 @@ if (!function_exists('build_get_url')) {
         return $full_url;
     }
 }
+
+if (!function_exists('app_url')) {
+    /**
+     * app_url
+     *
+     * @param  mixed $slug
+     * @param  mixed $default
+     * @return mixed
+     */
+    function app_url($slug, $default = false)
+    {
+        $url = $default ? config('app.default_url') : config('app.url');
+
+        return rtrim($url, '/') . '/' . ltrim($slug, '/');
+    }
+}
