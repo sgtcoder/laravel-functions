@@ -1051,14 +1051,14 @@ if (!function_exists('app_url')) {
     /**
      * app_url
      *
-     * @param  mixed $slug
+     * @param  mixed $path
      * @param  mixed $default
      * @return mixed
      */
-    function app_url($slug, $default = false)
+    function app_url($path = null, $default = false)
     {
         $url = $default ? config('app.default_url') : config('app.url');
 
-        return rtrim($url, '/') . '/' . ltrim($slug, '/');
+        return rtrim($url, '/') . '/' . ltrim($path, '/');
     }
 }
