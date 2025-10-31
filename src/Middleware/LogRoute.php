@@ -37,11 +37,39 @@ class LogRoute
             'uri' => $request->getUri(),
             'request_headers' => $request->header(),
             'request_body' => $filtered_request_body,
+            'response_headers' => $response->headers->all(),
+            'response_body' => $this->getResponseBody($response),
             'method' => $request->getMethod(),
             'ip' => $request->ip(),
             'http_code' => $response->getStatusCode(),
         ]);
 
         return $response;
+    }
+
+    /**
+     * Get the response body content safely
+     *
+     * @param \Illuminate\Http\Response $response
+     * @return mixed
+     */
+    private function getResponseBody($response)
+    {
+        try {
+            $content = $response->getContent();
+
+            // Try to decode JSON responses
+            if (
+                $response->headers->get('Content-Type') &&
+                str_contains($response->headers->get('Content-Type'), 'application/json')
+            ) {
+                return json_decode($content, true);
+            }
+
+            // For other content types, return as string (truncated if too long)
+            return strlen($content) > 10000 ? substr($content, 0, 10000) . '...' : $content;
+        } catch (\Exception $e) {
+            return 'Error retrieving response body: ' . $e->getMessage();
+        }
     }
 }

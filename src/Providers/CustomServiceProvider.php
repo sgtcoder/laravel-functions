@@ -60,12 +60,6 @@ class CustomServiceProvider extends BaseServiceProvider
             return $this->orWhereRaw($column . ' LIKE "%' . $search . '%"');
         });
 
-        EloquentBuilder::macro('updateRaw', function ($sql, $bindings = []) {
-            $q = $this->getQuery();
-            $q->getConnection()->update("UPDATE {$q->from} SET {$sql}" . (!empty($q->wheres) ? ' ' . $q->grammar->compileWheres($q, $q->wheres) : ''), array_merge($bindings, $q->getBindings()));
-            return $this;
-        });
-
         Builder::macro('whereIf', function ($condition, $callback) {
             if ($condition) {
                 return $this->where($callback);
@@ -73,10 +67,21 @@ class CustomServiceProvider extends BaseServiceProvider
             return $this;
         });
 
+        // Add macro to check if a field is not null or empty
+        Builder::macro('whereNotEmpty', function ($column) {
+            return $this->whereNotNull($column)->where($column, '!=', '');
+        });
+
         EloquentBuilder::macro('whereIf', function ($condition, $callback) {
             if ($condition) {
                 return $this->where($callback);
             }
+            return $this;
+        });
+
+        EloquentBuilder::macro('updateRaw', function ($sql, $bindings = []) {
+            $q = $this->getQuery();
+            $q->getConnection()->update("UPDATE {$q->from} SET {$sql}" . (!empty($q->wheres) ? ' ' . $q->grammar->compileWheres($q) : ''), array_merge($bindings, $q->getBindings()));
             return $this;
         });
     }
