@@ -99,13 +99,6 @@ if (!function_exists('laravel_cookie')) {
      */
     function laravel_cookie()
     {
-        static $instance = null;
-
-        if ($instance === null) {
-            // @phpstan-ignore-next-line
-            $instance = \Illuminate\Support\Facades\Cookie::getFacadeRoot();
-        }
-
-        return $instance;
+        return \Illuminate\Support\Facades\Cookie::getFacadeRoot();
     }
 }
