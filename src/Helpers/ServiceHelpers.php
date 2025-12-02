@@ -58,7 +58,7 @@ if (!function_exists('http')) {
     /**
      * http
      *
-     * @return \Illuminate\Http\Client\Factory
+     * @return \Illuminate\Support\Facades\Http
      */
     function http()
     {
@@ -85,6 +85,25 @@ if (!function_exists('media_service')) {
         if ($instance === null) {
             // @phpstan-ignore-next-line
             $instance = new \App\Services\MediaService;
+        }
+
+        return $instance;
+    }
+}
+
+if (!function_exists('laravel_cookie')) {
+    /**
+     * laravel_cookie
+     *
+     * @return \Illuminate\Support\Facades\Cookie
+     */
+    function laravel_cookie()
+    {
+        static $instance = null;
+
+        if ($instance === null) {
+            // @phpstan-ignore-next-line
+            $instance = \Illuminate\Support\Facades\Cookie::getFacadeRoot();
         }
 
         return $instance;
