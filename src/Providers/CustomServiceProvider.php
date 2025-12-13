@@ -12,6 +12,7 @@ use Illuminate\Support\{
     Facades\Blade,
     Facades\Route,
     Arr,
+    Collection,
     ServiceProvider as BaseServiceProvider
 };
 
@@ -83,6 +84,17 @@ class CustomServiceProvider extends BaseServiceProvider
             $q = $this->getQuery();
             $q->getConnection()->update("UPDATE {$q->from} SET {$sql}" . (!empty($q->wheres) ? ' ' . $q->grammar->compileWheres($q) : ''), array_merge($bindings, $q->getBindings()));
             return $this;
+        });
+
+        // Register Collection macro to convert models/arrays to plain objects
+        Collection::macro('toObject', function () {
+            // Convert collection items to array (includes accessors if models)
+            $array_data = $this->toArray();
+
+            // Convert each array item to stdClass object
+            return collect($array_data)->map(function ($item) {
+                return (object) $item;
+            });
         });
     }
 
