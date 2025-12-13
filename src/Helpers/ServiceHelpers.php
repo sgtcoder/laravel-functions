@@ -102,3 +102,15 @@ if (!function_exists('laravel_cookie')) {
         return \Illuminate\Support\Facades\Cookie::getFacadeRoot();
     }
 }
+
+if (!function_exists('artisan')) {
+    /**
+     * artisan
+     *
+     * @return \Illuminate\Support\Facades\Artisan
+     */
+    function artisan()
+    {
+        return \Illuminate\Support\Facades\Artisan::getFacadeRoot();
+    }
+}
