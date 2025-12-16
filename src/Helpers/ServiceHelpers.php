@@ -54,24 +54,6 @@ if (!function_exists('password_service')) {
     }
 }
 
-if (!function_exists('http')) {
-    /**
-     * http
-     *
-     * @return \Illuminate\Support\Facades\Http
-     */
-    function http()
-    {
-        static $instance = null;
-
-        if ($instance === null) {
-            $instance = \Illuminate\Support\Facades\Http::getFacadeRoot();
-        }
-
-        return $instance;
-    }
-}
-
 if (!function_exists('media_service')) {
     /**
      * media_service
@@ -88,29 +70,5 @@ if (!function_exists('media_service')) {
         }
 
         return $instance;
-    }
-}
-
-if (!function_exists('laravel_cookie')) {
-    /**
-     * laravel_cookie
-     *
-     * @return \Illuminate\Support\Facades\Cookie
-     */
-    function laravel_cookie()
-    {
-        return \Illuminate\Support\Facades\Cookie::getFacadeRoot();
-    }
-}
-
-if (!function_exists('artisan')) {
-    /**
-     * artisan
-     *
-     * @return \Illuminate\Support\Facades\Artisan
-     */
-    function artisan()
-    {
-        return \Illuminate\Support\Facades\Artisan::getFacadeRoot();
     }
 }
