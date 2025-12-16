@@ -1,17 +1,5 @@
 <?php
 
-if (!function_exists('http')) {
-    /**
-     * http
-     *
-     * @return \Illuminate\Support\Facades\Http
-     */
-    function http()
-    {
-        return \Illuminate\Support\Facades\Http::getFacadeRoot();
-    }
-}
-
 if (!function_exists('laravel_cookie')) {
     /**
      * laravel_cookie
@@ -24,6 +12,67 @@ if (!function_exists('laravel_cookie')) {
     }
 }
 
+if (!function_exists('laravel_storage')) {
+    /**
+     * laravel_storage
+     *
+     * @return \Illuminate\Support\Facades\Storage
+     */
+    function laravel_storage()
+    {
+        return \Illuminate\Support\Facades\Storage::getFacadeRoot();
+    }
+}
+
+if (!function_exists('laravel_file')) {
+    /**
+     * laravel_file
+     *
+     * @return \Illuminate\Support\Facades\File
+     */
+    function laravel_file()
+    {
+        return \Illuminate\Support\Facades\File::getFacadeRoot();
+    }
+}
+
+if (!function_exists('laravel_artisan')) {
+    /**
+     * laravel_artisan
+     *
+     * @return \Illuminate\Support\Facades\Artisan
+     */
+    function laravel_artisan()
+    {
+        return \Illuminate\Support\Facades\Artisan::getFacadeRoot();
+    }
+}
+
+if (!function_exists('laravel_http')) {
+    /**
+     * laravel_http
+     *
+     * @return \Illuminate\Support\Facades\Http
+     */
+    function laravel_http()
+    {
+        return \Illuminate\Support\Facades\Http::getFacadeRoot();
+    }
+}
+
+if (!function_exists('laravel_url')) {
+    /**
+     * laravel_url
+     *
+     * @return \Illuminate\Support\Facades\URL
+     */
+    function laravel_url()
+    {
+        return \Illuminate\Support\Facades\URL::getFacadeRoot();
+    }
+}
+
+// Aliases
 if (!function_exists('artisan')) {
     /**
      * artisan
@@ -32,30 +81,18 @@ if (!function_exists('artisan')) {
      */
     function artisan()
     {
-        return \Illuminate\Support\Facades\Artisan::getFacadeRoot();
+        return laravel_artisan();
     }
 }
 
-if (!function_exists('storage')) {
+if (!function_exists('http')) {
     /**
-     * storage
+     * http
      *
-     * @return \Illuminate\Support\Facades\Storage
+     * @return \Illuminate\Support\Facades\Http
      */
-    function storage()
+    function http()
     {
-        return \Illuminate\Support\Facades\Storage::getFacadeRoot();
-    }
-}
-
-if (!function_exists('file')) {
-    /**
-     * file
-     *
-     * @return \Illuminate\Support\Facades\File
-     */
-    function file()
-    {
-        return \Illuminate\Support\Facades\File::getFacadeRoot();
+        return laravel_http();
     }
 }
