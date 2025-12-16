@@ -36,43 +36,6 @@ if (!function_exists('laravel_file')) {
     }
 }
 
-if (!function_exists('laravel_artisan')) {
-    /**
-     * laravel_artisan
-     *
-     * @return \Illuminate\Support\Facades\Artisan
-     */
-    function laravel_artisan()
-    {
-        return \Illuminate\Support\Facades\Artisan::getFacadeRoot();
-    }
-}
-
-if (!function_exists('laravel_http')) {
-    /**
-     * laravel_http
-     *
-     * @return \Illuminate\Support\Facades\Http
-     */
-    function laravel_http()
-    {
-        return \Illuminate\Support\Facades\Http::getFacadeRoot();
-    }
-}
-
-if (!function_exists('laravel_url')) {
-    /**
-     * laravel_url
-     *
-     * @return \Illuminate\Support\Facades\URL
-     */
-    function laravel_url()
-    {
-        return \Illuminate\Support\Facades\URL::getFacadeRoot();
-    }
-}
-
-// Aliases
 if (!function_exists('artisan')) {
     /**
      * artisan
@@ -81,7 +44,7 @@ if (!function_exists('artisan')) {
      */
     function artisan()
     {
-        return laravel_artisan();
+        return \Illuminate\Support\Facades\Artisan::getFacadeRoot();
     }
 }
 
@@ -93,6 +56,6 @@ if (!function_exists('http')) {
      */
     function http()
     {
-        return laravel_http();
+        return \Illuminate\Support\Facades\Http::getFacadeRoot();
     }
 }
