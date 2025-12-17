@@ -3,8 +3,8 @@
 namespace SgtCoder\LaravelFunctions\Traits;
 
 use Illuminate\Support\{
-    Arr,
-    Str
+    Facades\Gate,
+    Arr
 };
 
 /*
@@ -16,7 +16,7 @@ trait Authorizable
     /**
      * Abilities
      *
-     * @var array
+     * @var array<string, string>
      */
     private $abilities = [
         'index' => 'view',
@@ -38,11 +38,15 @@ trait Authorizable
      */
     public function callAction($method, $parameters)
     {
-        if ($ability = $this->getAbility($method)) {
-            $this->authorize($ability);
+        $ability = $this->getAbility($method);
+
+        if ($ability) {
+            if (!Gate::allows($ability)) {
+                abort(403);
+            }
         }
 
-        return parent::callAction($method, $parameters);
+        return $this->{$method}(...array_values($parameters));
     }
 
     /**
@@ -57,7 +61,7 @@ trait Authorizable
 
         $controller_class = explode('\\', get_class(request()->route()->getController()));
 
-        $class_name = Str::snake(Str::plural(str_replace('Controller', '', end($controller_class))));
+        $class_name = str()->snake(str()->plural(str_replace('Controller', '', end($controller_class))));
 
         return $action ? $action . '_' . $class_name : null;
     }
