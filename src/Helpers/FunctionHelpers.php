@@ -745,7 +745,7 @@ if (!function_exists('icmp_ping_batch')) {
             ->each(function ($batch, $batch_index) use ($count, $interval, $signature) {
                 $results = \Illuminate\Support\Facades\Process::concurrently(function (\Illuminate\Process\Pool $pool) use ($batch, $count, $interval) {
                     $batch->each(function ($ip) use ($pool, $count, $interval) {
-                        $pool->command(['ping', '-c', $count, '-i', $interval, $ip])->timeout(28800);
+                        $pool->command(['ping', '-c', (string) $count, '-i', (string) $interval, (string) $ip])->timeout(28800);
                     });
                 });
 
