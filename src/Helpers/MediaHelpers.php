@@ -17,12 +17,11 @@ if (!function_exists('get_signed_url')) {
      *
      * @param  mixed $media
      * @param  mixed $expires_in
-     * @param  mixed $options
      * @return mixed
      */
-    function get_signed_url($media, $expires_in = 240, $options = [])
+    function get_signed_url($media, $expires_in = 240)
     {
-        return media_service()->get_signed_url($media, $expires_in, $options);
+        return media_service()->get_signed_url($media, $expires_in);
     }
 }
 
