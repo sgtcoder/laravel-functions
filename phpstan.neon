@@ -3,6 +3,7 @@ includes:
 parameters:
     paths:
         - src/
+        - tests/
     tmpDir: tmp
     level: 5
     reportUnmatchedIgnoredErrors: false
