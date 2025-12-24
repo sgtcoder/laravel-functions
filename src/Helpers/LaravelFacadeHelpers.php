@@ -24,6 +24,18 @@ if (!function_exists('http')) {
     }
 }
 
+if (!function_exists('storage')) {
+    /**
+     * storage
+     *
+     * @return \Illuminate\Support\Facades\Storage
+     */
+    function storage()
+    {
+        return \Illuminate\Support\Facades\Storage::getFacadeRoot();
+    }
+}
+
 if (!function_exists('laravel_cookie')) {
     /**
      * laravel_cookie
