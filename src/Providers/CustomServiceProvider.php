@@ -88,13 +88,9 @@ class CustomServiceProvider extends BaseServiceProvider
 
         // Register Collection macro to convert models/arrays to plain objects
         Collection::macro('toObject', function () {
-            // Convert collection items to array (includes accessors if models)
             $array_data = $this->toArray();
 
-            // Convert each array item to stdClass object
-            return collect($array_data)->map(function ($item) {
-                return (object) $item;
-            });
+            return json_decode(json_encode($array_data), false);
         });
     }
 
