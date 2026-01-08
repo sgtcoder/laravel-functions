@@ -90,7 +90,7 @@ class CustomServiceProvider extends BaseServiceProvider
         Collection::macro('toObject', function () {
             $array_data = $this->toArray();
 
-            return json_decode(json_encode($array_data), false);
+            return empty($array_data) ? null : json_decode(json_encode($array_data), false);
         });
     }
 
