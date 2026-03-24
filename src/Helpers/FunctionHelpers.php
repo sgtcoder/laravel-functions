@@ -414,11 +414,12 @@ if (!function_exists('update_status')) {
     /**
      * update_status
      *
-     * @param  mixed $column
      * @return mixed
      */
-    function update_status($column = 'status')
+    function update_status()
     {
+        $column = request('column', 'status');
+
         request()->validate([
             $column => 'required',
         ]);
@@ -435,7 +436,7 @@ if (!function_exists('update_status')) {
             $column => $value,
         ]);
 
-        return response()->json(['status' => true, 'message' => $model_type . ' Status Updated Successfully.'], 200);
+        return response()->json(['status' => true, 'message' => $model_type . ' ' . str()->title(str()->replace('_', ' ', $column)) . ' Updated Successfully.'], 200);
     }
 }
 
