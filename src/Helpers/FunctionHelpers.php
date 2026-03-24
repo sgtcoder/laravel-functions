@@ -414,24 +414,25 @@ if (!function_exists('update_status')) {
     /**
      * update_status
      *
+     * @param  mixed $column
      * @return mixed
      */
-    function update_status()
+    function update_status($column = 'status')
     {
         request()->validate([
-            'status' => 'required',
+            $column => 'required',
         ]);
 
         $model_id = request('model_id');
         $model_type = request('model_type');
-        $status = request('status');
+        $value = request($column);
 
         $model_path = '\\App\\Models\\' . $model_type;
         $model = (new $model_path)->find($model_id);
 
         // Update blog
         $model->update([
-            'status' => $status,
+            $column => $value,
         ]);
 
         return response()->json(['status' => true, 'message' => $model_type . ' Status Updated Successfully.'], 200);
