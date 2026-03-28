@@ -47,7 +47,7 @@ if (!function_exists('http_safe')) {
                     'effectiveUri' => null,
                     'headers' => [],
                     'transferStats' => fn() => new class {
-                        public function getTransferTime(): ?float
+                        public function getTransferTime(): float
                         {
                             return 0.0;
                         }
