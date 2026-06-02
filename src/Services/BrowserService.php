@@ -8,61 +8,62 @@ class BrowserService
 {
     private string $url;
 
+    private $agents;
+
     public function __construct()
     {
-        $this->url = 'https://raw.githubusercontent.com/jnrbsn/user-agents/main/user-agents.json';
+        $this->url = 'https://microlink.io/user-agents.json';
     }
 
     public function get_latest_linux_chrome()
     {
-        $path = '';
-
-        $payload = [];
-
-        $data = $this->api_call($path, $method_type = 'get', $payload);
-
-        $data = $data->sortDesc()->filter(function ($item) {
-            if (strpos($item, 'Mozilla/5.0 (X11; Linux x86_64)') !== false) {
-                return true;
-            }
-        });
-
-        return $data->first();
+        return $this->get_user_agents()
+            ->sortDesc()
+            ->first(fn($item) => str_contains($item, 'Mozilla/5.0 (X11; Linux x86_64)'));
     }
 
     public function get_random_browser()
     {
-        $path = '';
-
-        $payload = [];
-
-        $data = $this->api_call($path, $method_type = 'get', $payload);
-
-        $data = $data->random();
-
-        return $data;
+        return $this->get_user_agents()->random();
     }
 
     public function get_browsers()
     {
-        $path = '';
+        return $this->get_user_agents()->sortDesc();
+    }
 
-        $payload = [];
+    public function get_user_agents()
+    {
+        return collect($this->fetch_agents()['user'] ?? []);
+    }
 
-        $data = $this->api_call($path, $method_type = 'get', $payload);
+    public function get_crawler_agents()
+    {
+        return collect($this->fetch_agents()['crawler'] ?? []);
+    }
 
-        return $data->sortDesc();
+    public function get_ai_agents()
+    {
+        return collect($this->fetch_agents()['ai'] ?? []);
+    }
+
+    public function fetch_agents()
+    {
+        if ($this->agents === null) {
+            $this->agents = $this->api_call('', 'get');
+        }
+
+        return $this->agents;
     }
 
     public function api_call($path, $method_type = 'get', $payload = null)
     {
-        $api_key = config('settings.browser.api_key');
-        $headers = [];
-
         $url = $this->url . $path;
 
-        $data = Http::timeout(900)->withHeaders($headers)->$method_type($url, $payload)->collect();
-
-        return $data;
+        return Http::timeout(900)
+            ->acceptJson()
+            ->$method_type($url, $payload)
+            ->throw()
+            ->json();
     }
 }
