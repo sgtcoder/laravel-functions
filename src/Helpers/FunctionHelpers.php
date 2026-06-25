@@ -171,13 +171,13 @@ if (!function_exists('is_valid_object')) {
     function is_valid_object($object, $index = "")
     {
         if (!empty($index)) {
-            if (isset($object[$index]) && !empty($object[$index]) && is_object($object[$index]) && get_class($object[$index]) != 'stdClass') {
+            if (isset($object[$index]) && !empty($object[$index]) && is_object($object[$index]) && $object[$index]::class != 'stdClass') {
                 return true;
             } else {
                 return false;
             }
         } else {
-            if (isset($object) && !empty($object) && is_object($object) && get_class($object) != 'stdClass') {
+            if (isset($object) && !empty($object) && is_object($object) && $object::class != 'stdClass') {
                 return true;
             } else {
                 return false;
@@ -1029,7 +1029,7 @@ if (!function_exists('get_class_basename')) {
      */
     function get_class_basename($model, $snake = false)
     {
-        $class_name = get_class($model);
+        $class_name = $model::class;
         $class_name = basename(str_replace('\\', '/', $class_name));
 
         if ($snake) {

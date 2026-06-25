@@ -176,7 +176,7 @@ if (!function_exists('log_route')) {
 
         // @phpstan-ignore-next-line
         $log = \App\Models\LogRoute::create([
-            'model_type' => ($user) ? get_class($user) : null,
+            'model_type' => $user ? $user::class : null,
             'model_id' => $user->id ?? null,
             'api_provider' => $api_provider,
             'uri' => $uri,

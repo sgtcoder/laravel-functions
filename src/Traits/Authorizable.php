@@ -59,7 +59,8 @@ trait Authorizable
     {
         $action = Arr::get($this->getAbilities(), $method);
 
-        $controller_class = explode('\\', get_class(request()->route()->getController()));
+        $controller = request()->route()->getController();
+        $controller_class = explode('\\', $controller::class);
 
         $class_name = str()->snake(str()->plural(str_replace('Controller', '', end($controller_class))));
 

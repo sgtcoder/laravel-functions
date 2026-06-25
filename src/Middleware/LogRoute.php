@@ -31,7 +31,7 @@ class LogRoute
 
         // @phpstan-ignore-next-line
         $log = LogRouteModel::create([
-            'model_type' => ($user) ? get_class($user) : null,
+            'model_type' => $user ? $user::class : null,
             'model_id' => $user->id ?? null,
             'api_provider' => 'system',
             'uri' => $request->getUri(),
