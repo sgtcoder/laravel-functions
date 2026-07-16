@@ -16,7 +16,8 @@
         }
     ],
     "require": {
-        "php": "^8.2"
+        "php": "^8.2",
+        "fakerphp/faker": "^1.0"
     },
     "require-dev": {
         "larastan/larastan": "^3.0",
