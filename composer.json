@@ -53,7 +53,8 @@
         "laravel": {
             "providers": [
                 "SgtCoder\\LaravelFunctions\\LaravelFunctionsServiceProvider",
-                "SgtCoder\\LaravelFunctions\\Providers\\CustomServiceProvider"
+                "SgtCoder\\LaravelFunctions\\Providers\\CustomServiceProvider",
+                "SgtCoder\\LaravelFunctions\\Providers\\StrMacroServiceProvider"
             ],
             "aliases": {
                 "LaravelFunctions": "SgtCoder\\LaravelFunctions\\Facades\\LaravelFunctions"

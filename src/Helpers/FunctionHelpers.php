@@ -101,9 +101,7 @@ if (!function_exists('generate_random_hex')) {
      */
     function generate_random_hex($strlen = 16)
     {
-        return strtoupper(implode(array_map(function () {
-            return dechex(mt_rand(0, 15));
-        }, array_fill(0, $strlen, null))));
+        return str()->hex($strlen);
     }
 }
 
