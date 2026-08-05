@@ -16,7 +16,8 @@
         }
     ],
     "require": {
-        "php": "^8.2"
+        "php": "^8.2",
+        "fakerphp/faker": "^1.0"
     },
     "require-dev": {
         "larastan/larastan": "^3.0",
@@ -52,7 +53,8 @@
         "laravel": {
             "providers": [
                 "SgtCoder\\LaravelFunctions\\LaravelFunctionsServiceProvider",
-                "SgtCoder\\LaravelFunctions\\Providers\\CustomServiceProvider"
+                "SgtCoder\\LaravelFunctions\\Providers\\CustomServiceProvider",
+                "SgtCoder\\LaravelFunctions\\Providers\\StrMacroServiceProvider"
             ],
             "aliases": {
                 "LaravelFunctions": "SgtCoder\\LaravelFunctions\\Facades\\LaravelFunctions"

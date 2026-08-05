@@ -2,16 +2,32 @@
 
 namespace SgtCoder\LaravelFunctions\Services;
 
+use Illuminate\Validation\Rule;
+
 class PasswordService
 {
+    /**
+     * Generator types reachable through the public endpoint.
+     *
+     * @var list<string>
+     */
+    private const TYPES = ['uuid', 'hex', 'bearer', 'redis', 'string', 'salt', 'password', 'mac', 'number'];
+
     public function generate_password()
     {
-        $type = request('type');
-        $length = request('length');
+        $validator = validator(request()->all(), [
+            'type' => ['required', Rule::in(self::TYPES)],
+            'length' => ['nullable', 'integer', 'min:4', 'max:512'],
+        ]);
 
-        if (empty($type)) return response()->json(['status' => false, 'message' => 'You must pass a type'], 422);
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'message' => $validator->errors()->first()], 422);
+        }
 
-        return response()->json($this->$type($length), 200);
+        $validated = $validator->validated();
+        $type = $validated['type'];
+
+        return response()->json(isset($validated['length']) ? $this->$type($validated['length']) : $this->$type(), 200);
     }
 
     public function uuid($length = 36)
@@ -21,21 +37,17 @@ class PasswordService
 
     public function hex($length = 16)
     {
-        $token = hash('sha256', str()->random($length));
-        $token = str()->of($token)->substr(0, $length);
-        $token = str()->of($token)->upper();
-
-        return $token;
+        return str()->hex($length);
     }
 
     public function bearer($length = 40)
     {
-        return str()->random($length);
+        return str()->bearer($length);
     }
 
     public function redis($length = 16)
     {
-        return str()->random($length);
+        return str()->redis($length);
     }
 
     public function string($length = 16)
@@ -45,44 +57,29 @@ class PasswordService
 
     public function salt($length = 64)
     {
-        return str()->password($length);
+        return str()->salt($length);
     }
 
     public function password($length = 32)
     {
-        $is_valid = false;
-
-        while (!$is_valid) {
-            $password = str()->password($length);
-            $password = str()->replace('\\', '/', $password);
-            $password = str()->replace('#', '!', $password);
-
-            $is_valid = str()->of($password)->substr(0, 1)->isMatch('/[A-Za-z]/');
-        }
-
-        return $password;
+        return str()->safePassword($length);
     }
 
     public function mac($length = 17)
     {
-        return implode('', $this->generate_mac_address());
+        return str()->mac();
     }
 
     public function number($length = 8)
     {
-        $number = null;
-        for ($i = 0; $i < $length; $i++) {
-            $number .= mt_rand(0, 9);
-        }
-
-        return $number;
+        return str()->digits($length);
     }
 
     public function generate_mac_address($qty = 1, $html = false)
     {
         $macs = [];
         for ($i = 1; $i <= $qty; $i++) {
-            $macs[] = fake()->macAddress();
+            $macs[] = str()->mac();
         }
 
         if ($html) {
