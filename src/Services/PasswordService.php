@@ -11,7 +11,7 @@ class PasswordService
      *
      * @var list<string>
      */
-    private const TYPES = ['uuid', 'hex', 'bearer', 'redis', 'string', 'salt', 'password', 'mac', 'number'];
+    private const TYPES = ['uuid', 'hex', 'bearer', 'sanctum', 'redis', 'string', 'salt', 'password', 'mac', 'number'];
 
     public function generate_password()
     {
@@ -43,6 +43,11 @@ class PasswordService
     public function bearer($length = 40)
     {
         return str()->bearer($length);
+    }
+
+    public function sanctum($length = 48)
+    {
+        return str()->sanctum($length);
     }
 
     public function redis($length = 16)

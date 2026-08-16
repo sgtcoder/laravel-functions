@@ -2,10 +2,7 @@
 
 namespace SgtCoder\LaravelFunctions\Providers;
 
-use Illuminate\Support\{
-    ServiceProvider as BaseServiceProvider,
-    Str
-};
+use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class StrMacroServiceProvider extends BaseServiceProvider
 {
@@ -19,39 +16,47 @@ class StrMacroServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
-        Str::macro('hex', function (int $length = 16): string {
+        str()->macro('hex', function (int $length = 16): string {
             return (string) str()->of(bin2hex(random_bytes((int) ceil($length / 2))))
                 ->substr(0, $length)
                 ->upper();
         });
 
-        Str::macro('bearer', function (int $length = 40): string {
-            return Str::random($length);
+        str()->macro('bearer', function (int $length = 40): string {
+            return str()->random($length);
         });
 
-        Str::macro('redis', function (int $length = 16): string {
-            return Str::random($length);
+        // Sanctum's token shape: entropy plus an 8 character crc32b checksum for
+        // secret scanners. Any prefix sits outside $length.
+        str()->macro('sanctum', function (int $length = 48, string $prefix = ''): string {
+            $entropy = str()->random(max(8, $length - 8));
+
+            return $prefix . $entropy . hash('crc32b', $entropy);
         });
 
-        Str::macro('salt', function (int $length = 64): string {
-            return Str::password($length);
+        str()->macro('redis', function (int $length = 16): string {
+            return str()->random($length);
+        });
+
+        str()->macro('salt', function (int $length = 64): string {
+            return str()->password($length);
         });
 
         // Str::password() is a real method, so this variant needs its own name.
         // Swaps shell/URL hostile characters and guarantees a leading letter.
-        Str::macro('safePassword', function (int $length = 32): string {
+        str()->macro('safePassword', function (int $length = 32): string {
             do {
-                $password = str_replace(['\\', '#'], ['/', '!'], Str::password($length));
+                $password = str_replace(['\\', '#'], ['/', '!'], str()->password($length));
             } while (!preg_match('/^[A-Za-z]/', $password));
 
             return $password;
         });
 
-        Str::macro('mac', function (): string {
+        str()->macro('mac', function (): string {
             return fake()->macAddress();
         });
 
-        Str::macro('digits', function (int $length = 8): string {
+        str()->macro('digits', function (int $length = 8): string {
             $number = '';
 
             for ($i = 0; $i < $length; $i++) {
