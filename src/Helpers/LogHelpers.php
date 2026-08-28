@@ -173,6 +173,7 @@ if (!function_exists('log_route')) {
         $response_body = $data['response_body'] ?? [];
         $method = $data['method'];
         $status_code = $data['status_code'];
+        $total_ms = $data['total_ms'] ?? null;
 
         // @phpstan-ignore-next-line
         $log = \App\Models\LogRoute::create([
@@ -187,6 +188,7 @@ if (!function_exists('log_route')) {
             'method' => $method,
             'ip' => request()->ip(),
             'http_code' => $status_code,
+            'total_ms' => $total_ms,
         ]);
     }
 }

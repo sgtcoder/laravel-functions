@@ -17,7 +17,20 @@ class LogRoute
      */
     public function handle(Request $request, Closure $next)
     {
+        /**
+         * LARAVEL_START is defined in public/index.php before the framework boots, so the
+         * recorded total covers bootstrapping and the whole middleware stack rather than
+         * only the portion of the request that runs inside this middleware. It is not
+         * defined for requests that do not enter through public/index.php.
+         */
+        $started_at = defined('LARAVEL_START')
+            ? LARAVEL_START
+            : ($request->server('REQUEST_TIME_FLOAT') ?: microtime(true));
+
         $response = $next($request);
+
+        $total_ms = (int) round((microtime(true) - $started_at) * 1000);
+
         $filtered_request_body = $request->all();
 
         // @phpstan-ignore-next-line
@@ -42,6 +55,7 @@ class LogRoute
             'method' => $request->getMethod(),
             'ip' => $request->ip(),
             'http_code' => $response->getStatusCode(),
+            'total_ms' => $total_ms,
         ]);
 
         return $response;
