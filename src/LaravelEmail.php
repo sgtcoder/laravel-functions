@@ -31,8 +31,15 @@ final class LaravelEmail
     {
         self::$to_emails = $to_emails;
 
-        /** @phpstan-ignore-next-line */
-        $blacklist_email_domains = explode(',', strtolower(env('BLACKLIST_EMAIL_DOMAINS')));
+        /**
+         * config() rather than env(): under config:cache env() returns null, and
+         * strtolower(null) is deprecated on PHP 8.5 and yields a [''] blacklist that
+         * matches nothing. The empty entries are filtered for the same reason.
+         */
+        $blacklist_email_domains = array_values(array_filter(
+            explode(',', strtolower((string) config('laravel-functions.blacklist_email_domains'))),
+            fn($domain) => trim($domain) !== ''
+        ));
         $blacklist_email_domains[] = 'mailinator.com';
         self::$blacklist_email_domains = $blacklist_email_domains;
     }

@@ -35,7 +35,10 @@
     "autoload-dev": {
         "psr-4": {
             "SgtCoder\\LaravelFunctions\\Tests\\": "tests/"
-        }
+        },
+        "classmap": [
+            "tests/Stubs/"
+        ]
     },
     "scripts": {
         "test": [
