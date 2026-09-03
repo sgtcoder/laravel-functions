@@ -192,4 +192,19 @@ class LogRouteTest extends TestCase
 
         $this->assertNull($this->rows()->first()->response_body);
     }
+
+    /** A log write must never be able to fail the request it describes. */
+    #[Test]
+    public function it_falls_back_to_an_inline_write_when_the_queue_is_unreachable()
+    {
+        config()->set('laravel-functions.log_route.mode', 'queue');
+        config()->set('laravel-functions.log_route.connection', 'redis');
+        config()->set('database.redis.default.host', '127.0.0.1');
+        config()->set('database.redis.default.port', 6399);
+
+        $response = $this->run_middleware(Request::create('https://example.test/v1/thing', 'POST'));
+
+        $this->assertSame(200, $response->getStatusCode(), 'the request must still succeed');
+        $this->assertCount(1, $this->rows(), 'the row must fall back to an inline write');
+    }
 }
