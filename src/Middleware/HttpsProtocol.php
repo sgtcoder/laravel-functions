@@ -9,8 +9,8 @@ class HttpsProtocol
 
     public function handle($request, Closure $next)
     {
-        /** @phpstan-ignore-next-line */
-        if (!env('DISABLE_SSL', FALSE)) {
+        // config() rather than env(): env() returns null once config:cache has run.
+        if (!config('laravel-functions.disable_ssl', false)) {
             if (!$request->secure()) {
                 return redirect()->secure($request->getRequestUri());
             }

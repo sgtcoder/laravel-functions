@@ -15,6 +15,9 @@ class LaravelFunctionsServiceProvider extends ServiceProvider
     public function boot()
     {
         if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../config/laravel-functions.php' => config_path('laravel-functions.php'),
+            ], 'laravel-functions-config');
         }
     }
 
@@ -23,5 +26,13 @@ class LaravelFunctionsServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register() {}
+    public function register()
+    {
+        /**
+         * mergeConfigFrom is skipped once the application's config is cached, and
+         * config:cache boots a fresh application to collect provider merges, so the env()
+         * calls inside the config file are only ever evaluated at cache-build time.
+         */
+        $this->mergeConfigFrom(__DIR__ . '/../config/laravel-functions.php', 'laravel-functions');
+    }
 }

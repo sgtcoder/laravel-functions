@@ -25,12 +25,22 @@ class CustomServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
-        // Force Route SSL
-        /** @phpstan-ignore-next-line */
-        if (!env('DISABLE_SSL', FALSE)) {
+        // Force Route SSL. config() rather than env(), which is null under config:cache.
+        if (!config('laravel-functions.disable_ssl', false)) {
             \Illuminate\Support\Facades\URL::forceScheme('https');
         }
 
+        self::registerMacros();
+    }
+
+    /**
+     * Query builder and collection macros.
+     *
+     * Static and container-free so PHPStan's bootstrap can register them too; without
+     * that they are invisible to static analysis and every call site looks undefined.
+     */
+    public static function registerMacros(): void
+    {
         // Macro for simple where
         Builder::macro('if', function ($condition, $column, $operator, $value) {
             if ($condition) {
@@ -41,24 +51,15 @@ class CustomServiceProvider extends BaseServiceProvider
             return $this;
         });
 
-        Builder::macro('whereLike', function ($column, $search) {
-            /** @phpstan-ignore-next-line */
-            return $this->where($column, 'LIKE', "%{$search}%");
-        });
-
-        Builder::macro('orWhereLike', function ($column, $search) {
-            /** @phpstan-ignore-next-line */
-            return $this->orWhere($column, 'LIKE', "%{$search}%");
-        });
-
+        // $column is interpolated into raw SQL, so it must never come from user input.
         Builder::macro('whereLikeRaw', function ($column, $search) {
             /** @phpstan-ignore-next-line */
-            return $this->whereRaw($column . ' LIKE "%' . $search . '%"');
+            return $this->whereRaw($column . ' LIKE ?', ["%{$search}%"]);
         });
 
         Builder::macro('orWhereLikeRaw', function ($column, $search) {
             /** @phpstan-ignore-next-line */
-            return $this->orWhereRaw($column . ' LIKE "%' . $search . '%"');
+            return $this->orWhereRaw($column . ' LIKE ?', ["%{$search}%"]);
         });
 
         Builder::macro('whereIf', function ($condition, $callback) {

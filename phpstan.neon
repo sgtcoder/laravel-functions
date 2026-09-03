@@ -7,4 +7,6 @@ parameters:
     tmpDir: tmp
     level: 5
     reportUnmatchedIgnoredErrors: false
+    bootstrapFiles:
+        - phpstan-bootstrap.php
     ignoreErrors:
