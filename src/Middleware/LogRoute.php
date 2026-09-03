@@ -5,6 +5,7 @@ namespace SgtCoder\LaravelFunctions\Middleware;
 use App\Models\LogRoute as LogRouteModel;
 use Closure;
 use SgtCoder\LaravelFunctions\Jobs\WriteRouteLog;
+use Throwable;
 
 use Illuminate\Http\{
     JsonResponse,
@@ -44,11 +45,19 @@ class LogRoute
         $mode = config('laravel-functions.log_route.mode', 'sync');
 
         if ($mode === 'queue') {
-            WriteRouteLog::dispatch($attributes)
-                ->onConnection(config('laravel-functions.log_route.connection'))
-                ->onQueue(config('laravel-functions.log_route.queue'));
+            try {
+                WriteRouteLog::dispatch($attributes)
+                    ->onConnection(config('laravel-functions.log_route.connection'))
+                    ->onQueue(config('laravel-functions.log_route.queue'));
 
-            return $response;
+                return $response;
+            } catch (Throwable $exception) {
+                /**
+                 * An unreachable queue must not turn a successful response into a 500.
+                 * Fall through to the inline write, which is what sync mode does anyway.
+                 */
+                report($exception);
+            }
         }
 
         if ($mode === 'after_response') {
@@ -67,8 +76,13 @@ class LogRoute
      */
     protected function write(array $attributes): void
     {
-        // @phpstan-ignore-next-line - the model lives in the consuming application
-        LogRouteModel::create($attributes);
+        try {
+            // @phpstan-ignore-next-line - the model lives in the consuming application
+            LogRouteModel::create($attributes);
+        } catch (Throwable $exception) {
+            // Losing a log row is preferable to failing the request it describes.
+            report($exception);
+        }
     }
 
     /**
